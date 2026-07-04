@@ -719,7 +719,9 @@ const defaults = {
           select("cl_debounce_zoom", "row.cl_debounce_zoom", "cl_debounce_zoom", "true", [opt("true", "opt.repeat_disabled"), opt("false", "opt.repeat_enabled")]),
           slider("sensitivity", "row.sensitivity", "sensitivity", "1.25", 0.1, 8, 0.01),
           slider("zoom_sensitivity_ratio", "row.zoom_sensitivity_ratio", "zoom_sensitivity_ratio", "1.00", 0.1, 3, 0.01)
-        ]),
+        ])
+      ]),
+      section("movement", [
         group("group.kbm.movement", [
           bind("show_loadout_toggle", "row.show_loadout_toggle", "show_loadout_toggle", "scancode12", "I"),
           bind("move_forward", "row.move_forward", "+forward", "scancode26", "W"),
@@ -731,25 +733,11 @@ const defaults = {
           bind("jump", "row.jump", "+jump", "scancode44", "Space")
         ])
       ]),
-      section("movement", [
-        group("group.kbm.movement", [
-          bind("show_loadout_toggle_2", "row.show_loadout_toggle", "show_loadout_toggle", "scancode12", "I"),
-          bind("move_forward_2", "row.move_forward", "+forward", "scancode26", "W"),
-          bind("move_backward_2", "row.move_backward", "+back", "scancode22", "S"),
-          bind("move_left_2", "row.move_left", "+left", "scancode4", "A"),
-          bind("move_right_2", "row.move_right", "+right", "scancode7", "D"),
-          bind("walk_2", "row.walk", "+sprint", "scancode225", "Left Shift"),
-          bind("duck_2", "row.duck", "+duck", "scancode224", "Left Ctrl"),
-          bind("jump_2", "row.jump", "+jump", "scancode44", "Space")
-        ]),
+      section("weapon", [
         group("group.kbm.weapon", [
           bind("use", "row.use", "+use", "scancode8", "E"),
           bind("fire", "row.fire", "+attack", "mouse1", "MOUSE1"),
-          bind("secondary_fire", "row.secondary_fire", "+attack2", "mouse2", "MOUSE2")
-        ])
-      ]),
-      section("weapon", [
-        group("group.kbm.weapon", [
+          bind("secondary_fire", "row.secondary_fire", "+attack2", "mouse2", "MOUSE2"),
           bind("drop", "row.drop", "drop", "scancode10", "G"),
           bind("inspect", "row.inspect", "+lookatweapon", "scancode9", "F"),
           bind("switchhands", "row.switchhands", "switchhands", "scancode11", "H"),
@@ -831,6 +819,8 @@ let currentLang = "en";
 let currentCategory = "keyboard";
 let currentSectionByCategory = Object.fromEntries(categoryOrder.map(id => [id, state[id].tabs[0].id]));
 let captureTarget = null;
+let audioCtx = null;
+let lastHoverTarget = null;
 
 const mainTabs = document.querySelector("#mainTabs");
 const subTabs = document.querySelector("#subTabs");
@@ -844,7 +834,10 @@ function init() {
   renderAll();
   window.addEventListener("keydown", onKeyDown, true);
   window.addEventListener("mousedown", onMouseDown, true);
+  window.addEventListener("scroll", updateActiveSectionFromScroll, { passive: true });
   window.addEventListener("contextmenu", (e) => captureTarget && e.preventDefault());
+  document.addEventListener("pointerover", onInteractiveHover);
+  document.addEventListener("pointerdown", onInteractivePress);
   resetFirst.addEventListener("change", updateCommand);
   document.querySelector("#copyCommand").addEventListener("click", copyCommand);
   document.querySelector("#resetApp").addEventListener("click", () => {
@@ -911,6 +904,7 @@ function renderMainTabs() {
     currentCategory = btn.dataset.category;
     stopCapture();
     renderAll();
+    requestAnimationFrame(() => scrollToSection(currentSectionId()));
   }));
 }
 
@@ -922,15 +916,18 @@ function renderSubTabs() {
     currentSectionByCategory[currentCategory] = btn.dataset.section;
     stopCapture();
     renderSubTabs();
-    renderPane();
+    scrollToSection(btn.dataset.section);
   }));
 }
 
 function renderPane() {
-  const sectionData = state[currentCategory].sections.find(section => section.id === currentSectionId());
-  pane.innerHTML = sectionData.groups.map(group => `
-    <h2 class="group-title">${t(group.titleKey)}</h2>
-    ${group.rows.map(rowTemplate).join("")}
+  pane.innerHTML = state[currentCategory].sections.map(sectionData => `
+    <section class="settings-section" data-section-panel="${sectionData.id}">
+      ${sectionData.groups.map(group => `
+        <h2 class="group-title">${t(group.titleKey)}</h2>
+        ${group.rows.map(rowTemplate).join("")}
+      `).join("")}
+    </section>
   `).join("");
 
   pane.querySelectorAll("[data-bind-id]").forEach(cell => cell.addEventListener("click", () => startCapture(cell.dataset.bindId, cell)));
@@ -957,6 +954,118 @@ function renderPane() {
     if (range) range.value = row.value;
     updateCommand();
   }));
+}
+
+function scrollToSection(sectionId) {
+  const target = pane.querySelector(`[data-section-panel="${sectionId}"]`);
+  if (!target) return;
+  const top = window.scrollY + target.getBoundingClientRect().top - stickyOffset();
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+}
+
+function updateActiveSectionFromScroll() {
+  const sections = [...pane.querySelectorAll(".settings-section")];
+  if (!sections.length) return;
+
+  let activeSection = sections[0].dataset.sectionPanel;
+  const threshold = stickyOffset() + 12;
+  for (const section of sections) {
+    if (section.getBoundingClientRect().top <= threshold) {
+      activeSection = section.dataset.sectionPanel;
+    }
+  }
+
+  if (currentSectionByCategory[currentCategory] !== activeSection) {
+    currentSectionByCategory[currentCategory] = activeSection;
+    renderSubTabs();
+  }
+}
+
+function stickyOffset() {
+  const topbarHeight = document.querySelector(".topbar")?.offsetHeight || 54;
+  const subTabsHeight = subTabs?.offsetHeight || 50;
+  return topbarHeight + subTabsHeight + 14;
+}
+
+function interactiveTarget(target) {
+  return target.closest("button, .setting-row, .value-cell, .select-wrap, .checkbox-wrap, input[type='range'], input[type='number'], select");
+}
+
+function onInteractiveHover(e) {
+  const target = interactiveTarget(e.target);
+  if (!target || target === lastHoverTarget) return;
+  lastHoverTarget = target;
+  playUiSound("hover");
+}
+
+function onInteractivePress(e) {
+  const target = interactiveTarget(e.target);
+  if (!target) return;
+  unlockAudio();
+  playUiSound("select");
+}
+
+function unlockAudio() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    audioCtx = new AudioContextClass();
+  }
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+}
+
+function playUiSound(type) {
+  if (!audioCtx || audioCtx.state !== "running") return;
+
+  const now = audioCtx.currentTime;
+  const isHover = type === "hover";
+  const duration = isHover ? 0.038 : 0.085;
+  const master = audioCtx.createGain();
+  const noise = audioCtx.createBufferSource();
+  const noiseFilter = audioCtx.createBiquadFilter();
+  const noiseGain = audioCtx.createGain();
+  const tone = audioCtx.createOscillator();
+  const toneGain = audioCtx.createGain();
+
+  noise.buffer = makeNoiseBuffer(duration);
+  noiseFilter.type = "bandpass";
+  noiseFilter.frequency.setValueAtTime(isHover ? 2600 : 1550, now);
+  noiseFilter.Q.setValueAtTime(isHover ? 7 : 4.5, now);
+  noiseGain.gain.setValueAtTime(0.0001, now);
+  noiseGain.gain.exponentialRampToValueAtTime(isHover ? 0.012 : 0.026, now + 0.004);
+  noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+  tone.type = isHover ? "sine" : "triangle";
+  tone.frequency.setValueAtTime(isHover ? 1040 : 430, now);
+  tone.frequency.exponentialRampToValueAtTime(isHover ? 820 : 250, now + duration);
+  toneGain.gain.setValueAtTime(0.0001, now);
+  toneGain.gain.exponentialRampToValueAtTime(isHover ? 0.004 : 0.013, now + 0.006);
+  toneGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+  master.gain.setValueAtTime(0.55, now);
+  noise.connect(noiseFilter);
+  noiseFilter.connect(noiseGain);
+  noiseGain.connect(master);
+  tone.connect(toneGain);
+  toneGain.connect(master);
+  master.connect(audioCtx.destination);
+  noise.start(now);
+  tone.start(now);
+  noise.stop(now + duration);
+  tone.stop(now + duration);
+}
+
+function makeNoiseBuffer(duration) {
+  const length = Math.max(1, Math.floor(audioCtx.sampleRate * duration));
+  const buffer = audioCtx.createBuffer(1, length, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < length; i++) {
+    const envelope = 1 - (i / length);
+    data[i] = (Math.random() * 2 - 1) * envelope;
+  }
+  return buffer;
 }
 
 function rowTemplate(row) {
