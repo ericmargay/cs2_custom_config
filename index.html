@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CS2 Settings Command Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="scene-bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="shell">
+    <header class="topbar">
+      <button class="icon-search" aria-label="Search">
+        <span></span>
+      </button>
+      <nav class="main-tabs" aria-label="Settings categories" id="mainTabs"></nav>
+      <nav class="language-switcher" aria-label="Language" id="languageSwitcher"></nav>
+    </header>
+
+    <section class="settings-card" aria-label="CS2 settings command generator">
+      <nav class="sub-tabs" aria-label="Keyboard and mouse sections" id="subTabs"></nav>
+
+      <div class="content-grid">
+        <section class="settings-pane" id="settingsPane"></section>
+
+        <aside class="command-panel">
+          <div class="panel-heading">
+            <div>
+              <h1 data-i18n="panel.title">Console Line</h1>
+              <p data-i18n="panel.help">Paste this into the CS2 developer console.</p>
+            </div>
+            <button class="mini" id="copyCommand">COPY</button>
+          </div>
+
+          <div class="toggle-row">
+            <label class="checkbox-wrap" data-i18n="panel.resetFirst">
+              <input id="resetFirst" type="checkbox" checked />
+              <span></span>
+              Reset defaults first
+            </label>
+            <button class="mini ghost" id="resetApp">RESET UI</button>
+          </div>
+
+          <textarea id="commandOutput" spellcheck="false"></textarea>
+          <div class="command-actions">
+            <button class="primary-action" id="presetTest">LOAD YOUR TEST PRESET</button>
+            <button class="secondary-action" id="downloadCfg">DOWNLOAD .CFG</button>
+          </div>
+
+          <div class="hints">
+            <p data-i18n="hint.capture"><strong>Capture mode:</strong> click any key field, then press a keyboard key or mouse button.</p>
+            <p data-i18n="hint.refresh"><strong>CS2 refresh:</strong> after pasting commands, switch to another settings sub-section and back.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="capture-toast" id="captureToast" role="status" aria-live="polite">
+    Press a key or mouse button…
+    <span>ESC cancels</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
