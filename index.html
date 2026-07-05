@@ -66,6 +66,20 @@
     <span>ESC cancels</span>
   </div>
 
+  <div class="scenery-menu" id="sceneryMenu" aria-hidden="true">
+    <div class="volume-panel" id="volumePanel" aria-hidden="true">
+      <input id="soundtrackVolume" type="range" min="0" max="100" step="1" value="7" />
+      <span id="soundtrackVolumeValue">7</span>
+    </div>
+    <button class="volume-toggle" id="volumeToggle" aria-label="Soundtrack volume" aria-expanded="false">
+      <span></span>
+    </button>
+    <div class="scenery-panel" id="sceneryPanel" role="menu"></div>
+    <button class="scenery-toggle" id="sceneryToggle" aria-label="Open scenery menu" aria-expanded="false">
+      <span></span>
+    </button>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>

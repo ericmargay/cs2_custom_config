@@ -22,6 +22,146 @@ const languages = [
   { id: "ru", label: "RU" }
 ];
 
+const sceneryMaps = [
+  { id: "ancient", label: "Ancient" },
+  { id: "anubis", label: "Anubis" },
+  { id: "cache", label: "Cache" },
+  { id: "dust", label: "Dust" },
+  { id: "inferno", label: "Inferno" },
+  { id: "italy", label: "Italy" },
+  { id: "nuke", label: "Nuke" },
+  { id: "office", label: "Office" },
+  { id: "overpass", label: "Overpass" },
+  { id: "train", label: "Train" },
+  { id: "vertigo", label: "Vertigo" }
+];
+
+const sceneryThemes = {
+  ancient: {
+    "--scene-a": "rgba(35, 108, 75, .56)",
+    "--scene-b": "rgba(177, 139, 54, .44)",
+    "--scene-c": "rgba(73, 95, 67, .42)",
+    "--scene-d": "rgba(211, 201, 144, .22)",
+    "--scene-base-1": "#1e3029",
+    "--scene-base-2": "#56664d",
+    "--scene-base-3": "#232a24",
+    "--scene-vignette": "rgba(26, 48, 35, .42)",
+    "--scene-light": "rgba(236, 221, 152, .16)"
+  },
+  anubis: {
+    "--scene-a": "rgba(188, 130, 52, .50)",
+    "--scene-b": "rgba(47, 121, 133, .46)",
+    "--scene-c": "rgba(210, 178, 105, .28)",
+    "--scene-d": "rgba(25, 78, 95, .40)",
+    "--scene-base-1": "#2c2a25",
+    "--scene-base-2": "#6b6d5b",
+    "--scene-base-3": "#1e343a",
+    "--scene-vignette": "rgba(94, 58, 24, .34)",
+    "--scene-light": "rgba(241, 202, 127, .16)"
+  },
+  cache: {
+    "--scene-a": "rgba(86, 138, 66, .44)",
+    "--scene-b": "rgba(128, 153, 122, .34)",
+    "--scene-c": "rgba(186, 193, 154, .22)",
+    "--scene-d": "rgba(51, 68, 55, .52)",
+    "--scene-base-1": "#25302b",
+    "--scene-base-2": "#58655a",
+    "--scene-base-3": "#202625",
+    "--scene-vignette": "rgba(31, 47, 33, .44)",
+    "--scene-light": "rgba(192, 218, 172, .13)"
+  },
+  dust: {
+    "--scene-a": "rgba(178, 124, 54, .52)",
+    "--scene-b": "rgba(92, 123, 132, .38)",
+    "--scene-c": "rgba(216, 190, 125, .30)",
+    "--scene-d": "rgba(106, 75, 37, .34)",
+    "--scene-base-1": "#322b25",
+    "--scene-base-2": "#796f5b",
+    "--scene-base-3": "#252928",
+    "--scene-vignette": "rgba(86, 52, 26, .36)",
+    "--scene-light": "rgba(242, 211, 150, .16)"
+  },
+  inferno: {
+    "--scene-a": "rgba(156, 70, 42, .52)",
+    "--scene-b": "rgba(196, 150, 72, .34)",
+    "--scene-c": "rgba(92, 114, 82, .32)",
+    "--scene-d": "rgba(105, 42, 31, .42)",
+    "--scene-base-1": "#302525",
+    "--scene-base-2": "#715848",
+    "--scene-base-3": "#252821",
+    "--scene-vignette": "rgba(87, 30, 24, .40)",
+    "--scene-light": "rgba(242, 171, 109, .14)"
+  },
+  italy: {
+    "--scene-a": "rgba(190, 132, 62, .46)",
+    "--scene-b": "rgba(88, 137, 111, .38)",
+    "--scene-c": "rgba(219, 200, 144, .24)",
+    "--scene-d": "rgba(93, 68, 47, .40)",
+    "--scene-base-1": "#302a25",
+    "--scene-base-2": "#6c6d59",
+    "--scene-base-3": "#21312d",
+    "--scene-vignette": "rgba(70, 44, 26, .34)",
+    "--scene-light": "rgba(237, 217, 166, .14)"
+  },
+  nuke: {
+    "--scene-a": "rgba(57, 104, 144, .48)",
+    "--scene-b": "rgba(190, 80, 58, .32)",
+    "--scene-c": "rgba(161, 178, 185, .24)",
+    "--scene-d": "rgba(29, 48, 62, .54)",
+    "--scene-base-1": "#202832",
+    "--scene-base-2": "#52606b",
+    "--scene-base-3": "#222323",
+    "--scene-vignette": "rgba(20, 34, 49, .48)",
+    "--scene-light": "rgba(181, 215, 233, .16)"
+  },
+  office: {
+    "--scene-a": "rgba(72, 116, 143, .46)",
+    "--scene-b": "rgba(191, 210, 218, .22)",
+    "--scene-c": "rgba(116, 126, 122, .34)",
+    "--scene-d": "rgba(31, 48, 60, .46)",
+    "--scene-base-1": "#202b31",
+    "--scene-base-2": "#5a696c",
+    "--scene-base-3": "#202324",
+    "--scene-vignette": "rgba(19, 35, 45, .44)",
+    "--scene-light": "rgba(221, 239, 244, .14)"
+  },
+  overpass: {
+    "--scene-a": "rgba(65, 106, 92, .48)",
+    "--scene-b": "rgba(122, 139, 83, .36)",
+    "--scene-c": "rgba(78, 91, 112, .36)",
+    "--scene-d": "rgba(31, 53, 48, .50)",
+    "--scene-base-1": "#202c2b",
+    "--scene-base-2": "#536557",
+    "--scene-base-3": "#222832",
+    "--scene-vignette": "rgba(23, 42, 38, .44)",
+    "--scene-light": "rgba(184, 211, 171, .13)"
+  },
+  train: {
+    "--scene-a": "rgba(84, 103, 118, .50)",
+    "--scene-b": "rgba(147, 64, 52, .30)",
+    "--scene-c": "rgba(184, 191, 182, .22)",
+    "--scene-d": "rgba(36, 45, 54, .56)",
+    "--scene-base-1": "#222930",
+    "--scene-base-2": "#5b656a",
+    "--scene-base-3": "#242423",
+    "--scene-vignette": "rgba(20, 30, 38, .48)",
+    "--scene-light": "rgba(210, 220, 218, .13)"
+  },
+  vertigo: {
+    "--scene-a": "rgba(69, 132, 160, .48)",
+    "--scene-b": "rgba(207, 164, 69, .30)",
+    "--scene-c": "rgba(171, 190, 197, .24)",
+    "--scene-d": "rgba(28, 63, 78, .50)",
+    "--scene-base-1": "#1f2d34",
+    "--scene-base-2": "#5c6f74",
+    "--scene-base-3": "#202526",
+    "--scene-vignette": "rgba(17, 44, 58, .44)",
+    "--scene-light": "rgba(193, 231, 243, .14)"
+  }
+};
+
+const DEFAULT_SOUNDTRACK_VOLUME = 7;
+
 const i18n = {
   en: {
     "app.title": "CS2 Settings Command Generator",
@@ -43,6 +183,13 @@ const i18n = {
     "panel.download": "DOWNLOAD .CFG",
     "hint.capture": "Capture mode: click any key field, then press a keyboard key or mouse button.",
     "hint.refresh": "CS2 refresh: after pasting commands, switch to another settings sub-section and back.",
+    "scenery.toggle": "Open scenery menu",
+    "scenery.change": "Change Main Menu Scenery",
+    "scenery.weapon": "Change Weapon",
+    "scenery.agent": "Show Equipped CT Agent",
+    "scenery.loadout": "View Agent in Loadout",
+    "scenery.back": "Back",
+    "volume.toggle": "Soundtrack volume",
     "toast.capture": "Press a key or mouse button...",
     "toast.cancel": "ESC cancels",
     "tab.kbm.settings": "KEYBOARD & MOUSE SETTINGS",
@@ -225,6 +372,13 @@ const i18n = {
     "panel.download": "DESCARGAR .CFG",
     "hint.capture": "Modo captura: haz clic en un campo de tecla y presiona una tecla o botón del mouse.",
     "hint.refresh": "Refresco de CS2: después de pegar comandos, cambia a otra subsección y vuelve.",
+    "scenery.toggle": "Abrir menú de escenario",
+    "scenery.change": "Cambiar escenario del menú principal",
+    "scenery.weapon": "Cambiar arma",
+    "scenery.agent": "Mostrar agente CT equipado",
+    "scenery.loadout": "Ver agente en equipamiento",
+    "scenery.back": "Volver",
+    "volume.toggle": "Volumen del soundtrack",
     "toast.capture": "Presiona una tecla o botón del mouse...",
     "toast.cancel": "ESC cancela",
     "tab.kbm.settings": "CONFIGURACIÓN TECLADO / MOUSE",
@@ -407,6 +561,13 @@ const i18n = {
     "panel.download": "СКАЧАТЬ .CFG",
     "hint.capture": "Режим захвата: нажмите поле клавиши, затем клавишу или кнопку мыши.",
     "hint.refresh": "Обновление CS2: после вставки команд перейдите в другой подраздел и обратно.",
+    "scenery.toggle": "Открыть меню сцены",
+    "scenery.change": "Сменить сцену главного меню",
+    "scenery.weapon": "Сменить оружие",
+    "scenery.agent": "Показать выбранного CT-агента",
+    "scenery.loadout": "Открыть агента в снаряжении",
+    "scenery.back": "Назад",
+    "volume.toggle": "Громкость саундтрека",
     "toast.capture": "Нажмите клавишу или кнопку мыши...",
     "toast.cancel": "ESC отменяет",
     "tab.kbm.settings": "НАСТРОЙКИ КЛАВИАТУРЫ / МЫШИ",
@@ -821,6 +982,13 @@ let currentSectionByCategory = Object.fromEntries(categoryOrder.map(id => [id, s
 let captureTarget = null;
 let audioCtx = null;
 let lastHoverTarget = null;
+let sceneryMenuMode = "root";
+let currentScenery = localStorage.getItem("cs2SceneryMap") || "";
+const storedSoundtrackVolume = localStorage.getItem("cs2SoundtrackVolume");
+let soundtrackVolume = Number(storedSoundtrackVolume && storedSoundtrackVolume !== "30" ? storedSoundtrackVolume : DEFAULT_SOUNDTRACK_VOLUME);
+const soundtrackPlayer = new Audio();
+soundtrackPlayer.loop = true;
+soundtrackPlayer.preload = "auto";
 
 const mainTabs = document.querySelector("#mainTabs");
 const subTabs = document.querySelector("#subTabs");
@@ -829,8 +997,20 @@ const output = document.querySelector("#commandOutput");
 const toast = document.querySelector("#captureToast");
 const resetFirst = document.querySelector("#resetFirst");
 const languageSwitcher = document.querySelector("#languageSwitcher");
+const sceneryMenu = document.querySelector("#sceneryMenu");
+const sceneryPanel = document.querySelector("#sceneryPanel");
+const sceneryToggle = document.querySelector("#sceneryToggle");
+const volumePanel = document.querySelector("#volumePanel");
+const volumeToggle = document.querySelector("#volumeToggle");
+const volumeInput = document.querySelector("#soundtrackVolume");
+const volumeValue = document.querySelector("#soundtrackVolumeValue");
 
 function init() {
+  if (currentScenery) {
+    soundtrackPlayer.src = `assets/soundtrack_${currentScenery}.mp3`;
+  }
+  applySoundtrackVolume(soundtrackVolume);
+  applySceneryTheme(currentScenery);
   renderAll();
   window.addEventListener("keydown", onKeyDown, true);
   window.addEventListener("mousedown", onMouseDown, true);
@@ -838,6 +1018,7 @@ function init() {
   window.addEventListener("contextmenu", (e) => captureTarget && e.preventDefault());
   document.addEventListener("pointerover", onInteractiveHover);
   document.addEventListener("pointerdown", onInteractivePress);
+  document.addEventListener("click", onDocumentClick);
   resetFirst.addEventListener("change", updateCommand);
   document.querySelector("#copyCommand").addEventListener("click", copyCommand);
   document.querySelector("#resetApp").addEventListener("click", () => {
@@ -847,6 +1028,10 @@ function init() {
   });
   document.querySelector("#presetTest").addEventListener("click", loadTestPreset);
   document.querySelector("#downloadCfg").addEventListener("click", downloadCfg);
+  sceneryToggle.addEventListener("click", toggleSceneryMenu);
+  volumeToggle.addEventListener("click", toggleVolumePanel);
+  volumeInput.addEventListener("input", onVolumeInput);
+  soundtrackPlayer.addEventListener("error", onSoundtrackError);
 }
 
 function t(key) {
@@ -864,6 +1049,7 @@ function renderAll() {
   renderLanguageSwitcher();
   renderMainTabs();
   renderSubTabs();
+  renderSceneryMenu();
   renderPane();
   updateCommand();
 }
@@ -874,6 +1060,8 @@ function renderStaticText() {
   mainTabs.setAttribute("aria-label", t("aria.categories"));
   subTabs.setAttribute("aria-label", t("aria.sections"));
   languageSwitcher.setAttribute("aria-label", t("aria.language"));
+  sceneryToggle.setAttribute("aria-label", t("scenery.toggle"));
+  volumeToggle.setAttribute("aria-label", t("volume.toggle"));
   document.querySelector("[data-i18n='panel.title']").textContent = t("panel.title");
   document.querySelector("[data-i18n='panel.help']").textContent = t("panel.help");
   document.querySelector("#copyCommand").textContent = t("panel.copy");
@@ -894,6 +1082,137 @@ function renderLanguageSwitcher() {
     currentLang = btn.dataset.lang;
     renderAll();
   }));
+}
+
+function renderSceneryMenu() {
+  sceneryMenu.setAttribute("aria-hidden", sceneryMenu.classList.contains("open") ? "false" : "true");
+  sceneryToggle.setAttribute("aria-expanded", sceneryMenu.classList.contains("open") ? "true" : "false");
+
+  if (sceneryMenuMode === "maps") {
+    sceneryPanel.innerHTML = `
+      <button class="menu-back" type="button" data-menu-action="back" role="menuitem">${t("scenery.back")}</button>
+      <div class="menu-separator"></div>
+      ${sceneryMaps.map(map => `
+        <button class="${map.id === currentScenery ? "active" : ""}" type="button" data-scenery-map="${map.id}" role="menuitem">${map.label}</button>
+      `).join("")}
+    `;
+  } else {
+    sceneryPanel.innerHTML = `
+      <button type="button" data-menu-action="maps" role="menuitem">${t("scenery.change")}</button>
+      <button type="button" data-menu-action="weapon" role="menuitem">${t("scenery.weapon")}</button>
+      <button type="button" data-menu-action="agent" role="menuitem">${t("scenery.agent")}</button>
+      <div class="menu-separator"></div>
+      <button type="button" data-menu-action="loadout" role="menuitem">${t("scenery.loadout")}</button>
+    `;
+  }
+
+  sceneryPanel.querySelectorAll("button").forEach(btn => btn.addEventListener("click", onSceneryMenuClick));
+}
+
+function toggleSceneryMenu(e) {
+  e.stopPropagation();
+  closeVolumePanel();
+  sceneryMenu.classList.toggle("open");
+  renderSceneryMenu();
+}
+
+function closeSceneryMenu() {
+  sceneryMenu.classList.remove("open");
+  sceneryMenuMode = "root";
+  renderSceneryMenu();
+}
+
+function onDocumentClick(e) {
+  if (volumePanel.classList.contains("open") && !sceneryMenu.contains(e.target)) closeVolumePanel();
+  if (!sceneryMenu.classList.contains("open")) return;
+  if (!sceneryMenu.contains(e.target)) closeSceneryMenu();
+}
+
+function toggleVolumePanel(e) {
+  e.stopPropagation();
+  closeSceneryMenu();
+  volumePanel.classList.toggle("open");
+  const isOpen = volumePanel.classList.contains("open");
+  volumePanel.setAttribute("aria-hidden", isOpen ? "false" : "true");
+  volumeToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+}
+
+function closeVolumePanel() {
+  volumePanel.classList.remove("open");
+  volumePanel.setAttribute("aria-hidden", "true");
+  volumeToggle.setAttribute("aria-expanded", "false");
+}
+
+function onVolumeInput(e) {
+  applySoundtrackVolume(Number(e.target.value));
+}
+
+function applySoundtrackVolume(value) {
+  const clamped = Math.min(100, Math.max(0, Number.isFinite(value) ? value : DEFAULT_SOUNDTRACK_VOLUME));
+  soundtrackVolume = clamped;
+  soundtrackPlayer.volume = clamped / 100;
+  volumeInput.value = String(clamped);
+  volumeValue.textContent = String(Math.round(clamped));
+  localStorage.setItem("cs2SoundtrackVolume", String(clamped));
+}
+
+function onSceneryMenuClick(e) {
+  e.stopPropagation();
+  const action = e.currentTarget.dataset.menuAction;
+  const map = e.currentTarget.dataset.sceneryMap;
+
+  if (action === "maps") {
+    sceneryMenuMode = "maps";
+    renderSceneryMenu();
+    return;
+  }
+
+  if (action === "back") {
+    sceneryMenuMode = "root";
+    renderSceneryMenu();
+    return;
+  }
+
+  if (map) {
+    changeScenery(map);
+    closeSceneryMenu();
+  }
+}
+
+async function changeScenery(mapId) {
+  currentScenery = mapId;
+  localStorage.setItem("cs2SceneryMap", mapId);
+  applySceneryTheme(mapId);
+  soundtrackPlayer.src = `assets/soundtrack_${mapId}.mp3`;
+  soundtrackPlayer.currentTime = 0;
+
+  try {
+    await soundtrackPlayer.play();
+  } catch {
+    // Browsers can still block playback in edge cases; the next direct menu click will retry.
+  }
+}
+
+function onSoundtrackError() {
+  if (!currentScenery) return;
+  console.warn(`Missing soundtrack: assets/soundtrack_${currentScenery}.mp3`);
+}
+
+function applySceneryTheme(mapId) {
+  const theme = sceneryThemes[mapId] || sceneryThemes.dust;
+  document.body.dataset.scenery = mapId || "dust";
+  for (const [property, value] of Object.entries(theme)) {
+    document.documentElement.style.setProperty(property, value);
+  }
+}
+
+async function resumeSoundtrack() {
+  if (!currentScenery || !soundtrackPlayer.src || !soundtrackPlayer.paused) return;
+  try {
+    await soundtrackPlayer.play();
+  } catch {
+    // Autoplay remains quiet until the browser accepts a direct user gesture.
+  }
 }
 
 function renderMainTabs() {
@@ -1003,6 +1322,7 @@ function onInteractivePress(e) {
   if (!target) return;
   unlockAudio();
   playUiSound("select");
+  resumeSoundtrack();
 }
 
 function unlockAudio() {

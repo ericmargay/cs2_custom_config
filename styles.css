@@ -12,6 +12,15 @@
   --cell: rgba(37,40,41,.48);
   --shadow: rgba(0,0,0,.35);
   --danger: #e7eef1;
+  --scene-a: rgba(178, 124, 54, .52);
+  --scene-b: rgba(92, 123, 132, .38);
+  --scene-c: rgba(216, 190, 125, .30);
+  --scene-d: rgba(106, 75, 37, .34);
+  --scene-base-1: #322b25;
+  --scene-base-2: #796f5b;
+  --scene-base-3: #252928;
+  --scene-vignette: rgba(86, 52, 26, .36);
+  --scene-light: rgba(242, 211, 150, .16);
 }
 
 * { box-sizing: border-box; }
@@ -29,12 +38,26 @@ body {
   position: fixed;
   inset: -6vmax;
   background:
-    radial-gradient(circle at 28% 86%, rgba(166,106,36,.42), transparent 30%),
-    radial-gradient(circle at 77% 30%, rgba(82,105,107,.55), transparent 34%),
-    radial-gradient(circle at 40% 42%, rgba(214,223,214,.18), transparent 24%),
-    linear-gradient(115deg, #1f292c 0%, #4f5f5d 42%, #202425 100%);
-  filter: blur(24px) saturate(.88);
+    radial-gradient(circle at 22% 82%, var(--scene-a), transparent 30%),
+    radial-gradient(circle at 78% 28%, var(--scene-b), transparent 34%),
+    radial-gradient(circle at 42% 46%, var(--scene-c), transparent 26%),
+    linear-gradient(115deg, var(--scene-base-1) 0%, var(--scene-base-2) 42%, var(--scene-base-3) 100%);
+  filter: blur(24px) saturate(.92);
   transform: scale(1.04);
+  transition: background 900ms ease, filter 900ms ease;
+  animation: sceneDrift 18s ease-in-out infinite alternate;
+}
+
+.scene-bg::before {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  background:
+    radial-gradient(circle at 18% 26%, var(--scene-d), transparent 26%),
+    radial-gradient(circle at 82% 78%, var(--scene-light), transparent 28%);
+  mix-blend-mode: screen;
+  opacity: .68;
+  animation: sceneColorSweep 13s ease-in-out infinite alternate;
 }
 
 .scene-bg::after {
@@ -42,8 +65,37 @@ body {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(0,0,0,.28), transparent 25%, rgba(0,0,0,.34)),
-    radial-gradient(circle at 50% 25%, rgba(255,255,255,.11), transparent 40%);
+    linear-gradient(90deg, rgba(0,0,0,.30), transparent 25%, rgba(0,0,0,.36)),
+    radial-gradient(circle at 50% 25%, var(--scene-light), transparent 40%),
+    radial-gradient(circle at 48% 100%, var(--scene-vignette), transparent 46%);
+  animation: sceneBreath 9s ease-in-out infinite alternate;
+}
+
+@keyframes sceneDrift {
+  0% {
+    transform: scale(1.04) translate3d(-1.2%, -.8%, 0);
+    background-position: 0% 50%;
+  }
+  100% {
+    transform: scale(1.08) translate3d(1.1%, .9%, 0);
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes sceneColorSweep {
+  0% {
+    opacity: .48;
+    transform: translate3d(-2%, 1%, 0) scale(1);
+  }
+  100% {
+    opacity: .78;
+    transform: translate3d(2%, -1.5%, 0) scale(1.08);
+  }
+}
+
+@keyframes sceneBreath {
+  0% { opacity: .86; }
+  100% { opacity: 1; }
 }
 
 .noise {
@@ -487,39 +539,294 @@ body {
   transform: translate(-50%, 0);
 }
 
+.scenery-menu {
+  position: fixed;
+  right: 28px;
+  bottom: 26px;
+  z-index: 40;
+}
+.volume-toggle {
+  position: absolute;
+  right: 7px;
+  bottom: 64px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: rgba(241,247,250,.92);
+  box-shadow: 0 8px 22px rgba(0,0,0,.28);
+  cursor: pointer;
+  transition: transform .12s ease, filter .12s ease;
+}
+.volume-toggle:hover { filter: brightness(1.08); }
+.volume-toggle:active { transform: translateY(1px); }
+.volume-toggle span {
+  position: relative;
+  width: 22px;
+  height: 18px;
+  display: block;
+}
+.volume-toggle span::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 5px;
+  width: 7px;
+  height: 8px;
+  background: #233136;
+  box-shadow: 6px -4px 0 -1px #233136, 6px 4px 0 -1px #233136;
+}
+.volume-toggle span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 2px;
+  width: 10px;
+  height: 14px;
+  border: 3px solid #233136;
+  border-left: 0;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 0 999px 999px 0;
+}
+.volume-panel {
+  position: absolute;
+  right: 58px;
+  bottom: 64px;
+  display: grid;
+  grid-template-columns: 130px 34px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(24,27,29,.94);
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 14px 34px rgba(0,0,0,.36);
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity .13s ease, transform .13s ease;
+  backdrop-filter: blur(8px);
+}
+.volume-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.volume-panel input[type="range"] {
+  width: 130px;
+  accent-color: var(--cyan-bright);
+  cursor: pointer;
+}
+.volume-panel span {
+  color: rgba(238,246,250,.86);
+  font-weight: 700;
+  text-align: right;
+}
+.scenery-toggle {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(241,247,250,.94);
+  box-shadow: 0 10px 28px rgba(0,0,0,.32);
+  cursor: pointer;
+  transition: transform .12s ease, filter .12s ease;
+}
+.scenery-toggle:hover { filter: brightness(1.08); }
+.scenery-toggle:active { transform: translateY(1px); }
+.scenery-toggle span,
+.scenery-toggle span::before,
+.scenery-toggle span::after {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #233136;
+  border-radius: 999px;
+  box-shadow: 0 -7px 0 #233136, 0 7px 0 #233136;
+}
+.scenery-toggle span {
+  position: relative;
+  box-shadow: none;
+}
+.scenery-toggle span::before,
+.scenery-toggle span::after {
+  position: absolute;
+  left: 0;
+}
+.scenery-toggle span::before { top: -8px; }
+.scenery-toggle span::after { top: 8px; }
+.scenery-toggle span {
+  background:
+    radial-gradient(circle at 70% 50%, #233136 0 4px, transparent 5px),
+    linear-gradient(#233136, #233136);
+  background-size: 100% 100%, 100% 3px;
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 50%;
+}
+.scenery-toggle span::before {
+  background:
+    radial-gradient(circle at 30% 50%, #233136 0 4px, transparent 5px),
+    linear-gradient(#233136, #233136);
+  background-size: 100% 100%, 100% 3px;
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 50%;
+}
+.scenery-toggle span::after {
+  background:
+    radial-gradient(circle at 48% 50%, #233136 0 4px, transparent 5px),
+    linear-gradient(#233136, #233136);
+  background-size: 100% 100%, 100% 3px;
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 50%;
+}
+.scenery-panel {
+  position: absolute;
+  right: 66px;
+  bottom: 0;
+  min-width: 270px;
+  max-width: min(320px, calc(100vw - 110px));
+  background: rgba(24,27,29,.94);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 18px 44px rgba(0,0,0,.42);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity .13s ease, transform .13s ease;
+  backdrop-filter: blur(8px);
+}
+.scenery-menu.open .scenery-panel {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.scenery-panel button {
+  width: 100%;
+  min-height: 43px;
+  padding: 11px 16px;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: transparent;
+  color: rgba(238,246,250,.86);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease;
+}
+.scenery-panel button:hover,
+.scenery-panel button.active {
+  background: rgba(88,144,166,.44);
+  color: #f4fbff;
+}
+.scenery-panel button:last-child { border-bottom: 0; }
+.scenery-panel .menu-separator {
+  height: 1px;
+  margin: 0;
+  background: rgba(255,255,255,.14);
+}
+.scenery-panel .menu-back {
+  color: rgba(120,215,242,.92);
+}
+
 @media (max-width: 1080px) {
   .content-grid { grid-template-columns: 1fr; }
   .command-panel { position: static; }
 }
 @media (max-width: 760px) {
-  :root { --topbar-height: 54px; }
-  .shell { padding: 0 12px 28px; }
+  :root { --topbar-height: 96px; }
+  html, body { width: 100%; overflow-x: clip; }
+  .shell { width: 100%; padding: 0 12px 92px; overflow-x: clip; }
   .topbar {
     height: auto;
     min-height: 54px;
     margin: 0 -12px;
-    overflow-x: auto;
+    overflow: visible;
     justify-content: flex-start;
-    padding: 8px 12px 8px 56px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 10px 8px 52px;
   }
   .topbar .icon-search { left: 12px; }
   .main-tabs {
-    min-width: max-content;
+    flex: 1 1 240px;
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
   }
   .main-tabs button {
-    padding: 11px 10px 9px;
-    font-size: 16px;
+    flex: 1 1 104px;
+    min-width: 0;
+    padding: 10px 8px 8px;
+    font-size: 15px;
+    line-height: 1.05;
+    white-space: normal;
   }
   .language-switcher {
     position: static;
-    min-width: max-content;
+    flex: 0 1 auto;
+    min-width: 0;
   }
+  .settings-card { width: 100%; margin-top: 10px; }
   .sub-tabs {
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    top: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: visible;
+    padding: 8px 0 12px;
   }
+  .sub-tabs button {
+    flex: 1 1 112px;
+    min-width: 0;
+    padding: 10px 8px 9px;
+    font-size: 15px;
+    line-height: 1.15;
+    white-space: normal;
+  }
+  .content-grid { min-width: 0; }
+  .settings-pane { min-width: 0; padding: 6px 0 16px; }
+  .settings-section { scroll-margin-top: 140px; }
   .setting-row { grid-template-columns: 1fr; min-height: 86px; }
+  .row-label { padding: 0 2px; font-size: 18px; }
   .value-cell, .select-wrap, .select-wrap select { min-height: 48px; height: 48px; }
+  .slider-cell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 76px;
+    gap: 12px;
+    width: 100%;
+  }
+  .slider-cell input[type="range"] { width: 100%; min-width: 0; }
+  .command-panel { min-width: 0; padding: 14px; }
+  .panel-heading,
+  .toggle-row { flex-wrap: wrap; }
+  .scenery-menu {
+    right: 14px;
+    bottom: 14px;
+  }
+  .volume-toggle {
+    right: 5px;
+    bottom: 60px;
+  }
+  .volume-panel {
+    right: 0;
+    bottom: 108px;
+    grid-template-columns: minmax(130px, 1fr) 34px;
+    max-width: calc(100vw - 28px);
+  }
+  .scenery-toggle {
+    width: 50px;
+    height: 50px;
+  }
+  .scenery-panel {
+    right: 0;
+    bottom: 62px;
+    max-width: calc(100vw - 28px);
+    min-width: min(270px, calc(100vw - 28px));
+  }
 }
