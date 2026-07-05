@@ -190,6 +190,7 @@ const i18n = {
     "scenery.loadout": "View Agent in Loadout",
     "scenery.back": "Back",
     "volume.toggle": "Soundtrack volume",
+    "reset.page": "RESET",
     "toast.capture": "Press a key or mouse button...",
     "toast.cancel": "ESC cancels",
     "tab.kbm.settings": "KEYBOARD & MOUSE SETTINGS",
@@ -206,7 +207,16 @@ const i18n = {
     "tab.audio.music": "MUSIC",
     "tab.game.main": "GAME",
     "tab.game.hud": "HUD",
+    "tab.game.team": "TEAM",
+    "tab.game.communication": "COMMUNICATION",
+    "tab.game.spectator": "SPECTATOR / SCOREBOARD",
+    "tab.game.item": "ITEM",
     "tab.game.radar": "RADAR",
+    "tab.game.crosshair": "CROSSHAIR",
+    "tab.game.sniper": "SNIPER SIGHTS",
+    "tab.game.grenade": "GRENADE LINE-UP",
+    "tab.game.damage": "DAMAGE PREDICTION",
+    "tab.game.telemetry": "TELEMETRY",
     "group.kbm.settings": "Keyboard & Mouse Settings",
     "group.kbm.movement": "Movement Keys",
     "group.kbm.weapon": "Weapon Keys",
@@ -221,7 +231,16 @@ const i18n = {
     "group.audio.music": "Music",
     "group.game.main": "Game",
     "group.game.hud": "HUD",
+    "group.game.team": "Team",
+    "group.game.communication": "Communication",
+    "group.game.spectator": "Spectator / Scoreboard",
+    "group.game.item": "Item",
     "group.game.radar": "Radar",
+    "group.game.crosshair": "Crosshair",
+    "group.game.sniper": "Sniper Sights",
+    "group.game.grenade": "Grenade Line-Up",
+    "group.game.damage": "Damage Prediction",
+    "group.game.telemetry": "Telemetry",
     "row.mouse_inverty": "Reverse Mouse",
     "row.option_duck_method": "Duck Mode",
     "row.option_speed_method": "Walk Mode",
@@ -254,22 +273,32 @@ const i18n = {
     "row.slot7": "Flashbang",
     "row.slot8": "Smoke Grenade",
     "row.slot9": "Decoy Grenade",
-    "row.slot10": "Molotov / Incendiary",
+    "row.slot10": "Molotov Cocktail / Incendiary Grenade",
+    "row.zeus": "Zeus x27",
+    "row.healthshot": "Healthshot",
+    "row.utility_items": "Utility Items",
     "row.reload": "Reload",
+    "row.radial_weapon": "Radial Weapon Menu",
     "row.lastinv": "Last Weapon Used",
-    "row.invprev": "Previous Weapon",
-    "row.invnext": "Next Weapon",
+    "row.invprev": "Select Previous Weapon",
+    "row.invnext": "Select Next Weapon",
     "row.scoreboard": "Scoreboard",
+    "row.show_team_equipment": "Show Team Equipment",
+    "row.toggle_radar_zoom": "Toggle Radar Zoom",
+    "row.call_vote": "Call Vote",
     "row.console": "Toggle Console",
     "row.team_menu": "Choose Team",
     "row.chat_all": "Chat Message",
     "row.chat_team": "Team Message",
     "row.spray": "Spray Menu",
     "row.voice": "Use Mic",
+    "row.voice_mode_toggle": "Toggle between Open-Mic and Push-To-Talk",
+    "row.disable_chat": "Temporarily Disable Incoming Chat",
     "row.player_ping": "Player Ping",
     "row.radio1": "Radio Message",
-    "row.radio2": "Radio Message 2",
-    "row.radio3": "Radio Message 3",
+    "row.radio2": "Command Radio Message",
+    "row.radio3": "Standard Radio Message",
+    "row.radio_report": "Report Radio Message",
     "row.chatwheel1": "Chat Wheel 1",
     "row.chatwheel2": "Chat Wheel 2",
     "row.chatwheel3": "Chat Wheel 3",
@@ -298,19 +327,61 @@ const i18n = {
     "row.ten_second_music": "Ten Second Warning Volume",
     "row.mvp_music": "MVP Volume",
     "row.deathcam_music": "Death Camera Volume",
+    "row.developer_console": "Enable Developer Console",
     "row.game_instructor": "Game Instructor Messages",
     "row.buy_menu_use": "Use Key Opens Buy Menu",
     "row.max_ping": "Max Acceptable Matchmaking Ping",
+    "row.traffic_bandwidth": "Max Acceptable Game Traffic Bandwidth",
+    "row.net_buffer": "Buffering to smooth over packet loss / jitter",
+    "row.hud_scale": "HUD Scale",
     "row.hud_color": "HUD Color",
     "row.team_overhead": "Show Team Positions In HUD",
+    "row.teammate_colors": "Show Teammate Colors In Competitive",
+    "row.join_advertise": "Looking To Play When CS2 Starts",
+    "row.voice_modenable": "Enable Voice",
+    "row.voip_volume": "VOIP Volume",
+    "row.mute_enemy_team": "Mute Enemy Team",
+    "row.mute_all_but_friends": "Mute All But Friends",
+    "row.hide_avatar_images": "Hide Avatar Images",
+    "row.sanitize_player_names": "Clean Player Names",
+    "row.spec_number_keys": "Spectator / Map Vote Number Selection Method",
+    "row.autowepswitch": "Switch Weapon On Pick Up",
     "row.show_loadout": "Always Show Inventory",
     "row.safezonex": "Horizontal HUD Safe Zone",
     "row.safezoney": "Vertical HUD Safe Zone",
     "row.radar_center": "Radar Centers The Player",
     "row.radar_rotate": "Radar Rotates",
+    "row.radar_square_scoreboard": "Toggle Shape With Scoreboard",
     "row.radar_scale": "Radar Map Zoom",
     "row.hud_radar_scale": "Radar HUD Size",
     "row.radar_icon_scale": "Radar Icon Scale",
+    "row.crosshair_style": "Crosshair Style",
+    "row.crosshair_recoil": "Follow Recoil",
+    "row.crosshair_dot": "Center Dot",
+    "row.crosshair_t": "T Style",
+    "row.crosshair_outline": "Draw Outline",
+    "row.crosshair_size": "Length",
+    "row.crosshair_thickness": "Thickness",
+    "row.crosshair_gap": "Gap",
+    "row.crosshair_alpha": "Alpha",
+    "row.crosshair_red": "Red",
+    "row.crosshair_green": "Green",
+    "row.crosshair_blue": "Blue",
+    "row.sniper_width": "Sniper Width",
+    "row.grenade_crosshair_keep": "Keep Regular Crosshair",
+    "row.grenade_flash_delay": "Flashbang Crosshair Delay",
+    "row.grenade_explosive_delay": "HE Grenade Crosshair Delay",
+    "row.grenade_fire_delay": "Fire Grenade Crosshair Delay",
+    "row.grenade_smoke_delay": "Smoke Crosshair Delay",
+    "row.grenade_decoy_delay": "Decoy Crosshair Delay",
+    "row.predict_body": "Predict Body Shot Effects",
+    "row.predict_head": "Predict Head Shot Effects",
+    "row.predict_kill": "Predict Kill Ragdolls",
+    "row.frame_telemetry_threshold": "Frame Time Warning Threshold",
+    "row.ping_telemetry_threshold": "Ping Warning Threshold",
+    "row.packet_telemetry_threshold": "Packet Misdelivery Warning Threshold",
+    "opt.no": "NO",
+    "opt.yes": "YES",
     "opt.off": "OFF",
     "opt.on": "ON",
     "opt.hold": "HOLD",
@@ -336,6 +407,21 @@ const i18n = {
     "opt.low": "LOW",
     "opt.medium": "MEDIUM",
     "opt.high": "HIGH",
+    "opt.very_restricted": "EXTREMELY RESTRICTED",
+    "opt.restricted": "RESTRICTED",
+    "opt.moderate": "MODERATE",
+    "opt.unrestricted": "UNRESTRICTED",
+    "opt.one_packet": "1 PACKET",
+    "opt.two_packets": "2 PACKETS",
+    "opt.friends": "FRIENDS",
+    "opt.everyone": "EVERYONE",
+    "opt.colors_and_letters": "COLORS AND LETTERS",
+    "opt.number_keys": "NUMBER KEYS",
+    "opt.weapon_keys": "WEAPON KEYS",
+    "opt.team_color": "TEAM COLOR",
+    "opt.default_static": "DEFAULT STATIC",
+    "opt.classic_static": "CLASSIC STATIC",
+    "opt.classic_dynamic": "CLASSIC DYNAMIC",
     "opt.never": "NEVER",
     "opt.if_poor": "IF POOR",
     "opt.always": "ALWAYS",
@@ -379,6 +465,7 @@ const i18n = {
     "scenery.loadout": "Ver agente en equipamiento",
     "scenery.back": "Volver",
     "volume.toggle": "Volumen del soundtrack",
+    "reset.page": "RESET",
     "toast.capture": "Presiona una tecla o botón del mouse...",
     "toast.cancel": "ESC cancela",
     "tab.kbm.settings": "CONFIGURACIÓN TECLADO / MOUSE",
@@ -395,7 +482,16 @@ const i18n = {
     "tab.audio.music": "MÚSICA",
     "tab.game.main": "JUEGO",
     "tab.game.hud": "HUD",
+    "tab.game.team": "EQUIPO",
+    "tab.game.communication": "COMUNICACION",
+    "tab.game.spectator": "ESPECTADOR / MARCADOR",
+    "tab.game.item": "OBJETO",
     "tab.game.radar": "RADAR",
+    "tab.game.crosshair": "MIRA",
+    "tab.game.sniper": "MIRAS DE SNIPER",
+    "tab.game.grenade": "ALINEACION DE GRANADAS",
+    "tab.game.damage": "PREDICCION DE DANO",
+    "tab.game.telemetry": "TELEMETRIA",
     "group.kbm.settings": "Configuración de teclado y mouse",
     "group.kbm.movement": "Teclas de movimiento",
     "group.kbm.weapon": "Teclas de armas",
@@ -410,7 +506,16 @@ const i18n = {
     "group.audio.music": "Música",
     "group.game.main": "Juego",
     "group.game.hud": "HUD",
+    "group.game.team": "Equipo",
+    "group.game.communication": "Comunicacion",
+    "group.game.spectator": "Espectador / marcador",
+    "group.game.item": "Objeto",
     "group.game.radar": "Radar",
+    "group.game.crosshair": "Mira",
+    "group.game.sniper": "Miras de sniper",
+    "group.game.grenade": "Alineacion de granadas",
+    "group.game.damage": "Prediccion de dano",
+    "group.game.telemetry": "Telemetria",
     "row.mouse_inverty": "Invertir mouse",
     "row.option_duck_method": "Modo agacharse",
     "row.option_speed_method": "Modo caminar",
@@ -443,22 +548,32 @@ const i18n = {
     "row.slot7": "Flashbang",
     "row.slot8": "Granada de humo",
     "row.slot9": "Granada señuelo",
-    "row.slot10": "Molotov / incendiaria",
+    "row.slot10": "Cóctel molotov / granada incendiaria",
+    "row.zeus": "Zeus x27",
+    "row.healthshot": "Inyección de salud",
+    "row.utility_items": "Objetos de utilidad",
     "row.reload": "Recargar",
+    "row.radial_weapon": "Menú radial de armas",
     "row.lastinv": "Última arma usada",
-    "row.invprev": "Arma anterior",
-    "row.invnext": "Siguiente arma",
+    "row.invprev": "Seleccionar arma anterior",
+    "row.invnext": "Seleccionar siguiente arma",
     "row.scoreboard": "Marcador",
+    "row.show_team_equipment": "Mostrar equipamiento del equipo",
+    "row.toggle_radar_zoom": "Alternar zoom del radar",
+    "row.call_vote": "Iniciar votación",
     "row.console": "Abrir consola",
     "row.team_menu": "Elegir equipo",
     "row.chat_all": "Mensaje de chat",
     "row.chat_team": "Mensaje de equipo",
     "row.spray": "Menú de spray",
     "row.voice": "Usar micrófono",
+    "row.voice_mode_toggle": "Alternar entre micrófono abierto y pulsar para hablar",
+    "row.disable_chat": "Desactivar chat entrante temporalmente",
     "row.player_ping": "Ping de jugador",
     "row.radio1": "Mensaje de radio",
-    "row.radio2": "Mensaje de radio 2",
-    "row.radio3": "Mensaje de radio 3",
+    "row.radio2": "Mensaje de radio de comandos",
+    "row.radio3": "Mensaje de radio estándar",
+    "row.radio_report": "Mensaje de radio para reportar",
     "row.chatwheel1": "Rueda de chat 1",
     "row.chatwheel2": "Rueda de chat 2",
     "row.chatwheel3": "Rueda de chat 3",
@@ -486,6 +601,46 @@ const i18n = {
     "row.objective_music": "Volumen bomba / rehenes",
     "row.ten_second_music": "Volumen aviso de 10 segundos",
     "row.mvp_music": "Volumen MVP",
+    "row.developer_console": "Activar consola de desarrollador",
+    "row.traffic_bandwidth": "Ancho de banda maximo aceptable",
+    "row.net_buffer": "Buffer para suavizar perdida de paquetes / jitter",
+    "row.hud_scale": "Escala del HUD",
+    "row.teammate_colors": "Mostrar colores de companeros en competitivo",
+    "row.join_advertise": "Disponible para jugar al iniciar CS2",
+    "row.voice_modenable": "Activar voz",
+    "row.voip_volume": "Volumen de VOIP",
+    "row.mute_enemy_team": "Silenciar equipo enemigo",
+    "row.mute_all_but_friends": "Silenciar todos excepto amigos",
+    "row.hide_avatar_images": "Ocultar imagenes de avatar",
+    "row.sanitize_player_names": "Limpiar nombres de jugadores",
+    "row.spec_number_keys": "Metodo de seleccion en espectador / votacion",
+    "row.autowepswitch": "Cambiar arma al recoger",
+    "row.radar_square_scoreboard": "Cambiar forma con marcador",
+    "row.crosshair_style": "Estilo de mira",
+    "row.crosshair_recoil": "Seguir retroceso",
+    "row.crosshair_dot": "Punto central",
+    "row.crosshair_t": "Estilo T",
+    "row.crosshair_outline": "Dibujar contorno",
+    "row.crosshair_size": "Longitud",
+    "row.crosshair_thickness": "Grosor",
+    "row.crosshair_gap": "Separacion",
+    "row.crosshair_alpha": "Alpha",
+    "row.crosshair_red": "Rojo",
+    "row.crosshair_green": "Verde",
+    "row.crosshair_blue": "Azul",
+    "row.sniper_width": "Grosor de sniper",
+    "row.grenade_crosshair_keep": "Mantener mira normal",
+    "row.grenade_flash_delay": "Retraso mira flashbang",
+    "row.grenade_explosive_delay": "Retraso mira HE",
+    "row.grenade_fire_delay": "Retraso mira de fuego",
+    "row.grenade_smoke_delay": "Retraso mira humo",
+    "row.grenade_decoy_delay": "Retraso mira senuelo",
+    "row.predict_body": "Predecir efectos de disparo al cuerpo",
+    "row.predict_head": "Predecir efectos de disparo a la cabeza",
+    "row.predict_kill": "Predecir ragdolls al matar",
+    "row.frame_telemetry_threshold": "Umbral de aviso de frame time",
+    "row.ping_telemetry_threshold": "Umbral de aviso de ping",
+    "row.packet_telemetry_threshold": "Umbral de aviso de entrega de paquetes",
     "row.deathcam_music": "Volumen cámara de muerte",
     "row.game_instructor": "Mensajes del instructor",
     "row.buy_menu_use": "Usar abre menú de compra",
@@ -525,6 +680,23 @@ const i18n = {
     "opt.low": "BAJO",
     "opt.medium": "MEDIO",
     "opt.high": "ALTO",
+    "opt.no": "NO",
+    "opt.yes": "SI",
+    "opt.very_restricted": "MUY RESTRINGIDO",
+    "opt.restricted": "RESTRINGIDO",
+    "opt.moderate": "MODERADO",
+    "opt.unrestricted": "SIN RESTRICCION",
+    "opt.one_packet": "1 PAQUETE",
+    "opt.two_packets": "2 PAQUETES",
+    "opt.friends": "AMIGOS",
+    "opt.everyone": "TODOS",
+    "opt.colors_and_letters": "COLORES Y LETRAS",
+    "opt.number_keys": "TECLAS NUMERICAS",
+    "opt.weapon_keys": "TECLAS DE ARMAS",
+    "opt.team_color": "COLOR DE EQUIPO",
+    "opt.default_static": "PREDET. ESTATICA",
+    "opt.classic_static": "CLASICA ESTATICA",
+    "opt.classic_dynamic": "CLASICA DINAMICA",
     "opt.never": "NUNCA",
     "opt.if_poor": "SI VA MAL",
     "opt.always": "SIEMPRE",
@@ -568,6 +740,7 @@ const i18n = {
     "scenery.loadout": "Открыть агента в снаряжении",
     "scenery.back": "Назад",
     "volume.toggle": "Громкость саундтрека",
+    "reset.page": "СБРОС",
     "toast.capture": "Нажмите клавишу или кнопку мыши...",
     "toast.cancel": "ESC отменяет",
     "tab.kbm.settings": "НАСТРОЙКИ КЛАВИАТУРЫ / МЫШИ",
@@ -632,22 +805,32 @@ const i18n = {
     "row.slot7": "Световая граната",
     "row.slot8": "Дымовая граната",
     "row.slot9": "Ложная граната",
-    "row.slot10": "Молотов / зажигательная",
+    "row.slot10": "Молотов / зажигательная граната",
+    "row.zeus": "Zeus x27",
+    "row.healthshot": "Лечебный шприц",
+    "row.utility_items": "Предметы снаряжения",
     "row.reload": "Перезарядка",
+    "row.radial_weapon": "Радиальное меню оружия",
     "row.lastinv": "Последнее оружие",
-    "row.invprev": "Предыдущее оружие",
-    "row.invnext": "Следующее оружие",
+    "row.invprev": "Выбрать предыдущее оружие",
+    "row.invnext": "Выбрать следующее оружие",
     "row.scoreboard": "Таблица счета",
+    "row.show_team_equipment": "Показать снаряжение команды",
+    "row.toggle_radar_zoom": "Переключить масштаб радара",
+    "row.call_vote": "Начать голосование",
     "row.console": "Открыть консоль",
     "row.team_menu": "Выбрать команду",
     "row.chat_all": "Сообщение в чат",
     "row.chat_team": "Сообщение команде",
     "row.spray": "Меню граффити",
     "row.voice": "Микрофон",
+    "row.voice_mode_toggle": "Переключить открытый микрофон / push-to-talk",
+    "row.disable_chat": "Временно отключить входящий чат",
     "row.player_ping": "Метка игрока",
     "row.radio1": "Радиосообщение",
-    "row.radio2": "Радиосообщение 2",
-    "row.radio3": "Радиосообщение 3",
+    "row.radio2": "Командное радиосообщение",
+    "row.radio3": "Стандартное радиосообщение",
+    "row.radio_report": "Радиосообщение жалобы",
     "row.chatwheel1": "Радиальное меню 1",
     "row.chatwheel2": "Радиальное меню 2",
     "row.chatwheel3": "Радиальное меню 3",
@@ -828,36 +1011,144 @@ const defaults = {
     tabs: [
       { id: "main", labelKey: "tab.game.main" },
       { id: "hud", labelKey: "tab.game.hud" },
-      { id: "radar", labelKey: "tab.game.radar" }
+      { id: "team", labelKey: "tab.game.team" },
+      { id: "communication", labelKey: "tab.game.communication" },
+      { id: "spectator", labelKey: "tab.game.spectator" },
+      { id: "item", labelKey: "tab.game.item" },
+      { id: "radar", labelKey: "tab.game.radar" },
+      { id: "crosshair", labelKey: "tab.game.crosshair" },
+      { id: "sniper", labelKey: "tab.game.sniper" },
+      { id: "grenade", labelKey: "tab.game.grenade" },
+      { id: "damage", labelKey: "tab.game.damage" },
+      { id: "telemetry", labelKey: "tab.game.telemetry" }
     ],
     sections: [
       section("main", [
         group("group.game.main", [
+          select("developer_console", "row.developer_console", "con_enable", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          slider("max_ping", "row.max_ping", "mm_dedicated_search_maxping", "150", 25, 350, 1),
+          select("traffic_bandwidth", "row.traffic_bandwidth", "rate", "786432", [
+            opt("196608", "opt.very_restricted"), opt("262144", "opt.restricted"), opt("393216", "opt.moderate"), opt("786432", "opt.unrestricted")
+          ]),
+          select("net_buffer", "row.net_buffer", "cl_net_buffer_ticks", "0", [
+            opt("0", "opt.none"), opt("1", "opt.one_packet"), opt("2", "opt.two_packets")
+          ]),
           select("game_instructor", "row.game_instructor", "gameinstructor_enable", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
-          select("buy_menu_use", "row.buy_menu_use", "cl_use_opens_buy_menu", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
-          slider("max_ping", "row.max_ping", "mm_dedicated_search_maxping", "150", 25, 350, 1)
+          select("buy_menu_use", "row.buy_menu_use", "cl_use_opens_buy_menu", "1", [opt("0", "opt.off"), opt("1", "opt.on")])
         ])
       ]),
       section("hud", [
         group("group.game.hud", [
+          slider("hud_scale", "row.hud_scale", "hud_scaling", "1.00", 0.5, 1, 0.01),
           select("hud_color", "row.hud_color", "cl_hud_color", "0", [
-            opt("0", "opt.default"), opt("1", "opt.white"), opt("2", "opt.lightblue"), opt("3", "opt.blue"), opt("4", "opt.purple"), opt("5", "opt.red"), opt("6", "opt.orange"), opt("7", "opt.yellow"), opt("8", "opt.green"), opt("9", "opt.aqua")
-          ]),
-          select("team_overhead", "row.team_overhead", "cl_teamid_overhead_mode", "2", [
-            opt("0", "opt.off"), opt("1", "opt.team_overhead_pips"), opt("2", "opt.team_overhead_names")
+            opt("0", "opt.team_color"), opt("1", "opt.white"), opt("2", "opt.lightblue"), opt("3", "opt.blue"), opt("4", "opt.purple"), opt("5", "opt.red"), opt("6", "opt.orange"), opt("7", "opt.yellow"), opt("8", "opt.green"), opt("9", "opt.aqua")
           ]),
           select("show_loadout", "row.show_loadout", "cl_showloadout", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("safezonex", "row.safezonex", "safezonex", "1.00", 0.85, 1, 0.01),
           slider("safezoney", "row.safezoney", "safezoney", "1.00", 0.85, 1, 0.01)
         ])
       ]),
+      section("team", [
+        group("group.game.team", [
+          select("team_overhead", "row.team_overhead", "cl_teamid_overhead_mode", "2", [
+            opt("0", "opt.off"), opt("1", "opt.team_overhead_pips"), opt("2", "opt.team_overhead_names")
+          ]),
+          select("teammate_colors", "row.teammate_colors", "cl_teammate_colors_show", "1", [
+            opt("0", "opt.off"), opt("1", "opt.on"), opt("2", "opt.colors_and_letters")
+          ]),
+          select("join_advertise", "row.join_advertise", "cl_join_advertise", "1", [
+            opt("0", "opt.off"), opt("1", "opt.friends"), opt("2", "opt.everyone")
+          ])
+        ])
+      ]),
+      section("communication", [
+        group("group.game.communication", [
+          select("voice_modenable", "row.voice_modenable", "voice_modenable", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          slider("voip_volume", "row.voip_volume", "snd_voipvolume", "1.00", 0, 1, 0.01),
+          select("mute_enemy_team", "row.mute_enemy_team", "cl_mute_enemy_team", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("mute_all_but_friends", "row.mute_all_but_friends", "cl_mute_all_but_friends_and_party", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("hide_avatar_images", "row.hide_avatar_images", "cl_hide_avatar_images", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("sanitize_player_names", "row.sanitize_player_names", "cl_sanitize_player_names", "0", [opt("0", "opt.off"), opt("1", "opt.on")])
+        ])
+      ]),
+      section("spectator", [
+        group("group.game.spectator", [
+          select("spec_number_keys", "row.spec_number_keys", "spec_usenumberkeys_nobinds", "1", [
+            opt("1", "opt.number_keys"), opt("0", "opt.weapon_keys")
+          ])
+        ])
+      ]),
+      section("item", [
+        group("group.game.item", [
+          select("show_loadout", "row.show_loadout", "cl_showloadout", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("buy_menu_use", "row.buy_menu_use", "cl_use_opens_buy_menu", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("autowepswitch", "row.autowepswitch", "cl_autowepswitch", "0", [opt("0", "opt.off"), opt("1", "opt.on")])
+        ])
+      ]),
       section("radar", [
         group("group.game.radar", [
           select("radar_center", "row.radar_center", "cl_radar_always_centered", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("radar_rotate", "row.radar_rotate", "cl_radar_rotate", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("radar_square_scoreboard", "row.radar_square_scoreboard", "cl_radar_square_with_scoreboard", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("radar_scale", "row.radar_scale", "cl_radar_scale", "0.70", 0.25, 1, 0.01),
           slider("hud_radar_scale", "row.hud_radar_scale", "cl_hud_radar_scale", "1.00", 0.8, 1.3, 0.01),
           slider("radar_icon_scale", "row.radar_icon_scale", "cl_radar_icon_scale_min", "0.60", 0.4, 1, 0.01)
+        ])
+      ]),
+      section("crosshair", [
+        group("group.game.crosshair", [
+          select("crosshair_style", "row.crosshair_style", "cl_crosshairstyle", "4", [
+            opt("2", "opt.default_static"), opt("4", "opt.classic_static"), opt("5", "opt.classic_dynamic")
+          ]),
+          select("crosshair_recoil", "row.crosshair_recoil", "cl_crosshair_recoil", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("crosshair_dot", "row.crosshair_dot", "cl_crosshairdot", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("crosshair_t", "row.crosshair_t", "cl_crosshair_t", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("crosshair_outline", "row.crosshair_outline", "cl_crosshair_drawoutline", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          slider("crosshair_size", "row.crosshair_size", "cl_crosshairsize", "3.00", 0, 10, 0.1),
+          slider("crosshair_thickness", "row.crosshair_thickness", "cl_crosshairthickness", "0.50", 0, 3, 0.1),
+          slider("crosshair_gap", "row.crosshair_gap", "cl_crosshairgap", "-2.00", -10, 10, 0.1),
+          slider("crosshair_alpha", "row.crosshair_alpha", "cl_crosshairalpha", "255", 0, 255, 1),
+          slider("crosshair_red", "row.crosshair_red", "cl_crosshaircolor_r", "50", 0, 255, 1),
+          slider("crosshair_green", "row.crosshair_green", "cl_crosshaircolor_g", "250", 0, 255, 1),
+          slider("crosshair_blue", "row.crosshair_blue", "cl_crosshaircolor_b", "50", 0, 255, 1)
+        ])
+      ]),
+      section("sniper", [
+        group("group.game.sniper", [
+          slider("sniper_width", "row.sniper_width", "cl_crosshair_sniper_width", "1", 1, 5, 1)
+        ])
+      ]),
+      section("grenade", [
+        group("group.game.grenade", [
+          select("grenade_crosshair_keep", "row.grenade_crosshair_keep", "cl_grenadecrosshair_keepusercrosshair", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          slider("grenade_flash_delay", "row.grenade_flash_delay", "cl_grenadecrosshairdelay_flash", "2.00", 0, 5, 0.1),
+          slider("grenade_explosive_delay", "row.grenade_explosive_delay", "cl_grenadecrosshairdelay_explosive", "2.00", 0, 5, 0.1),
+          slider("grenade_fire_delay", "row.grenade_fire_delay", "cl_grenadecrosshairdelay_fire", "2.00", 0, 5, 0.1),
+          slider("grenade_smoke_delay", "row.grenade_smoke_delay", "cl_grenadecrosshairdelay_smoke", "2.00", 0, 5, 0.1),
+          slider("grenade_decoy_delay", "row.grenade_decoy_delay", "cl_grenadecrosshairdelay_decoy", "2.00", 0, 5, 0.1)
+        ])
+      ]),
+      section("damage", [
+        group("group.game.damage", [
+          select("predict_body", "row.predict_body", "cl_predict_body_shot_fx", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("predict_head", "row.predict_head", "cl_predict_head_shot_fx", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("predict_kill", "row.predict_kill", "cl_predict_kill_ragdolls", "1", [opt("0", "opt.off"), opt("1", "opt.on")])
+        ])
+      ]),
+      section("telemetry", [
+        group("group.game.telemetry", [
+          select("frame_telemetry", "row.frame_telemetry", "cl_hud_telemetry_frametime_show", "1", [
+            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
+          ]),
+          select("ping_telemetry", "row.ping_telemetry", "cl_hud_telemetry_ping_show", "1", [
+            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
+          ]),
+          select("packet_telemetry", "row.packet_telemetry", "cl_hud_telemetry_net_misdelivery_show", "1", [
+            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
+          ]),
+          slider("frame_telemetry_threshold", "row.frame_telemetry_threshold", "cl_hud_telemetry_frametime_poor", "100.00", 1, 500, 1),
+          slider("ping_telemetry_threshold", "row.ping_telemetry_threshold", "cl_hud_telemetry_ping_poor", "100", 1, 300, 1),
+          slider("packet_telemetry_threshold", "row.packet_telemetry_threshold", "cl_hud_telemetry_net_misdelivery_poor", "5", 1, 100, 1)
         ])
       ])
     ]
@@ -899,6 +1190,11 @@ const defaults = {
           bind("use", "row.use", "+use", "scancode8", "E"),
           bind("fire", "row.fire", "+attack", "mouse1", "MOUSE1"),
           bind("secondary_fire", "row.secondary_fire", "+attack2", "mouse2", "MOUSE2"),
+          bind("reload", "row.reload", "+reload", "scancode21", "R"),
+          bind("radial_weapon", "row.radial_weapon", "+quickinv", "", ""),
+          bind("invprev", "row.invprev", "invprev", "mwheelup", "MWHEELUP"),
+          bind("invnext", "row.invnext", "invnext", "mwheeldown", "MWHEELDOWN"),
+          bind("lastinv", "row.lastinv", "lastinv", "scancode20", "Q"),
           bind("drop", "row.drop", "drop", "scancode10", "G"),
           bind("inspect", "row.inspect", "+lookatweapon", "scancode9", "F"),
           bind("switchhands", "row.switchhands", "switchhands", "scancode11", "H"),
@@ -915,36 +1211,41 @@ const defaults = {
           bind("slot8", "row.slot8", "slot8", "scancode37", "8"),
           bind("slot9", "row.slot9", "slot9", "scancode38", "9"),
           bind("slot10", "row.slot10", "slot10", "scancode39", "0"),
-          bind("reload", "row.reload", "+reload", "scancode21", "R"),
-          bind("lastinv", "row.lastinv", "lastinv", "scancode20", "Q"),
-          bind("invprev", "row.invprev", "invprev", "mwheelup", "MWHEELUP"),
-          bind("invnext", "row.invnext", "invnext", "mwheeldown", "MWHEELDOWN")
+          bind("zeus", "row.zeus", "slot11", "", ""),
+          bind("healthshot", "row.healthshot", "slot12", "scancode27", "X"),
+          bind("utility_items", "row.utility_items", "slot13", "", ""),
+          bind("spray_weapon", "row.spray", "+spray_menu", "scancode23", "T")
         ])
       ]),
       section("ui", [
         group("group.kbm.ui", [
           bind("scoreboard", "row.scoreboard", "+showscores", "scancode43", "Tab"),
-          bind("console", "row.console", "toggleconsole", "scancode53", "`"),
+          bind("show_team_equipment", "row.show_team_equipment", "+cl_show_team_equipment", "", ""),
+          bind("toggle_radar_zoom", "row.toggle_radar_zoom", "incrementvar cl_radar_scale 0.25 1.0 0.25", "", ""),
+          bind("call_vote", "row.call_vote", "callvote", "", ""),
           bind("team_menu", "row.team_menu", "teammenu", "scancode16", "M"),
-          bind("chat_all", "row.chat_all", "messagemode", "scancode28", "Y"),
-          bind("chat_team", "row.chat_team", "messagemode2", "scancode24", "U"),
-          bind("spray", "row.spray", "+spray_menu", "scancode23", "T")
+          bind("console", "row.console", "toggleconsole", "scancode53", "`")
         ])
       ]),
       section("communication", [
         group("group.kbm.communication", [
-          bind("voice", "row.voice", "+voicerecord", "scancode14", "K"),
           bind("player_ping", "row.player_ping", "player_ping", "mouse3", "MOUSE3"),
           bind("radio1", "row.radio1", "radio", "scancode29", "Z"),
-          bind("radio2", "row.radio2", "radio2", "scancode27", "X"),
-          bind("radio3", "row.radio3", "radio3", "scancode6", "C")
+          bind("radio2", "row.radio2", "radio2", "", ""),
+          bind("radio3", "row.radio3", "radio3", "", ""),
+          bind("radio_report", "row.radio_report", "radio_report", "", ""),
+          bind("chat_team", "row.chat_team", "messagemode2", "scancode24", "U"),
+          bind("chat_all", "row.chat_all", "messagemode", "scancode28", "Y"),
+          bind("voice", "row.voice", "+voicerecord", "mouse4", "MOUSE4"),
+          bind("voice_mode_toggle", "row.voice_mode_toggle", "voice_vox_toggle", "", ""),
+          bind("disable_chat", "row.disable_chat", "clutch_mode_toggle", "", "")
         ])
       ]),
       section("chatwheel", [
         group("group.kbm.chatwheel", [
-          bind("chatwheel1", "row.chatwheel1", "+radialradio", "scancode29", "Z"),
-          bind("chatwheel2", "row.chatwheel2", "+radialradio2", "scancode27", "X"),
-          bind("chatwheel3", "row.chatwheel3", "+radialradio3", "scancode6", "C")
+          bind("chatwheel1", "row.chatwheel1", "+radialradio", "scancode6", "C"),
+          bind("chatwheel2", "row.chatwheel2", "+radialradio2", "scancode25", "V"),
+          bind("chatwheel3", "row.chatwheel3", "+radialradio3", "", "")
         ])
       ])
     ]
@@ -1004,6 +1305,7 @@ const volumePanel = document.querySelector("#volumePanel");
 const volumeToggle = document.querySelector("#volumeToggle");
 const volumeInput = document.querySelector("#soundtrackVolume");
 const volumeValue = document.querySelector("#soundtrackVolumeValue");
+const pageReset = document.querySelector("#pageReset");
 
 function init() {
   if (currentScenery) {
@@ -1021,13 +1323,10 @@ function init() {
   document.addEventListener("click", onDocumentClick);
   resetFirst.addEventListener("change", updateCommand);
   document.querySelector("#copyCommand").addEventListener("click", copyCommand);
-  document.querySelector("#resetApp").addEventListener("click", () => {
-    resetState();
-    stopCapture();
-    renderAll();
-  });
+  document.querySelector("#resetApp").addEventListener("click", resetUi);
   document.querySelector("#presetTest").addEventListener("click", loadTestPreset);
   document.querySelector("#downloadCfg").addEventListener("click", downloadCfg);
+  pageReset.addEventListener("click", resetUi);
   sceneryToggle.addEventListener("click", toggleSceneryMenu);
   volumeToggle.addEventListener("click", toggleVolumePanel);
   volumeInput.addEventListener("input", onVolumeInput);
@@ -1062,6 +1361,8 @@ function renderStaticText() {
   languageSwitcher.setAttribute("aria-label", t("aria.language"));
   sceneryToggle.setAttribute("aria-label", t("scenery.toggle"));
   volumeToggle.setAttribute("aria-label", t("volume.toggle"));
+  pageReset.setAttribute("aria-label", t("reset.page"));
+  pageReset.lastChild.textContent = ` ${t("reset.page")}`;
   document.querySelector("[data-i18n='panel.title']").textContent = t("panel.title");
   document.querySelector("[data-i18n='panel.help']").textContent = t("panel.help");
   document.querySelector("#copyCommand").textContent = t("panel.copy");
@@ -1123,9 +1424,37 @@ function closeSceneryMenu() {
 }
 
 function onDocumentClick(e) {
+  if (!e.target.closest(".select-wrap")) closeCustomSelects();
   if (volumePanel.classList.contains("open") && !sceneryMenu.contains(e.target)) closeVolumePanel();
   if (!sceneryMenu.classList.contains("open")) return;
   if (!sceneryMenu.contains(e.target)) closeSceneryMenu();
+}
+
+function closeCustomSelects(exceptId = "") {
+  pane.querySelectorAll(".select-wrap.open").forEach(select => {
+    if (select.dataset.settingId !== exceptId) {
+      select.classList.remove("open");
+      select.querySelector("[data-select-toggle]")?.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+function onCustomSelectToggle(e) {
+  e.stopPropagation();
+  const wrap = e.currentTarget.closest(".select-wrap");
+  const isOpen = wrap.classList.contains("open");
+  closeCustomSelects(wrap.dataset.settingId);
+  wrap.classList.toggle("open", !isOpen);
+  e.currentTarget.setAttribute("aria-expanded", !isOpen ? "true" : "false");
+}
+
+function onCustomSelectOption(e) {
+  e.stopPropagation();
+  const row = findRow(e.currentTarget.dataset.settingId);
+  setSettingValue(row, e.currentTarget.dataset.selectOption);
+  closeCustomSelects();
+  renderPane();
+  updateCommand();
 }
 
 function toggleVolumePanel(e) {
@@ -1250,16 +1579,14 @@ function renderPane() {
   `).join("");
 
   pane.querySelectorAll("[data-bind-id]").forEach(cell => cell.addEventListener("click", () => startCapture(cell.dataset.bindId, cell)));
-  pane.querySelectorAll("select[data-setting-id]").forEach(sel => sel.addEventListener("change", e => {
-    const row = findRow(e.target.dataset.settingId);
-    row.value = e.target.value;
-    updateCommand();
-  }));
+  pane.querySelectorAll("[data-select-toggle]").forEach(btn => btn.addEventListener("click", onCustomSelectToggle));
+  pane.querySelectorAll("[data-select-option]").forEach(btn => btn.addEventListener("click", onCustomSelectOption));
   pane.querySelectorAll("input[type=range][data-setting-id]").forEach(range => range.addEventListener("input", e => {
     const row = findRow(e.target.dataset.settingId);
-    row.value = formatByStep(e.target.value, row.step);
+    const value = formatByStep(e.target.value, row.step);
+    setSettingValue(row, value);
     const number = pane.querySelector(`input[type=number][data-setting-id="${row.id}"]`);
-    if (number) number.value = row.value;
+    if (number) number.value = value;
     updateCommand();
   }));
   pane.querySelectorAll("input[type=number][data-setting-id]").forEach(number => number.addEventListener("change", e => {
@@ -1267,10 +1594,11 @@ function renderPane() {
     const min = Number(row.min), max = Number(row.max);
     let val = Number(e.target.value || row.defaultValue);
     val = Math.min(max, Math.max(min, val));
-    row.value = formatByStep(val, row.step);
-    e.target.value = row.value;
+    const value = formatByStep(val, row.step);
+    setSettingValue(row, value);
+    e.target.value = value;
     const range = pane.querySelector(`input[type=range][data-setting-id="${row.id}"]`);
-    if (range) range.value = row.value;
+    if (range) range.value = value;
     updateCommand();
   }));
 }
@@ -1307,7 +1635,7 @@ function stickyOffset() {
 }
 
 function interactiveTarget(target) {
-  return target.closest("button, .setting-row, .value-cell, .select-wrap, .checkbox-wrap, input[type='range'], input[type='number'], select");
+  return target.closest("button, .setting-row, .value-cell, .select-wrap, .checkbox-wrap, input[type='range'], input[type='number']");
 }
 
 function onInteractiveHover(e) {
@@ -1393,7 +1721,15 @@ function rowTemplate(row) {
     return `<div class="setting-row"><div class="row-label">${t(row.labelKey)}</div><div class="value-cell keybind" data-bind-id="${row.id}">${row.display}</div></div>`;
   }
   if (row.type === "select") {
-    return `<div class="setting-row"><div class="row-label">${t(row.labelKey)}</div><div class="select-wrap"><select data-setting-id="${row.id}">${row.options.map(option => `<option value="${option.value}" ${option.value === row.value ? "selected" : ""}>${t(option.labelKey)}</option>`).join("")}</select></div></div>`;
+    const selected = row.options.find(option => option.value === row.value) || row.options[0];
+    return `<div class="setting-row"><div class="row-label">${t(row.labelKey)}</div><div class="select-wrap" data-setting-id="${row.id}">
+      <button class="select-display" type="button" data-select-toggle data-setting-id="${row.id}" aria-expanded="false">
+        <span>${t(selected.labelKey)}</span>
+      </button>
+      <div class="select-menu" role="listbox">
+        ${row.options.map(option => `<button class="${option.value === row.value ? "active" : ""}" type="button" role="option" aria-selected="${option.value === row.value}" data-setting-id="${row.id}" data-select-option="${option.value}">${t(option.labelKey)}</button>`).join("")}
+      </div>
+    </div></div>`;
   }
   if (row.type === "slider") {
     return `<div class="setting-row"><div class="row-label">${t(row.labelKey)}</div><div class="value-cell slider-cell"><input type="range" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}" data-setting-id="${row.id}"><input class="num-box" type="number" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}" data-setting-id="${row.id}"></div></div>`;
@@ -1412,6 +1748,14 @@ function findRow(id) {
 
 function allRows() {
   return Object.values(state).flatMap(category => category.sections.flatMap(section => section.groups.flatMap(group => group.rows)));
+}
+
+function setSettingValue(row, value) {
+  allRows().forEach(other => {
+    if ((other.type === "select" || other.type === "slider") && other.command === row.command) {
+      other.value = value;
+    }
+  });
 }
 
 function uniqueRowsByCommand(rows) {
@@ -1438,6 +1782,12 @@ function stopCapture() {
 }
 
 function onKeyDown(e) {
+  if (!captureTarget && e.code === "Escape") {
+    closeCustomSelects();
+    closeVolumePanel();
+    closeSceneryMenu();
+    return;
+  }
   if (!captureTarget) return;
   e.preventDefault();
   e.stopPropagation();
@@ -1488,14 +1838,14 @@ function updateCommand() {
 
   const unbinds = new Set();
   for (const row of changedBinds) {
-    unbinds.add(row.defaultKey);
-    unbinds.add(row.key);
+    if (row.defaultKey) unbinds.add(row.defaultKey);
+    if (row.key) unbinds.add(row.key);
 
-    const occupiedBy = rows.filter(other => other.type === "bind" && other.defaultKey === row.key && other.id !== row.id);
+    const occupiedBy = rows.filter(other => row.key && other.type === "bind" && other.defaultKey === row.key && other.id !== row.id);
     occupiedBy.forEach(other => unbinds.add(other.defaultKey));
   }
   unbinds.forEach(key => commands.push(`unbind ${key}`));
-  changedBinds.forEach(row => commands.push(`bind ${row.key} ${quoteCommand(row.command)}`));
+  changedBinds.filter(row => row.key).forEach(row => commands.push(`bind ${row.key} ${quoteCommand(row.command)}`));
   changedSettings.forEach(row => commands.push(`${row.command} ${valueLiteral(row.value)}`));
   commands.push("host_writeconfig");
 
@@ -1519,6 +1869,14 @@ function resetState() {
   for (const key of Object.keys(state)) delete state[key];
   Object.assign(state, fresh);
   currentSectionByCategory = Object.fromEntries(categoryOrder.map(id => [id, state[id].tabs[0].id]));
+}
+
+function resetUi() {
+  resetState();
+  resetFirst.checked = true;
+  stopCapture();
+  closeCustomSelects();
+  renderAll();
 }
 
 function setBindByCommand(command, key, display) {

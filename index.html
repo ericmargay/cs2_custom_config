@@ -72,13 +72,18 @@
       <span id="soundtrackVolumeValue">7</span>
     </div>
     <button class="volume-toggle" id="volumeToggle" aria-label="Soundtrack volume" aria-expanded="false">
-      <span></span>
+      <span aria-hidden="true">♪</span>
     </button>
     <div class="scenery-panel" id="sceneryPanel" role="menu"></div>
     <button class="scenery-toggle" id="sceneryToggle" aria-label="Open scenery menu" aria-expanded="false">
       <span></span>
     </button>
   </div>
+
+  <button class="page-reset" id="pageReset" type="button" aria-label="Reset changes">
+    <span aria-hidden="true">↺</span>
+    RESET
+  </button>
 
   <script src="app.js"></script>
 </body>
