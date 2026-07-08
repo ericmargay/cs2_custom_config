@@ -174,6 +174,7 @@ const i18n = {
     "category.video": "VIDEO",
     "category.audio": "AUDIO",
     "category.game": "GAME",
+    "category.viewmodel": "VIEW MODEL",
     "category.keyboard": "KEYBOARD / MOUSE",
     "panel.title": "Console Line",
     "panel.help": "Paste this into the CS2 developer console.",
@@ -216,9 +217,9 @@ const i18n = {
     "tab.kbm.ui": "UI KEYS",
     "tab.kbm.communication": "COMMUNICATION OPTIONS",
     "tab.kbm.chatwheel": "CHAT WHEEL KEYS",
-    "tab.video.basic": "BASIC VIDEO",
+    "tab.video.basic": "VIDEO",
     "tab.video.advanced": "ADVANCED VIDEO",
-    "tab.video.telemetry": "TELEMETRY",
+    "tab.video.hud_edges": "HUD EDGE POSITIONS",
     "tab.audio.main": "AUDIO",
     "tab.audio.voice": "VOICE",
     "tab.audio.music": "MUSIC",
@@ -235,6 +236,7 @@ const i18n = {
     "tab.game.grenade": "GRENADE LINE-UP",
     "tab.game.damage": "DAMAGE PREDICTION",
     "tab.game.telemetry": "TELEMETRY",
+    "tab.viewmodel.main": "VIEW MODEL",
     "group.kbm.settings": "Keyboard & Mouse Settings",
     "group.kbm.movement": "Movement Keys",
     "group.kbm.weapon": "Weapon Keys",
@@ -243,7 +245,10 @@ const i18n = {
     "group.kbm.chatwheel": "Chat Wheel Keys",
     "group.video.basic": "Basic Video",
     "group.video.advanced": "Advanced Video",
-    "group.video.telemetry": "Telemetry",
+    "group.video.frame_pacing": "Frame Pacing",
+    "group.video.presets": "Presets",
+    "group.video.magnification": "Magnification",
+    "group.video.hud_edges": "HUD Edge Positions",
     "group.audio.main": "Audio",
     "group.audio.voice": "Voice",
     "group.audio.music": "Music",
@@ -260,6 +265,8 @@ const i18n = {
     "group.game.grenade": "Grenade Line-Up",
     "group.game.damage": "Damage Prediction",
     "group.game.telemetry": "Telemetry",
+    "group.viewmodel.main": "View Model",
+    "group.viewmodel.weapon": "Weapon Preview",
     "row.mouse_inverty": "Reverse Mouse",
     "row.option_duck_method": "Duck Mode",
     "row.option_speed_method": "Walk Mode",
@@ -323,14 +330,23 @@ const i18n = {
     "row.chatwheel3": "Chat Wheel 3",
     "row.display_mode": "Display Mode",
     "row.brightness": "Brightness",
+    "row.boost_player_contrast": "Boost Player Contrast",
+    "row.vsync": "V-Sync",
     "row.fps_max": "Maximum FPS In Game",
     "row.fps_max_ui": "Maximum FPS In Menus",
+    "row.video_values_preset": "Current Video Values Preset",
     "row.msaa": "Multisampling Anti-Aliasing",
     "row.texture_filtering": "Texture Filtering Mode",
     "row.shadow_quality": "Global Shadow Quality",
+    "row.dynamic_shadows": "Dynamic Shadows",
     "row.texture_detail": "Model / Texture Detail",
     "row.shader_detail": "Shader Detail",
     "row.particle_detail": "Particle Detail",
+    "row.ambient_occlusion": "Ambient Occlusion",
+    "row.hdr": "High Dynamic Range",
+    "row.fsr": "FidelityFX Super Resolution",
+    "row.magnification_mode": "Magnification Mode",
+    "row.magnification": "Magnification",
     "row.reflex": "NVIDIA Reflex Low Latency",
     "row.frame_telemetry": "Frame Time Telemetry",
     "row.ping_telemetry": "Ping Telemetry",
@@ -362,6 +378,12 @@ const i18n = {
     "row.casual_eq": "Casual EQ",
     "row.deathmatch_eq": "Deathmatch EQ",
     "row.armsrace_eq": "Arms Race EQ",
+    "row.viewmodel_weapon": "Preview Weapon",
+    "row.viewmodel_fov": "Viewmodel FOV",
+    "row.viewmodel_offset_x": "Viewmodel Offset X",
+    "row.viewmodel_offset_y": "Viewmodel Offset Y",
+    "row.viewmodel_offset_z": "Viewmodel Offset Z",
+    "row.viewmodel_handedness": "Weapon Handedness",
     "row.developer_console": "Enable Developer Console",
     "row.game_instructor": "Game Instructor Messages",
     "row.buy_menu_use": "Use Key Opens Buy Menu",
@@ -486,6 +508,16 @@ const i18n = {
     "opt.low": "LOW",
     "opt.medium": "MEDIUM",
     "opt.high": "HIGH",
+    "opt.sun_only": "SUN ONLY",
+    "opt.sun_and_static": "SUN AND STATIC",
+    "opt.all": "ALL",
+    "opt.performance": "PERFORMANCE",
+    "opt.quality": "QUALITY",
+    "opt.ultra_quality": "ULTRA QUALITY",
+    "opt.balanced": "BALANCED",
+    "opt.disabled_highest_quality": "DISABLED (HIGHEST QUALITY)",
+    "opt.zoom": "ZOOM",
+    "opt.split": "SPLIT",
     "opt.very_restricted": "EXTREMELY RESTRICTED",
     "opt.restricted": "RESTRICTED",
     "opt.moderate": "MODERATE",
@@ -529,6 +561,9 @@ const i18n = {
     "opt.smooth": "SMOOTH",
     "opt.push_to_talk": "PUSH TO TALK",
     "opt.open_microphone": "OPEN MICROPHONE",
+    "opt.m4a1s": "M4A1-S",
+    "opt.ak47": "AK-47",
+    "opt.awp": "AWP",
     "opt.white": "WHITE",
     "opt.lightblue": "LIGHT BLUE",
     "opt.blue": "BLUE",
@@ -550,6 +585,7 @@ const i18n = {
     "category.video": "VIDEO",
     "category.audio": "AUDIO",
     "category.game": "JUEGO",
+    "category.viewmodel": "VIEW MODEL",
     "category.keyboard": "TECLADO / MOUSE",
     "panel.title": "Línea de consola",
     "panel.help": "Pégala en la consola de desarrollador de CS2.",
@@ -592,9 +628,9 @@ const i18n = {
     "tab.kbm.ui": "TECLAS DE UI",
     "tab.kbm.communication": "COMUNICACIÓN",
     "tab.kbm.chatwheel": "RUEDA DE CHAT",
-    "tab.video.basic": "VIDEO BÁSICO",
+    "tab.video.basic": "VIDEO",
     "tab.video.advanced": "VIDEO AVANZADO",
-    "tab.video.telemetry": "TELEMETRÍA",
+    "tab.video.hud_edges": "POSICIONES DE BORDE HUD",
     "tab.audio.main": "AUDIO",
     "tab.audio.voice": "VOZ",
     "tab.audio.music": "MÚSICA",
@@ -611,6 +647,7 @@ const i18n = {
     "tab.game.grenade": "ALINEACION DE GRANADAS",
     "tab.game.damage": "PREDICCION DE DANO",
     "tab.game.telemetry": "TELEMETRIA",
+    "tab.viewmodel.main": "VIEW MODEL",
     "group.kbm.settings": "Configuración de teclado y mouse",
     "group.kbm.movement": "Teclas de movimiento",
     "group.kbm.weapon": "Teclas de armas",
@@ -619,7 +656,10 @@ const i18n = {
     "group.kbm.chatwheel": "Teclas de rueda de chat",
     "group.video.basic": "Video básico",
     "group.video.advanced": "Video avanzado",
-    "group.video.telemetry": "Telemetría",
+    "group.video.frame_pacing": "Frame pacing",
+    "group.video.presets": "Presets",
+    "group.video.magnification": "Magnificacion",
+    "group.video.hud_edges": "Posiciones de borde HUD",
     "group.audio.main": "Audio",
     "group.audio.voice": "Voz",
     "group.audio.music": "Música",
@@ -636,6 +676,8 @@ const i18n = {
     "group.game.grenade": "Alineacion de granadas",
     "group.game.damage": "Prediccion de dano",
     "group.game.telemetry": "Telemetria",
+    "group.viewmodel.main": "View Model",
+    "group.viewmodel.weapon": "Vista previa del arma",
     "row.mouse_inverty": "Invertir mouse",
     "row.option_duck_method": "Modo agacharse",
     "row.option_speed_method": "Modo caminar",
@@ -699,14 +741,23 @@ const i18n = {
     "row.chatwheel3": "Rueda de chat 3",
     "row.display_mode": "Modo de pantalla",
     "row.brightness": "Brillo",
+    "row.boost_player_contrast": "Aumentar contraste de jugadores",
+    "row.vsync": "V-Sync",
     "row.fps_max": "FPS máximos en partida",
     "row.fps_max_ui": "FPS máximos en menús",
+    "row.video_values_preset": "Preset actual de valores de video",
     "row.msaa": "Antialiasing multisampling",
     "row.texture_filtering": "Filtrado de texturas",
     "row.shadow_quality": "Calidad global de sombras",
+    "row.dynamic_shadows": "Sombras dinamicas",
     "row.texture_detail": "Detalle de modelos / texturas",
     "row.shader_detail": "Detalle de shaders",
     "row.particle_detail": "Detalle de partículas",
+    "row.ambient_occlusion": "Oclusion ambiental",
+    "row.hdr": "Alto rango dinamico",
+    "row.fsr": "FidelityFX Super Resolution",
+    "row.magnification_mode": "Modo de magnificacion",
+    "row.magnification": "Magnificacion",
     "row.reflex": "Baja latencia NVIDIA Reflex",
     "row.frame_telemetry": "Telemetría de frame time",
     "row.ping_telemetry": "Telemetría de ping",
@@ -738,6 +789,12 @@ const i18n = {
     "row.casual_eq": "EQ casual",
     "row.deathmatch_eq": "EQ Deathmatch",
     "row.armsrace_eq": "EQ Carrera de armamentos",
+    "row.viewmodel_weapon": "Arma de vista previa",
+    "row.viewmodel_fov": "FOV del viewmodel",
+    "row.viewmodel_offset_x": "Offset X del viewmodel",
+    "row.viewmodel_offset_y": "Offset Y del viewmodel",
+    "row.viewmodel_offset_z": "Offset Z del viewmodel",
+    "row.viewmodel_handedness": "Mano del arma",
     "row.developer_console": "Activar consola de desarrollador",
     "row.traffic_bandwidth": "Ancho de banda maximo aceptable",
     "row.net_buffer": "Buffer para suavizar perdida de paquetes / jitter",
@@ -817,6 +874,16 @@ const i18n = {
     "opt.low": "BAJO",
     "opt.medium": "MEDIO",
     "opt.high": "ALTO",
+    "opt.sun_only": "SOLO SOL",
+    "opt.sun_and_static": "SOL Y ESTATICAS",
+    "opt.all": "TODO",
+    "opt.performance": "RENDIMIENTO",
+    "opt.quality": "CALIDAD",
+    "opt.ultra_quality": "ULTRA CALIDAD",
+    "opt.balanced": "BALANCEADO",
+    "opt.disabled_highest_quality": "DESACTIVADO (MAXIMA CALIDAD)",
+    "opt.zoom": "ZOOM",
+    "opt.split": "DIVIDIDO",
     "opt.no": "NO",
     "opt.yes": "SI",
     "opt.very_restricted": "MUY RESTRINGIDO",
@@ -843,6 +910,9 @@ const i18n = {
     "opt.smooth": "SUAVE",
     "opt.push_to_talk": "PULSAR PARA HABLAR",
     "opt.open_microphone": "MICROFONO ABIERTO",
+    "opt.m4a1s": "M4A1-S",
+    "opt.ak47": "AK-47",
+    "opt.awp": "AWP",
     "opt.white": "BLANCO",
     "opt.lightblue": "AZUL CLARO",
     "opt.blue": "AZUL",
@@ -1072,14 +1142,14 @@ const i18n = {
   }
 };
 
-const categoryOrder = ["video", "audio", "game", "keyboard"];
+const categoryOrder = ["video", "audio", "game", "viewmodel", "keyboard"];
 
 const defaults = {
   video: {
     tabs: [
       { id: "basic", labelKey: "tab.video.basic" },
       { id: "advanced", labelKey: "tab.video.advanced" },
-      { id: "telemetry", labelKey: "tab.video.telemetry" }
+      { id: "hud_edges", labelKey: "tab.video.hud_edges" }
     ],
     sections: [
       section("basic", [
@@ -1087,24 +1157,39 @@ const defaults = {
           select("display_mode", "row.display_mode", "setting.fullscreen", "1", [
             opt("1", "opt.fullscreen"), opt("0", "opt.windowed"), opt("2", "opt.borderless")
           ]),
-          slider("brightness", "row.brightness", "r_fullscreen_gamma", "2.20", 1.6, 3, 0.01),
-          slider("fps_max", "row.fps_max", "fps_max", "400", 60, 500, 1),
-          slider("fps_max_ui", "row.fps_max_ui", "fps_max_ui", "120", 30, 240, 1)
+          slider("brightness", "row.brightness", "r_fullscreen_gamma", "2.20", 1.6, 3, 0.01)
         ])
       ]),
       section("advanced", [
         group("group.video.advanced", [
+          select("boost_player_contrast", "row.boost_player_contrast", "r_player_visibility_mode", "1", [opt("0", "opt.disabled"), opt("1", "opt.enabled")])
+        ]),
+        group("group.video.frame_pacing", [
+          select("vsync", "row.vsync", "setting.vsync", "0", [opt("0", "opt.disabled"), opt("1", "opt.enabled")]),
+          select("reflex", "row.reflex", "setting.reflex_low_latency", "1", [
+            opt("0", "opt.disabled"), opt("1", "opt.enabled"), opt("2", "opt.boost")
+          ]),
+          slider("fps_max", "row.fps_max", "fps_max", "360", 60, 500, 1),
+          slider("fps_max_ui", "row.fps_max_ui", "fps_max_ui", "360", 30, 500, 1)
+        ]),
+        group("group.video.presets", [
+          select("video_values_preset", "row.video_values_preset", "setting.videocfg_preset", "custom", [
+            opt("custom", "opt.custom"), opt("low", "opt.low"), opt("medium", "opt.medium"), opt("high", "opt.high")
+          ]),
           select("msaa", "row.msaa", "setting.mat_antialias", "4", [
             opt("0", "opt.none"), opt("2", "opt.2x"), opt("4", "opt.4x"), opt("8", "opt.8x")
-          ]),
-          select("texture_filtering", "row.texture_filtering", "setting.r_texturefilteringquality", "4", [
-            opt("0", "opt.bilinear"), opt("1", "opt.trilinear"), opt("2", "opt.2x_aniso"), opt("3", "opt.4x_aniso"), opt("4", "opt.8x_aniso"), opt("5", "opt.16x_aniso")
           ]),
           select("shadow_quality", "row.shadow_quality", "setting.csm_quality_level", "2", [
             opt("0", "opt.low"), opt("1", "opt.medium"), opt("2", "opt.high")
           ]),
+          select("dynamic_shadows", "row.dynamic_shadows", "setting.csm_shadows", "2", [
+            opt("0", "opt.sun_only"), opt("1", "opt.sun_and_static"), opt("2", "opt.all")
+          ]),
           select("texture_detail", "row.texture_detail", "setting.videocfg_texture_detail", "2", [
             opt("0", "opt.low"), opt("1", "opt.medium"), opt("2", "opt.high")
+          ]),
+          select("texture_filtering", "row.texture_filtering", "setting.r_texturefilteringquality", "3", [
+            opt("0", "opt.bilinear"), opt("1", "opt.trilinear"), opt("2", "opt.2x_aniso"), opt("3", "opt.4x_aniso"), opt("4", "opt.8x_aniso"), opt("5", "opt.16x_aniso")
           ]),
           select("shader_detail", "row.shader_detail", "setting.shaderquality", "1", [
             opt("0", "opt.low"), opt("1", "opt.high")
@@ -1112,22 +1197,27 @@ const defaults = {
           select("particle_detail", "row.particle_detail", "setting.particle_level", "1", [
             opt("0", "opt.low"), opt("1", "opt.medium"), opt("2", "opt.high")
           ]),
-          select("reflex", "row.reflex", "setting.reflex_low_latency", "1", [
-            opt("0", "opt.disabled"), opt("1", "opt.enabled"), opt("2", "opt.boost")
+          select("ambient_occlusion", "row.ambient_occlusion", "setting.r_ssao", "1", [
+            opt("0", "opt.disabled"), opt("1", "opt.medium"), opt("2", "opt.high")
+          ]),
+          select("hdr", "row.hdr", "setting.r_high_dynamic_range", "1", [
+            opt("0", "opt.performance"), opt("1", "opt.quality")
+          ]),
+          select("fsr", "row.fsr", "setting.r_fidelityfx_fsr", "0", [
+            opt("0", "opt.disabled_highest_quality"), opt("1", "opt.ultra_quality"), opt("2", "opt.quality"), opt("3", "opt.balanced"), opt("4", "opt.performance")
           ])
+        ]),
+        group("group.video.magnification", [
+          select("magnification_mode", "row.magnification_mode", "setting.videocfg_magnification_mode", "zoom", [
+            opt("zoom", "opt.zoom"), opt("split", "opt.split")
+          ]),
+          slider("magnification", "row.magnification", "setting.videocfg_magnification", "6", 1, 10, 1)
         ])
       ]),
-      section("telemetry", [
-        group("group.video.telemetry", [
-          select("frame_telemetry", "row.frame_telemetry", "cl_hud_telemetry_frametime_show", "1", [
-            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
-          ]),
-          select("ping_telemetry", "row.ping_telemetry", "cl_hud_telemetry_ping_show", "1", [
-            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
-          ]),
-          select("packet_telemetry", "row.packet_telemetry", "cl_hud_telemetry_net_misdelivery_show", "1", [
-            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
-          ])
+      section("hud_edges", [
+        group("group.video.hud_edges", [
+          slider("safezonex_video", "row.safezonex", "safezonex", "1.00", 0.85, 1, 0.01),
+          slider("safezoney_video", "row.safezoney", "safezoney", "1.00", 0.85, 1, 0.01)
         ])
       ])
     ]
@@ -1176,10 +1266,18 @@ const defaults = {
       ]),
       section("eq", [
         group("group.audio.eq", [
-          select("competitive_eq", "row.competitive_eq", "snd_game_mode_eq_competitive", "0", [opt("0", "opt.default")]),
-          select("casual_eq", "row.casual_eq", "snd_game_mode_eq_casual", "0", [opt("0", "opt.default")]),
-          select("deathmatch_eq", "row.deathmatch_eq", "snd_game_mode_eq_deathmatch", "0", [opt("0", "opt.default")]),
-          select("armsrace_eq", "row.armsrace_eq", "snd_game_mode_eq_armsrace", "0", [opt("0", "opt.default")])
+          select("competitive_eq", "row.competitive_eq", "snd_game_mode_eq_competitive", "0", [
+            opt("0", "opt.default"), opt("1", "opt.natural"), opt("2", "opt.crisp"), opt("3", "opt.smooth")
+          ]),
+          select("casual_eq", "row.casual_eq", "snd_game_mode_eq_casual", "0", [
+            opt("0", "opt.default"), opt("1", "opt.natural"), opt("2", "opt.crisp"), opt("3", "opt.smooth")
+          ]),
+          select("deathmatch_eq", "row.deathmatch_eq", "snd_game_mode_eq_deathmatch", "0", [
+            opt("0", "opt.default"), opt("1", "opt.natural"), opt("2", "opt.crisp"), opt("3", "opt.smooth")
+          ]),
+          select("armsrace_eq", "row.armsrace_eq", "snd_game_mode_eq_armsrace", "0", [
+            opt("0", "opt.default"), opt("1", "opt.natural"), opt("2", "opt.crisp"), opt("3", "opt.smooth")
+          ])
         ])
       ])
     ]
@@ -1396,6 +1494,32 @@ const defaults = {
       ])
     ]
   },
+  viewmodel: {
+    tabs: [
+      { id: "main", labelKey: "tab.viewmodel.main" }
+    ],
+    sections: [
+      section("main", [
+        group("group.viewmodel.weapon", [
+          select("viewmodel_weapon", "row.viewmodel_weapon", "__viewmodel_weapon", "m4a1s", [
+            opt("m4a1s", "opt.m4a1s"), opt("awp", "opt.awp")
+          ], false)
+        ]),
+        group("group.viewmodel.main", [
+          select("viewmodel_presetpos_main", "row.viewmodel_position", "viewmodel_presetpos", "1", [
+            opt("1", "opt.desktop"), opt("2", "opt.couch"), opt("3", "opt.classic")
+          ]),
+          slider("viewmodel_fov", "row.viewmodel_fov", "viewmodel_fov", "68", 54, 68, 1),
+          slider("viewmodel_offset_x", "row.viewmodel_offset_x", "viewmodel_offset_x", "2.50", -2.5, 2.5, 0.1),
+          slider("viewmodel_offset_y", "row.viewmodel_offset_y", "viewmodel_offset_y", "1.00", -2, 2, 0.1),
+          slider("viewmodel_offset_z", "row.viewmodel_offset_z", "viewmodel_offset_z", "-1.50", -2, 2, 0.1),
+          select("viewmodel_handedness", "row.viewmodel_handedness", "cl_righthand", "1", [
+            opt("1", "opt.right"), opt("0", "opt.left")
+          ])
+        ])
+      ])
+    ]
+  },
   keyboard: {
     tabs: [
       { id: "settings", labelKey: "tab.kbm.settings" },
@@ -1507,12 +1631,12 @@ function opt(value, labelKey) {
   return { value, labelKey };
 }
 
-function select(id, labelKey, command, defaultValue, options) {
-  return { id, labelKey, type: "select", command, defaultValue, value: defaultValue, options };
+function select(id, labelKey, command, defaultValue, options, shouldExport = true) {
+  return { id, labelKey, type: "select", command, defaultValue, value: defaultValue, options, export: shouldExport };
 }
 
-function slider(id, labelKey, command, defaultValue, min, max, step, format = "number") {
-  return { id, labelKey, type: "slider", command, defaultValue, value: defaultValue, min, max, step, format };
+function slider(id, labelKey, command, defaultValue, min, max, step, format = "number", shouldExport = true) {
+  return { id, labelKey, type: "slider", command, defaultValue, value: defaultValue, min, max, step, format, export: shouldExport };
 }
 
 function bind(id, labelKey, command, key, display) {
@@ -1534,6 +1658,14 @@ let soundtrackVolume = Number(storedSoundtrackVolume && storedSoundtrackVolume !
 const soundtrackPlayer = new Audio();
 soundtrackPlayer.loop = true;
 soundtrackPlayer.preload = "auto";
+const VIEWMODEL_THREE_URL = "https://esm.sh/three@0.160.0";
+const VIEWMODEL_GLTF_LOADER_URL = "https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js?deps=three@0.160.0";
+const VIEWMODEL_ASSETS = {
+  m4a1s: "assets/m4a1s_counter_strike_2.glb",
+  awp: "assets/awp_counter_strike_2.glb",
+  agent: "assets/sas__cs2_agent_model_blue.glb"
+};
+let viewmodelThree = null;
 
 const mainTabs = document.querySelector("#mainTabs");
 const subTabs = document.querySelector("#subTabs");
@@ -1710,6 +1842,7 @@ function onCustomSelectOption(e) {
   closeCustomSelects();
   renderPane();
   updateCommand();
+  updateViewmodelPreview();
   flashChangedRows(row);
 }
 
@@ -1856,6 +1989,8 @@ function tabClass(isActive, isChanged) {
 function renderPane() {
   pane.innerHTML = state[currentCategory].sections.map(sectionData => `
     <section class="settings-section" data-section-panel="${sectionData.id}">
+      ${currentCategory === "video" && sectionData.id === "advanced" ? videoPreviewTemplate() : ""}
+      ${currentCategory === "viewmodel" && sectionData.id === "main" ? viewmodelPreviewTemplate() : ""}
       ${sectionData.id === "crosshair" ? crosshairPreviewTemplate() : ""}
       ${sectionData.groups.map(group => `
         <h2 class="group-title">${t(group.titleKey)}</h2>
@@ -1881,6 +2016,8 @@ function renderPane() {
     if (textNumber) textNumber.value = sliderDisplayValue(row);
     updateCommand();
     updateCrosshairPreview();
+    updateVideoPreview();
+    updateViewmodelPreview();
     flashChangedRows(row);
   }));
   pane.querySelectorAll(".num-box[data-setting-id]").forEach(number => number.addEventListener("change", e => {
@@ -1895,9 +2032,13 @@ function renderPane() {
     if (range) range.value = value;
     updateCommand();
     updateCrosshairPreview();
+    updateVideoPreview();
+    updateViewmodelPreview();
     flashChangedRows(row);
   }));
   updateCrosshairPreview();
+  updateVideoPreview();
+  updateViewmodelPreview();
 }
 
 function scrollToSection(sectionId) {
@@ -2011,6 +2152,292 @@ function makeNoiseBuffer(duration) {
     data[i] = (Math.random() * 2 - 1) * envelope;
   }
   return buffer;
+}
+
+function viewmodelPreviewTemplate() {
+  return `
+    <div class="viewmodel-preview" aria-label="${t("tab.viewmodel.main")} preview">
+      <div class="viewmodel-stage" id="viewmodelPreviewStage">
+        <canvas class="viewmodel-canvas" id="viewmodelCanvas" aria-hidden="true"></canvas>
+        <div class="vm-map">
+          <div class="vm-corridor"></div>
+          <div class="vm-target"></div>
+        </div>
+        <div class="vm-crosshair"></div>
+        <div class="vm-rig">
+          <div class="vm-arm vm-arm-left"><span></span></div>
+          <div class="vm-arm vm-arm-right"><span></span></div>
+          <div class="vm-weapon vm-ak">
+            <i class="vm-stock"></i><i class="vm-body"></i><i class="vm-mag"></i><i class="vm-barrel"></i><i class="vm-sight"></i>
+          </div>
+          <div class="vm-weapon vm-awp">
+            <i class="vm-stock"></i><i class="vm-body"></i><i class="vm-scope"></i><i class="vm-barrel"></i><i class="vm-bipod"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function updateViewmodelPreview() {
+  const stage = pane.querySelector("#viewmodelPreviewStage");
+  if (!stage) return;
+
+  const weapon = findRow("viewmodel_weapon")?.value || "m4a1s";
+  const fov = Number(findRow("viewmodel_fov")?.value || 68);
+  const offsetX = Number(findRow("viewmodel_offset_x")?.value || 2.5);
+  const offsetY = Number(findRow("viewmodel_offset_y")?.value || 1);
+  const offsetZ = Number(findRow("viewmodel_offset_z")?.value || -1.5);
+  const preset = findRow("viewmodel_presetpos_main")?.value || "1";
+  const rightHand = (findRow("viewmodel_handedness")?.value || "1") === "1";
+  const presetOffsets = {
+    "1": { x: 0, y: 0, z: 0 },
+    "2": { x: -18, y: 10, z: 12 },
+    "3": { x: -34, y: -4, z: -8 }
+  }[preset] || { x: 0, y: 0, z: 0 };
+
+  const fovScale = 1.18 - ((fov - 54) / 14) * 0.28;
+  const x = offsetX * 42 + presetOffsets.x;
+  const y = offsetY * -28 + presetOffsets.y;
+  const z = offsetZ * -34 + presetOffsets.z;
+
+  stage.dataset.weapon = weapon;
+  stage.dataset.hand = rightHand ? "right" : "left";
+  stage.style.setProperty("--vm-x", `${rightHand ? x : -x}px`);
+  stage.style.setProperty("--vm-y", `${y}px`);
+  stage.style.setProperty("--vm-z", `${z}px`);
+  stage.style.setProperty("--vm-scale", fovScale.toFixed(3));
+  stage.style.setProperty("--vm-depth", `${560 + offsetY * 70}px`);
+  ensureViewmodelThree(stage);
+  syncViewmodelThree();
+}
+
+async function ensureViewmodelThree(stage) {
+  if (viewmodelThree?.stage === stage || stage.dataset.threeLoading === "true") return;
+  if (viewmodelThree?.animationFrame) cancelAnimationFrame(viewmodelThree.animationFrame);
+  stage.dataset.threeLoading = "true";
+
+  try {
+    const [THREE, { GLTFLoader }] = await Promise.all([
+      import(VIEWMODEL_THREE_URL),
+      import(VIEWMODEL_GLTF_LOADER_URL)
+    ]);
+    if (!document.body.contains(stage)) return;
+
+    const canvas = stage.querySelector("#viewmodelCanvas");
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(58, 1, 0.01, 40);
+    camera.position.set(0, 0.35, 2.2);
+    camera.lookAt(0, -0.08, -1.1);
+
+    const hemi = new THREE.HemisphereLight(0xbfe8ff, 0x3b3028, 1.4);
+    const key = new THREE.DirectionalLight(0xffe1b1, 2.4);
+    key.position.set(2.5, 3.2, 3.6);
+    key.castShadow = true;
+    scene.add(hemi, key);
+
+    const loader = new GLTFLoader();
+    const [agentGltf, m4Gltf, awpGltf] = await Promise.all([
+      loader.loadAsync(VIEWMODEL_ASSETS.agent),
+      loader.loadAsync(VIEWMODEL_ASSETS.m4a1s),
+      loader.loadAsync(VIEWMODEL_ASSETS.awp)
+    ]);
+
+    const agent = normalizeGltfModel(THREE, agentGltf.scene, 1.75);
+    const m4a1s = normalizeGltfModel(THREE, m4Gltf.scene, 1.05);
+    const awp = normalizeGltfModel(THREE, awpGltf.scene, 1.42);
+    const rig = new THREE.Group();
+    const weaponGroup = new THREE.Group();
+
+    agent.position.set(0, -1.22, -1.16);
+    agent.rotation.set(-0.08, Math.PI, 0);
+    agent.scale.multiplyScalar(1.08);
+
+    m4a1s.name = "m4a1s";
+    awp.name = "awp";
+    weaponGroup.add(m4a1s, awp);
+    rig.add(agent, weaponGroup);
+    scene.add(rig);
+
+    viewmodelThree = {
+      THREE,
+      stage,
+      renderer,
+      scene,
+      camera,
+      rig,
+      weaponGroup,
+      models: { m4a1s, awp },
+      startedAt: performance.now(),
+      animationFrame: null
+    };
+
+    stage.classList.add("three-ready");
+    stage.dataset.threeLoading = "false";
+    syncViewmodelThree();
+    resizeViewmodelThree();
+    animateViewmodelThree();
+  } catch (error) {
+    console.warn("Three.js viewmodel preview unavailable.", error);
+    stage.dataset.threeLoading = "false";
+    stage.classList.add("three-error");
+  }
+}
+
+function normalizeGltfModel(THREE, object, targetSize) {
+  const box = new THREE.Box3().setFromObject(object);
+  const size = new THREE.Vector3();
+  const center = new THREE.Vector3();
+  box.getSize(size);
+  box.getCenter(center);
+  const maxAxis = Math.max(size.x, size.y, size.z) || 1;
+  const scale = targetSize / maxAxis;
+  object.scale.setScalar(scale);
+  object.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+  object.traverse(child => {
+    if (!child.isMesh) return;
+    child.castShadow = true;
+    child.receiveShadow = true;
+    const materials = Array.isArray(child.material) ? child.material : [child.material];
+    materials.filter(Boolean).forEach(material => {
+      material.roughness = Math.min(1, (material.roughness ?? 0.65) + 0.08);
+      material.metalness = material.metalness ?? 0.25;
+    });
+  });
+  return object;
+}
+
+function syncViewmodelThree() {
+  if (!viewmodelThree) return;
+  const weapon = findRow("viewmodel_weapon")?.value || "m4a1s";
+  const fov = Number(findRow("viewmodel_fov")?.value || 68);
+  const offsetX = Number(findRow("viewmodel_offset_x")?.value || 2.5);
+  const offsetY = Number(findRow("viewmodel_offset_y")?.value || 1);
+  const offsetZ = Number(findRow("viewmodel_offset_z")?.value || -1.5);
+  const preset = findRow("viewmodel_presetpos_main")?.value || "1";
+  const rightHand = (findRow("viewmodel_handedness")?.value || "1") === "1";
+  const handSign = rightHand ? 1 : -1;
+  const scale = 1.20 - ((fov - 54) / 14) * 0.30;
+  const presetOffsets = {
+    "1": { x: 0, y: 0, z: 0 },
+    "2": { x: -0.10, y: 0.07, z: -0.08 },
+    "3": { x: -0.18, y: -0.02, z: 0.08 }
+  }[preset] || { x: 0, y: 0, z: 0 };
+
+  Object.entries(viewmodelThree.models).forEach(([id, model]) => {
+    model.visible = id === weapon;
+  });
+  viewmodelThree.camera.fov = 63 - ((fov - 54) / 14) * 10;
+  viewmodelThree.camera.updateProjectionMatrix();
+  viewmodelThree.rig.scale.set(handSign * scale, scale, scale);
+  viewmodelThree.rig.position.set(
+    handSign * (0.35 + offsetX * 0.045 + presetOffsets.x),
+    -0.16 + offsetZ * 0.075 + presetOffsets.y,
+    -0.12 - offsetY * 0.13 + presetOffsets.z
+  );
+  viewmodelThree.rig.rotation.set(-0.04, handSign * -0.16, handSign * -0.035);
+  viewmodelThree.weaponGroup.position.set(handSign * 0.32, -0.28, -0.86);
+  viewmodelThree.weaponGroup.rotation.set(-0.11, handSign * -0.36, handSign * -0.08);
+}
+
+function resizeViewmodelThree() {
+  if (!viewmodelThree) return;
+  const { stage, renderer, camera } = viewmodelThree;
+  const rect = stage.getBoundingClientRect();
+  const width = Math.max(1, Math.floor(rect.width));
+  const height = Math.max(1, Math.floor(rect.height));
+  const canvas = renderer.domElement;
+  if (canvas.width !== Math.floor(width * renderer.getPixelRatio()) || canvas.height !== Math.floor(height * renderer.getPixelRatio())) {
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+}
+
+function animateViewmodelThree() {
+  if (!viewmodelThree || !document.body.contains(viewmodelThree.stage)) return;
+  const time = (performance.now() - viewmodelThree.startedAt) / 1000;
+  resizeViewmodelThree();
+  viewmodelThree.weaponGroup.rotation.x += Math.sin(time * 1.2) * 0.00035;
+  viewmodelThree.weaponGroup.position.y += Math.sin(time * 1.7) * 0.00045;
+  viewmodelThree.renderer.render(viewmodelThree.scene, viewmodelThree.camera);
+  viewmodelThree.animationFrame = requestAnimationFrame(animateViewmodelThree);
+}
+
+function videoPreviewTemplate() {
+  return `
+    <div class="video-preview" aria-label="${t("tab.video.advanced")} preview">
+      <div class="video-scene" id="videoRenderPreview">
+        <div class="video-sky"></div>
+        <div class="video-wall wall-left"></div>
+        <div class="video-wall wall-center"></div>
+        <div class="video-wall wall-right"></div>
+        <div class="video-awning"></div>
+        <div class="video-smoke"></div>
+        <div class="video-fire"></div>
+        <div class="video-soldier soldier-left"></div>
+        <div class="video-soldier soldier-center"></div>
+        <div class="video-weapon"></div>
+        <div class="video-crosshair"></div>
+        <div class="video-magnified"><span>Magnified</span></div>
+      </div>
+    </div>
+  `;
+}
+
+function updateVideoPreview() {
+  const preview = pane.querySelector("#videoRenderPreview");
+  if (!preview) return;
+
+  const brightness = Number(videoRowValue("brightness", "2.2"));
+  const contrastBoost = videoRowValue("boost_player_contrast", "1") === "1" ? 1.16 : 1;
+  const shadow = Number(videoRowValue("shadow_quality", "2"));
+  const dynamicShadows = Number(videoRowValue("dynamic_shadows", "2"));
+  const texture = Number(videoRowValue("texture_detail", "2"));
+  const shader = Number(videoRowValue("shader_detail", "1"));
+  const particle = Number(videoRowValue("particle_detail", "2"));
+  const ao = Number(videoRowValue("ambient_occlusion", "1"));
+  const hdr = videoRowValue("hdr", "1");
+  const fsr = Number(videoRowValue("fsr", "0"));
+  const msaa = Number(videoRowValue("msaa", "4"));
+  const magnification = Number(videoRowValue("magnification", "6"));
+
+  const brightnessFilter = 1.12 - ((brightness - 1.6) / 1.4) * 0.22;
+  const aaBlur = msaa === 0 ? 0.85 : msaa === 2 ? 0.45 : msaa === 4 ? 0.18 : 0;
+  const fsrBlur = [0, 0.15, 0.32, 0.55, 0.82][fsr] || 0;
+  const textureBlur = texture === 0 ? 0.75 : texture === 1 ? 0.35 : 0;
+
+  preview.style.setProperty("--vp-filter", `brightness(${brightnessFilter.toFixed(2)}) contrast(${contrastBoost}) saturate(${hdr === "1" ? 1.08 : 0.94}) blur(${Math.max(aaBlur, fsrBlur, textureBlur)}px)`);
+  const shadowStrength = 0.20 + shadow * 0.14 + dynamicShadows * 0.08;
+  const textureStrength = 0.12 + texture * 0.18;
+  const particleStrength = 0.25 + particle * 0.25;
+  const shaderEnabled = shader === 1;
+  preview.style.setProperty("--vp-shadow", String(shadowStrength));
+  preview.style.setProperty("--vp-wall-shadow", String(shadowStrength * 0.34));
+  preview.style.setProperty("--vp-awning-shadow", String(shadowStrength * 0.35));
+  preview.style.setProperty("--vp-soldier-shadow", String(shadowStrength * 0.7));
+  preview.style.setProperty("--vp-weapon-shadow", String(shadowStrength * 0.8));
+  preview.style.setProperty("--vp-ao", String(ao * 0.16));
+  preview.style.setProperty("--vp-texture", String(textureStrength));
+  preview.style.setProperty("--vp-texture-fine", String(textureStrength * 0.045));
+  preview.style.setProperty("--vp-texture-strong", String(textureStrength * 0.08));
+  preview.style.setProperty("--vp-particle", String(particleStrength));
+  preview.style.setProperty("--vp-fire-opacity", String(0.45 + particleStrength * 0.45));
+  preview.style.setProperty("--vp-shader", String(shaderEnabled ? 1 : 0));
+  preview.style.setProperty("--vp-shader-contrast", String(shaderEnabled ? 1.12 : 1));
+  preview.style.setProperty("--vp-shader-blur", shaderEnabled ? "0px" : "1px");
+  preview.style.setProperty("--vp-hdr", String(hdr === "1" ? 0.26 : 0.08));
+  preview.style.setProperty("--vp-mag", String(1 + magnification * 0.045));
+}
+
+function videoRowValue(id, fallback = "") {
+  const row = findRow(id);
+  return row ? row.value : fallback;
 }
 
 function crosshairPreviewTemplate() {
@@ -2512,7 +2939,7 @@ function updateCommand() {
   const commands = [];
   const rows = uniqueRowsByCommand(allRows());
   const changedBinds = rows.filter(row => row.type === "bind" && row.key !== row.defaultKey);
-  const changedSettings = rows.filter(row => (row.type === "select" || row.type === "slider") && String(row.value) !== String(row.defaultValue));
+  const changedSettings = rows.filter(row => (row.type === "select" || row.type === "slider") && row.export !== false && String(row.value) !== String(row.defaultValue));
 
   if (resetFirst.checked) commands.push("binddefaults");
 
