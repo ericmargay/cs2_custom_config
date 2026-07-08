@@ -52,7 +52,17 @@
             <button class="secondary-action" id="downloadCfg">DOWNLOAD .CFG</button>
           </div>
 
+          <div class="saved-configs">
+            <div class="save-config-row">
+              <input id="configAlias" type="text" maxlength="32" autocomplete="off" placeholder="Preset alias" />
+              <button class="mini" id="saveConfig" type="button">SAVE</button>
+            </div>
+            <div class="recent-title" data-i18n="panel.recentConfigs">Recent configurations</div>
+            <div class="recent-configs" id="recentConfigs"></div>
+          </div>
+
           <div class="hints">
+            <p class="accuracy-note" data-i18n="hint.accuracy"><strong>Accuracy note:</strong> this tool mirrors CS2 settings as closely as possible, but some in-game options are external, account-level, restart-only, or not safely configurable through console commands.</p>
             <p data-i18n="hint.capture"><strong>Capture mode:</strong> click any key field, then press a keyboard key or mouse button.</p>
             <p data-i18n="hint.refresh"><strong>CS2 refresh:</strong> after pasting commands, switch to another settings sub-section and back.</p>
           </div>

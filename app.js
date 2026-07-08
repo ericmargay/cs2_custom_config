@@ -161,6 +161,8 @@ const sceneryThemes = {
 };
 
 const DEFAULT_SOUNDTRACK_VOLUME = 7;
+const SAVED_CONFIGS_KEY = "cs2SavedConfigs";
+const MAX_SAVED_CONFIGS = 8;
 
 const i18n = {
   en: {
@@ -181,8 +183,23 @@ const i18n = {
     "panel.resetUi": "RESET UI",
     "panel.preset": "LOAD YOUR TEST PRESET",
     "panel.download": "DOWNLOAD .CFG",
+    "panel.aliasPlaceholder": "Preset alias",
+    "panel.saveConfig": "SAVE PRESET",
+    "panel.savedConfig": "SAVED",
+    "panel.recentConfigs": "RECENT CONFIGURATIONS",
+    "panel.emptyConfigs": "No saved configurations yet.",
+    "panel.loadConfig": "LOAD",
+    "panel.editConfig": "EDIT",
+    "panel.deleteConfig": "DELETE",
+    "crosshair.share": "Share or Import",
+    "crosshair.importPlaceholder": "Paste crosshair commands here",
+    "crosshair.importApply": "Import",
+    "crosshair.importCopy": "Copy",
+    "crosshair.undo": "Undo Changes",
+    "crosshair.reset": "Reset",
     "hint.capture": "Capture mode: click any key field, then press a keyboard key or mouse button.",
     "hint.refresh": "CS2 refresh: after pasting commands, switch to another settings sub-section and back.",
+    "hint.accuracy": "Accuracy note: this tool mirrors CS2 settings as closely as possible, but some in-game options are external, account-level, restart-only, or not safely configurable through console commands.",
     "scenery.toggle": "Open scenery menu",
     "scenery.change": "Change Main Menu Scenery",
     "scenery.weapon": "Change Weapon",
@@ -205,6 +222,7 @@ const i18n = {
     "tab.audio.main": "AUDIO",
     "tab.audio.voice": "VOICE",
     "tab.audio.music": "MUSIC",
+    "tab.audio.eq": "GAME MODE EQ",
     "tab.game.main": "GAME",
     "tab.game.hud": "HUD",
     "tab.game.team": "TEAM",
@@ -229,6 +247,7 @@ const i18n = {
     "group.audio.main": "Audio",
     "group.audio.voice": "Voice",
     "group.audio.music": "Music",
+    "group.audio.eq": "Game Mode EQ",
     "group.game.main": "Game",
     "group.game.hud": "HUD",
     "group.game.team": "Team",
@@ -317,16 +336,32 @@ const i18n = {
     "row.ping_telemetry": "Ping Telemetry",
     "row.packet_telemetry": "Packet Loss / Misdelivery Telemetry",
     "row.master_volume": "Master Volume",
+    "row.menu_ambience_volume": "Main Menu Ambience Volume",
+    "row.eq_profile": "EQ Profile",
+    "row.lr_isolation": "L/R Isolation",
+    "row.perspective_correction": "Perspective Correction",
+    "row.play_audio_background": "Play Audio When Game In Background",
     "row.mute_focus": "Mute When Game Is In Background",
     "row.voice_enable": "Enable Voice",
     "row.voice_volume": "Voice Volume",
+    "row.other_player_voice_volume": "Other Player Voice Volume",
+    "row.voice_mic_mode": "Voice/Microphone Mode",
+    "row.hear_own_voice": "Hear My Own Voice",
+    "row.streamlined_ptt": "Streamlined Push To Talk",
+    "row.mic_threshold": "Microphone Trigger Threshold",
     "row.menu_music": "Main Menu Volume",
     "row.round_start_music": "Round Start Volume",
+    "row.round_action_music": "Round Action Volume",
     "row.round_end_music": "Round End Volume",
     "row.objective_music": "Bomb / Hostage Volume",
     "row.ten_second_music": "Ten Second Warning Volume",
     "row.mvp_music": "MVP Volume",
     "row.deathcam_music": "Death Camera Volume",
+    "row.mute_mvp_live": "Mute MVP Music when players on both teams are alive",
+    "row.competitive_eq": "Competitive EQ",
+    "row.casual_eq": "Casual EQ",
+    "row.deathmatch_eq": "Deathmatch EQ",
+    "row.armsrace_eq": "Arms Race EQ",
     "row.developer_console": "Enable Developer Console",
     "row.game_instructor": "Game Instructor Messages",
     "row.buy_menu_use": "Use Key Opens Buy Menu",
@@ -335,31 +370,59 @@ const i18n = {
     "row.net_buffer": "Buffering to smooth over packet loss / jitter",
     "row.hud_scale": "HUD Scale",
     "row.hud_color": "HUD Color",
+    "row.large_player_count": "Large Player Count",
+    "row.community_location": "Community Notification Location",
+    "row.community_horizontal": "Community Notification Horizontal Offset",
+    "row.community_vertical": "Community Notification Vertical Offset",
+    "row.glow_rarity": "Glow Weapon with Rarity Color",
+    "row.spectator_hud_color": "Override Spectating HUD Color",
     "row.team_overhead": "Show Team Positions In HUD",
+    "row.team_id_walls": "Show Team ID Through Walls",
     "row.teammate_colors": "Show Teammate Colors In Competitive",
+    "row.team_id_colors": "Use Player Colors on Team ID",
     "row.join_advertise": "Looking To Play When CS2 Starts",
+    "row.player_pings": "Player Pings",
     "row.voice_modenable": "Enable Voice",
     "row.voip_volume": "VOIP Volume",
     "row.mute_enemy_team": "Mute Enemy Team",
     "row.mute_all_but_friends": "Mute All But Friends",
+    "row.allow_animated_avatars": "Allow Animated Avatars",
     "row.hide_avatar_images": "Hide Avatar Images",
     "row.sanitize_player_names": "Clean Player Names",
     "row.spec_number_keys": "Spectator / Map Vote Number Selection Method",
+    "row.scoreboard_mouse": "Scoreboard Mouse Enable / End of Match Scoreboard Toggle",
+    "row.survivors_always_on": "Survivors Always On",
+    "row.smooth_spectator": "Smooth Spectator Camera",
+    "row.smooth_spectator_speed": "Smooth Spectator Camera Speed",
+    "row.silencer_detach": "Detach Silencer on M4A1-S and USP-S",
+    "row.viewmodel_position": "Viewmodel Position",
+    "row.preferred_hand": "Preferred Viewmodel Left/Right Handedness",
+    "row.first_person_tracers": "First Person Tracers",
     "row.autowepswitch": "Switch Weapon On Pick Up",
+    "row.buy_menu_number_keys": "Buy Menu Number Keys",
     "row.show_loadout": "Always Show Inventory",
     "row.safezonex": "Horizontal HUD Safe Zone",
     "row.safezoney": "Vertical HUD Safe Zone",
     "row.radar_center": "Radar Centers The Player",
     "row.radar_rotate": "Radar Rotates",
+    "row.radar_map_blend": "Radar HUD Map Blends With Background",
+    "row.radar_background_opacity": "Radar HUD Background Opacity",
     "row.radar_square_scoreboard": "Toggle Shape With Scoreboard",
+    "row.radar_force_square": "Force Square Shape",
+    "row.radar_dynamic_zoom": "Radar Is Zooming Dynamically",
     "row.radar_scale": "Radar Map Zoom",
+    "row.radar_scale_alternate": "Radar Map Alternate Zoom",
     "row.hud_radar_scale": "Radar HUD Size",
     "row.radar_icon_scale": "Radar Icon Scale",
+    "row.crosshair_preview": "Crosshair Preview",
     "row.crosshair_style": "Crosshair Style",
+    "row.crosshair_friendly_warning": "Friendly Fire Reticle Warning",
     "row.crosshair_recoil": "Follow Recoil",
     "row.crosshair_dot": "Center Dot",
     "row.crosshair_t": "T Style",
     "row.crosshair_outline": "Draw Outline",
+    "row.crosshair_outline_thickness": "Outline",
+    "row.crosshair_color_mode": "Crosshair Color Mode",
     "row.crosshair_size": "Length",
     "row.crosshair_thickness": "Thickness",
     "row.crosshair_gap": "Gap",
@@ -367,8 +430,22 @@ const i18n = {
     "row.crosshair_red": "Red",
     "row.crosshair_green": "Green",
     "row.crosshair_blue": "Blue",
+    "row.crosshair_use_alpha": "Use Alpha",
+    "row.crosshair_weapon_gap": "Deployed Weapon Gap",
+    "row.crosshair_scope_color": "Use crosshair color for scope dot",
+    "row.show_player_crosshairs": "Show Player Crosshairs",
+    "row.bot_crosshair": "Show my crosshair when spectating bots",
+    "row.sniper_delay_unscope": "Delay Sniper Rifle Un-Scope after Shot",
+    "row.sniper_show_inaccuracy": "Show Scoped Sniper Rifle Inaccuracy",
+    "row.sniper_auto_rezoom": "Auto Re-Zoom Sniper Rifle after Shot",
     "row.sniper_width": "Sniper Width",
+    "row.scope_dot_scale": "Scope dot scale",
     "row.grenade_crosshair_keep": "Keep Regular Crosshair",
+    "row.grenade_flash_enabled": "Flashbangs",
+    "row.grenade_explosive_enabled": "HE Grenades",
+    "row.grenade_fire_enabled": "Molotov cocktails / Incendiary grenades",
+    "row.grenade_smoke_enabled": "Smoke grenades",
+    "row.grenade_decoy_enabled": "Decoy grenades",
     "row.grenade_flash_delay": "Flashbang Crosshair Delay",
     "row.grenade_explosive_delay": "HE Grenade Crosshair Delay",
     "row.grenade_fire_delay": "Fire Grenade Crosshair Delay",
@@ -380,6 +457,8 @@ const i18n = {
     "row.frame_telemetry_threshold": "Frame Time Warning Threshold",
     "row.ping_telemetry_threshold": "Ping Warning Threshold",
     "row.packet_telemetry_threshold": "Packet Misdelivery Warning Threshold",
+    "row.network_graph": "Show network jitter / misdelivery graph",
+    "row.network_quality": "Use the detailed network quality display",
     "opt.no": "NO",
     "opt.yes": "YES",
     "opt.off": "OFF",
@@ -413,12 +492,31 @@ const i18n = {
     "opt.unrestricted": "UNRESTRICTED",
     "opt.one_packet": "1 PACKET",
     "opt.two_packets": "2 PACKETS",
+    "opt.display_sound": "DISPLAY AND PLAY SOUND",
+    "opt.display_only": "DISPLAY ONLY",
+    "opt.show_all": "SHOW ALL",
+    "opt.show_colors": "SHOW COLORS",
+    "opt.bottom_left": "BOTTOM LEFT",
+    "opt.bottom_right": "BOTTOM RIGHT",
+    "opt.top_left": "TOP LEFT",
+    "opt.top_right": "TOP RIGHT",
     "opt.friends": "FRIENDS",
     "opt.everyone": "EVERYONE",
+    "opt.remember_last": "REMEMBER LAST STATE",
+    "opt.secondary_fire": "SECONDARY FIRE",
+    "opt.desktop": "DESKTOP",
+    "opt.couch": "COUCH",
+    "opt.classic": "CLASSIC",
+    "opt.left": "LEFT",
+    "opt.right": "RIGHT",
+    "opt.number_keys_buy": "NUMBER KEYS BUY ITEMS",
+    "opt.number_keys_select": "NUMBER KEYS SELECT ITEMS",
     "opt.colors_and_letters": "COLORS AND LETTERS",
+    "opt.team_health_equipment": "PIPS, NAMES, HEALTH, AND EQUIPMENT",
     "opt.number_keys": "NUMBER KEYS",
     "opt.weapon_keys": "WEAPON KEYS",
     "opt.team_color": "TEAM COLOR",
+    "opt.custom": "CUSTOM",
     "opt.default_static": "DEFAULT STATIC",
     "opt.classic_static": "CLASSIC STATIC",
     "opt.classic_dynamic": "CLASSIC DYNAMIC",
@@ -426,6 +524,11 @@ const i18n = {
     "opt.if_poor": "IF POOR",
     "opt.always": "ALWAYS",
     "opt.default": "DEFAULT",
+    "opt.natural": "NATURAL",
+    "opt.crisp": "CRISP",
+    "opt.smooth": "SMOOTH",
+    "opt.push_to_talk": "PUSH TO TALK",
+    "opt.open_microphone": "OPEN MICROPHONE",
     "opt.white": "WHITE",
     "opt.lightblue": "LIGHT BLUE",
     "opt.blue": "BLUE",
@@ -456,8 +559,23 @@ const i18n = {
     "panel.resetUi": "REINICIAR UI",
     "panel.preset": "CARGAR TU PRESET DE PRUEBA",
     "panel.download": "DESCARGAR .CFG",
+    "panel.aliasPlaceholder": "Alias del preset",
+    "panel.saveConfig": "GUARDAR PRESET",
+    "panel.savedConfig": "GUARDADO",
+    "panel.recentConfigs": "CONFIGURACIONES RECIENTES",
+    "panel.emptyConfigs": "Aun no hay configuraciones guardadas.",
+    "panel.loadConfig": "CARGAR",
+    "panel.editConfig": "EDITAR",
+    "panel.deleteConfig": "BORRAR",
+    "crosshair.share": "Compartir o importar",
+    "crosshair.importPlaceholder": "Pega comandos de crosshair aqui",
+    "crosshair.importApply": "Importar",
+    "crosshair.importCopy": "Copiar",
+    "crosshair.undo": "Deshacer cambios",
+    "crosshair.reset": "Reiniciar",
     "hint.capture": "Modo captura: haz clic en un campo de tecla y presiona una tecla o botón del mouse.",
     "hint.refresh": "Refresco de CS2: después de pegar comandos, cambia a otra subsección y vuelve.",
+    "hint.accuracy": "Nota de precision: esta herramienta replica la configuracion de CS2 lo mas cerca posible, pero algunas opciones son externas, de cuenta, requieren reinicio o no son configurables de forma segura por comandos de consola.",
     "scenery.toggle": "Abrir menú de escenario",
     "scenery.change": "Cambiar escenario del menú principal",
     "scenery.weapon": "Cambiar arma",
@@ -480,6 +598,7 @@ const i18n = {
     "tab.audio.main": "AUDIO",
     "tab.audio.voice": "VOZ",
     "tab.audio.music": "MÚSICA",
+    "tab.audio.eq": "EQ POR MODO",
     "tab.game.main": "JUEGO",
     "tab.game.hud": "HUD",
     "tab.game.team": "EQUIPO",
@@ -504,6 +623,7 @@ const i18n = {
     "group.audio.main": "Audio",
     "group.audio.voice": "Voz",
     "group.audio.music": "Música",
+    "group.audio.eq": "EQ por modo de juego",
     "group.game.main": "Juego",
     "group.game.hud": "HUD",
     "group.game.team": "Equipo",
@@ -592,15 +712,32 @@ const i18n = {
     "row.ping_telemetry": "Telemetría de ping",
     "row.packet_telemetry": "Telemetría de pérdida / entrega",
     "row.master_volume": "Volumen maestro",
+    "row.menu_ambience_volume": "Volumen de ambiente del menu principal",
+    "row.eq_profile": "Perfil EQ",
+    "row.lr_isolation": "Aislamiento I/D",
+    "row.perspective_correction": "Correccion de perspectiva",
+    "row.play_audio_background": "Reproducir audio con el juego en segundo plano",
     "row.mute_focus": "Silenciar en segundo plano",
     "row.voice_enable": "Activar voz",
     "row.voice_volume": "Volumen de voz",
+    "row.other_player_voice_volume": "Volumen de voz de otros jugadores",
+    "row.voice_mic_mode": "Modo de voz/microfono",
+    "row.hear_own_voice": "Escuchar mi propia voz",
+    "row.streamlined_ptt": "Pulsar para hablar simplificado",
+    "row.mic_threshold": "Umbral de activacion del microfono",
     "row.menu_music": "Volumen menú principal",
     "row.round_start_music": "Volumen inicio de ronda",
+    "row.round_action_music": "Volumen accion de ronda",
     "row.round_end_music": "Volumen fin de ronda",
     "row.objective_music": "Volumen bomba / rehenes",
     "row.ten_second_music": "Volumen aviso de 10 segundos",
     "row.mvp_music": "Volumen MVP",
+    "row.deathcam_music": "Volumen camara de muerte",
+    "row.mute_mvp_live": "Silenciar musica MVP cuando hay jugadores vivos en ambos equipos",
+    "row.competitive_eq": "EQ competitivo",
+    "row.casual_eq": "EQ casual",
+    "row.deathmatch_eq": "EQ Deathmatch",
+    "row.armsrace_eq": "EQ Carrera de armamentos",
     "row.developer_console": "Activar consola de desarrollador",
     "row.traffic_bandwidth": "Ancho de banda maximo aceptable",
     "row.net_buffer": "Buffer para suavizar perdida de paquetes / jitter",
@@ -701,6 +838,11 @@ const i18n = {
     "opt.if_poor": "SI VA MAL",
     "opt.always": "SIEMPRE",
     "opt.default": "PREDETERMINADO",
+    "opt.natural": "NATURAL",
+    "opt.crisp": "NITIDO",
+    "opt.smooth": "SUAVE",
+    "opt.push_to_talk": "PULSAR PARA HABLAR",
+    "opt.open_microphone": "MICROFONO ABIERTO",
     "opt.white": "BLANCO",
     "opt.lightblue": "AZUL CLARO",
     "opt.blue": "AZUL",
@@ -731,8 +873,23 @@ const i18n = {
     "panel.resetUi": "СБРОС UI",
     "panel.preset": "ЗАГРУЗИТЬ ТЕСТОВЫЙ ПРЕСЕТ",
     "panel.download": "СКАЧАТЬ .CFG",
+    "panel.aliasPlaceholder": "Имя пресета",
+    "panel.saveConfig": "СОХРАНИТЬ",
+    "panel.savedConfig": "СОХРАНЕНО",
+    "panel.recentConfigs": "НЕДАВНИЕ КОНФИГИ",
+    "panel.emptyConfigs": "Сохраненных конфигов пока нет.",
+    "panel.loadConfig": "ЗАГРУЗИТЬ",
+    "panel.editConfig": "ИЗМЕНИТЬ",
+    "panel.deleteConfig": "УДАЛИТЬ",
+    "crosshair.share": "Поделиться / импорт",
+    "crosshair.importPlaceholder": "Вставьте команды прицела",
+    "crosshair.importApply": "Импорт",
+    "crosshair.importCopy": "Копировать",
+    "crosshair.undo": "Отменить изменения",
+    "crosshair.reset": "Сброс",
     "hint.capture": "Режим захвата: нажмите поле клавиши, затем клавишу или кнопку мыши.",
     "hint.refresh": "Обновление CS2: после вставки команд перейдите в другой подраздел и обратно.",
+    "hint.accuracy": "Примечание: инструмент максимально точно повторяет настройки CS2, но некоторые пункты внешние, привязаны к аккаунту, требуют перезапуска или небезопасны для консольных команд.",
     "scenery.toggle": "Открыть меню сцены",
     "scenery.change": "Сменить сцену главного меню",
     "scenery.weapon": "Сменить оружие",
@@ -979,30 +1136,50 @@ const defaults = {
     tabs: [
       { id: "main", labelKey: "tab.audio.main" },
       { id: "voice", labelKey: "tab.audio.voice" },
-      { id: "music", labelKey: "tab.audio.music" }
+      { id: "music", labelKey: "tab.audio.music" },
+      { id: "eq", labelKey: "tab.audio.eq" }
     ],
     sections: [
       section("main", [
         group("group.audio.main", [
-          slider("master_volume", "row.master_volume", "volume", "1.00", 0, 1, 0.01),
-          select("mute_focus", "row.mute_focus", "snd_mute_losefocus", "0", [opt("0", "opt.off"), opt("1", "opt.on")])
+          slider("master_volume", "row.master_volume", "volume", "1.00", 0, 1, 0.01, "percent"),
+          slider("menu_ambience_volume", "row.menu_ambience_volume", "snd_menumap_volume", "1.00", 0, 1, 0.01, "percent"),
+          select("eq_profile", "row.eq_profile", "snd_headphone_eq", "0", [
+            opt("0", "opt.natural"), opt("1", "opt.crisp"), opt("2", "opt.smooth")
+          ]),
+          slider("lr_isolation", "row.lr_isolation", "snd_spatialize_lerp", "0.00", 0, 1, 0.01, "percent"),
+          select("perspective_correction", "row.perspective_correction", "snd_steamaudio_enable_perspective_correction", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("play_audio_background", "row.play_audio_background", "snd_mute_losefocus", "1", [opt("0", "opt.yes"), opt("1", "opt.no")])
         ])
       ]),
       section("voice", [
         group("group.audio.voice", [
-          select("voice_enable", "row.voice_enable", "voice_modenable", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
-          slider("voice_volume", "row.voice_volume", "snd_voipvolume", "1.00", 0, 1, 0.01)
+          slider("voice_volume", "row.other_player_voice_volume", "snd_voipvolume", "1.00", 0, 1, 0.01, "percent"),
+          select("voice_mic_mode", "row.voice_mic_mode", "voice_vox", "0", [opt("0", "opt.push_to_talk"), opt("1", "opt.open_microphone")]),
+          select("hear_own_voice", "row.hear_own_voice", "voice_loopback", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("streamlined_ptt", "row.streamlined_ptt", "voice_always_sample_mic", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          slider("mic_threshold", "row.mic_threshold", "voice_threshold", "-120", -120, 0, 1)
         ])
       ]),
       section("music", [
         group("group.audio.music", [
-          slider("menu_music", "row.menu_music", "snd_menumusic_volume", "0.04", 0, 1, 0.01),
-          slider("round_start_music", "row.round_start_music", "snd_roundstart_volume", "0.00", 0, 1, 0.01),
-          slider("round_end_music", "row.round_end_music", "snd_roundend_volume", "0.00", 0, 1, 0.01),
-          slider("objective_music", "row.objective_music", "snd_mapobjective_volume", "0.00", 0, 1, 0.01),
-          slider("ten_second_music", "row.ten_second_music", "snd_tensecondwarning_volume", "0.04", 0, 1, 0.01),
-          slider("mvp_music", "row.mvp_music", "snd_mvp_volume", "0.00", 0, 1, 0.01),
-          slider("deathcam_music", "row.deathcam_music", "snd_deathcamera_volume", "0.00", 0, 1, 0.01)
+          slider("menu_music", "row.menu_music", "snd_menumusic_volume", "0.29", 0, 1, 0.01, "percent"),
+          slider("round_start_music", "row.round_start_music", "snd_roundstart_volume", "0.00", 0, 1, 0.01, "percent"),
+          slider("round_action_music", "row.round_action_music", "snd_roundaction_volume", "0.00", 0, 1, 0.01, "percent"),
+          slider("round_end_music", "row.round_end_music", "snd_roundend_volume", "0.40", 0, 1, 0.01, "percent"),
+          slider("mvp_music", "row.mvp_music", "snd_mvp_volume", "0.40", 0, 1, 0.01, "percent"),
+          slider("objective_music", "row.objective_music", "snd_mapobjective_volume", "0.20", 0, 1, 0.01, "percent"),
+          slider("ten_second_music", "row.ten_second_music", "snd_tensecondwarning_volume", "0.20", 0, 1, 0.01, "percent"),
+          slider("deathcam_music", "row.deathcam_music", "snd_deathcamera_volume", "0.40", 0, 1, 0.01, "percent"),
+          select("mute_mvp_live", "row.mute_mvp_live", "snd_mute_mvp_music_live_players", "0", [opt("0", "opt.no"), opt("1", "opt.yes")])
+        ])
+      ]),
+      section("eq", [
+        group("group.audio.eq", [
+          select("competitive_eq", "row.competitive_eq", "snd_game_mode_eq_competitive", "0", [opt("0", "opt.default")]),
+          select("casual_eq", "row.casual_eq", "snd_game_mode_eq_casual", "0", [opt("0", "opt.default")]),
+          select("deathmatch_eq", "row.deathmatch_eq", "snd_game_mode_eq_deathmatch", "0", [opt("0", "opt.default")]),
+          select("armsrace_eq", "row.armsrace_eq", "snd_game_mode_eq_armsrace", "0", [opt("0", "opt.default")])
         ])
       ])
     ]
@@ -1043,6 +1220,14 @@ const defaults = {
           select("hud_color", "row.hud_color", "cl_hud_color", "0", [
             opt("0", "opt.team_color"), opt("1", "opt.white"), opt("2", "opt.lightblue"), opt("3", "opt.blue"), opt("4", "opt.purple"), opt("5", "opt.red"), opt("6", "opt.orange"), opt("7", "opt.yellow"), opt("8", "opt.green"), opt("9", "opt.aqua")
           ]),
+          select("large_player_count", "row.large_player_count", "cl_hud_playercount_showcount", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("community_location", "row.community_location", "ui_steam_overlay_notification_position", "bottomleft", [
+            opt("bottomleft", "opt.bottom_left"), opt("bottomright", "opt.bottom_right"), opt("topleft", "opt.top_left"), opt("topright", "opt.top_right")
+          ]),
+          slider("community_horizontal", "row.community_horizontal", "ui_steam_overlay_notification_position_horz", "0", 0, 100, 1),
+          slider("community_vertical", "row.community_vertical", "ui_steam_overlay_notification_position_vert", "0", 0, 100, 1),
+          select("glow_rarity", "row.glow_rarity", "cl_weapon_rarity_color", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("spectator_hud_color", "row.spectator_hud_color", "cl_observed_hudcolor_override", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
           select("show_loadout", "row.show_loadout", "cl_showloadout", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("safezonex", "row.safezonex", "safezonex", "1.00", 0.85, 1, 0.01),
           slider("safezoney", "row.safezoney", "safezoney", "1.00", 0.85, 1, 0.01)
@@ -1050,24 +1235,33 @@ const defaults = {
       ]),
       section("team", [
         group("group.game.team", [
-          select("team_overhead", "row.team_overhead", "cl_teamid_overhead_mode", "2", [
-            opt("0", "opt.off"), opt("1", "opt.team_overhead_pips"), opt("2", "opt.team_overhead_names")
+          select("team_id_walls", "row.team_id_walls", "cl_teamid_overhead_mode", "3", [
+            opt("0", "opt.off"), opt("1", "opt.team_overhead_pips"), opt("2", "opt.team_overhead_names"), opt("3", "opt.team_health_equipment")
           ]),
           select("teammate_colors", "row.teammate_colors", "cl_teammate_colors_show", "1", [
-            opt("0", "opt.off"), opt("1", "opt.on"), opt("2", "opt.colors_and_letters")
+            opt("0", "opt.off"), opt("1", "opt.show_colors"), opt("2", "opt.colors_and_letters")
+          ]),
+          select("team_id_colors", "row.team_id_colors", "cl_teamid_overhead_colors_show", "1", [
+            opt("0", "opt.no"), opt("1", "opt.yes")
           ]),
           select("join_advertise", "row.join_advertise", "cl_join_advertise", "1", [
-            opt("0", "opt.off"), opt("1", "opt.friends"), opt("2", "opt.everyone")
+            opt("0", "opt.off"), opt("1", "opt.remember_last"), opt("2", "opt.everyone")
           ])
         ])
       ]),
       section("communication", [
         group("group.game.communication", [
+          select("player_pings", "row.player_pings", "cl_player_ping_mute", "0", [
+            opt("0", "opt.display_sound"), opt("1", "opt.display_only"), opt("2", "opt.disabled")
+          ]),
           select("voice_modenable", "row.voice_modenable", "voice_modenable", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("voip_volume", "row.voip_volume", "snd_voipvolume", "1.00", 0, 1, 0.01),
           select("mute_enemy_team", "row.mute_enemy_team", "cl_mute_enemy_team", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("mute_all_but_friends", "row.mute_all_but_friends", "cl_mute_all_but_friends_and_party", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
-          select("hide_avatar_images", "row.hide_avatar_images", "cl_hide_avatar_images", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("allow_animated_avatars", "row.allow_animated_avatars", "cl_allow_animated_avatars", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("hide_avatar_images", "row.hide_avatar_images", "cl_hide_avatar_images", "0", [
+            opt("0", "opt.show_all"), opt("1", "opt.enabled")
+          ]),
           select("sanitize_player_names", "row.sanitize_player_names", "cl_sanitize_player_names", "0", [opt("0", "opt.off"), opt("1", "opt.on")])
         ])
       ]),
@@ -1075,13 +1269,28 @@ const defaults = {
         group("group.game.spectator", [
           select("spec_number_keys", "row.spec_number_keys", "spec_usenumberkeys_nobinds", "1", [
             opt("1", "opt.number_keys"), opt("0", "opt.weapon_keys")
-          ])
+          ]),
+          select("scoreboard_mouse", "row.scoreboard_mouse", "cl_scoreboard_mouse_enable_binding", "+attack2", [
+            opt("+attack2", "opt.secondary_fire"), opt("0", "opt.disabled")
+          ]),
+          select("survivors_always_on", "row.survivors_always_on", "cl_scoreboard_survivors_always_on", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("smooth_spectator", "row.smooth_spectator", "cl_obs_interp_enable", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          slider("smooth_spectator_speed", "row.smooth_spectator_speed", "cl_obs_interp_pos_rate", "1.00", 0.1, 2, 0.01)
         ])
       ]),
       section("item", [
         group("group.game.item", [
+          select("silencer_detach", "row.silencer_detach", "cl_silencer_mode", "0", [opt("0", "opt.disabled"), opt("1", "opt.enabled")]),
+          select("viewmodel_position", "row.viewmodel_position", "viewmodel_presetpos", "1", [
+            opt("1", "opt.desktop"), opt("2", "opt.couch"), opt("3", "opt.classic")
+          ]),
+          select("preferred_hand", "row.preferred_hand", "cl_prefer_lefthanded", "0", [opt("0", "opt.right"), opt("1", "opt.left")]),
+          select("first_person_tracers", "row.first_person_tracers", "r_drawtracers_firstperson", "1", [opt("0", "opt.disabled"), opt("1", "opt.enabled")]),
           select("show_loadout", "row.show_loadout", "cl_showloadout", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("buy_menu_use", "row.buy_menu_use", "cl_use_opens_buy_menu", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("buy_menu_number_keys", "row.buy_menu_number_keys", "cl_buywheel_nonumberpurchasing", "0", [
+            opt("0", "opt.number_keys_buy"), opt("1", "opt.number_keys_select")
+          ]),
           select("autowepswitch", "row.autowepswitch", "cl_autowepswitch", "0", [opt("0", "opt.off"), opt("1", "opt.on")])
         ])
       ]),
@@ -1089,8 +1298,13 @@ const defaults = {
         group("group.game.radar", [
           select("radar_center", "row.radar_center", "cl_radar_always_centered", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("radar_rotate", "row.radar_rotate", "cl_radar_rotate", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("radar_map_blend", "row.radar_map_blend", "cl_hud_radar_map_additive", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          slider("radar_background_opacity", "row.radar_background_opacity", "cl_hud_radar_background_alpha", "0.63", 0, 1, 0.01),
           select("radar_square_scoreboard", "row.radar_square_scoreboard", "cl_radar_square_with_scoreboard", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("radar_force_square", "row.radar_force_square", "cl_radar_square_always", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("radar_dynamic_zoom", "row.radar_dynamic_zoom", "cl_radar_scale_dynamic", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
           slider("radar_scale", "row.radar_scale", "cl_radar_scale", "0.70", 0.25, 1, 0.01),
+          slider("radar_scale_alternate", "row.radar_scale_alternate", "cl_radar_scale_alternate", "1.00", 0.25, 1, 0.01),
           slider("hud_radar_scale", "row.hud_radar_scale", "cl_hud_radar_scale", "1.00", 0.8, 1.3, 0.01),
           slider("radar_icon_scale", "row.radar_icon_scale", "cl_radar_icon_scale_min", "0.60", 0.4, 1, 0.01)
         ])
@@ -1100,38 +1314,61 @@ const defaults = {
           select("crosshair_style", "row.crosshair_style", "cl_crosshairstyle", "4", [
             opt("2", "opt.default_static"), opt("4", "opt.classic_static"), opt("5", "opt.classic_dynamic")
           ]),
+          select("crosshair_friendly_warning", "row.crosshair_friendly_warning", "cl_crosshair_friendly_warning", "1", [
+            opt("0", "opt.off"), opt("1", "opt.always")
+          ]),
           select("crosshair_recoil", "row.crosshair_recoil", "cl_crosshair_recoil", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("crosshair_dot", "row.crosshair_dot", "cl_crosshairdot", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("crosshair_t", "row.crosshair_t", "cl_crosshair_t", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("crosshair_outline", "row.crosshair_outline", "cl_crosshair_drawoutline", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
-          slider("crosshair_size", "row.crosshair_size", "cl_crosshairsize", "3.00", 0, 10, 0.1),
+          slider("crosshair_size", "row.crosshair_size", "cl_crosshairsize", "1.50", 0, 10, 0.1),
           slider("crosshair_thickness", "row.crosshair_thickness", "cl_crosshairthickness", "0.50", 0, 3, 0.1),
-          slider("crosshair_gap", "row.crosshair_gap", "cl_crosshairgap", "-2.00", -10, 10, 0.1),
+          slider("crosshair_gap", "row.crosshair_gap", "cl_crosshairgap", "-5.00", -10, 10, 0.1),
+          slider("crosshair_outline_thickness", "row.crosshair_outline_thickness", "cl_crosshair_outlinethickness", "0.00", 0, 3, 0.1),
+          select("crosshair_color_mode", "row.crosshair_color_mode", "cl_crosshaircolor", "5", [
+            opt("0", "opt.red"), opt("1", "opt.green"), opt("2", "opt.yellow"), opt("3", "opt.blue"), opt("4", "opt.aqua"), opt("5", "opt.custom")
+          ]),
           slider("crosshair_alpha", "row.crosshair_alpha", "cl_crosshairalpha", "255", 0, 255, 1),
-          slider("crosshair_red", "row.crosshair_red", "cl_crosshaircolor_r", "50", 0, 255, 1),
-          slider("crosshair_green", "row.crosshair_green", "cl_crosshaircolor_g", "250", 0, 255, 1),
-          slider("crosshair_blue", "row.crosshair_blue", "cl_crosshaircolor_b", "50", 0, 255, 1)
+          select("crosshair_use_alpha", "row.crosshair_use_alpha", "cl_crosshairusealpha", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          slider("crosshair_red", "row.crosshair_red", "cl_crosshaircolor_r", "255", 0, 255, 1),
+          slider("crosshair_green", "row.crosshair_green", "cl_crosshaircolor_g", "0", 0, 255, 1),
+          slider("crosshair_blue", "row.crosshair_blue", "cl_crosshaircolor_b", "0", 0, 255, 1),
+          select("crosshair_weapon_gap", "row.crosshair_weapon_gap", "cl_crosshairgap_useweaponvalue", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("crosshair_scope_color", "row.crosshair_scope_color", "cl_crosshair_sniper_use_normal_crosshair_color", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("show_player_crosshairs", "row.show_player_crosshairs", "cl_show_observer_crosshair", "2", [
+            opt("0", "opt.off"), opt("1", "opt.friends"), opt("2", "opt.everyone")
+          ]),
+          select("bot_crosshair", "row.bot_crosshair", "cl_observed_bot_crosshair", "0", [opt("0", "opt.never"), opt("1", "opt.always")])
         ])
       ]),
       section("sniper", [
         group("group.game.sniper", [
-          slider("sniper_width", "row.sniper_width", "cl_crosshair_sniper_width", "1", 1, 5, 1)
+          select("sniper_delay_unscope", "row.sniper_delay_unscope", "cl_sniper_delay_unscope", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("sniper_show_inaccuracy", "row.sniper_show_inaccuracy", "cl_crosshair_sniper_show_normal_inaccuracy", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          select("sniper_auto_rezoom", "row.sniper_auto_rezoom", "cl_sniper_auto_rezoom", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
+          slider("sniper_width", "row.sniper_width", "cl_crosshair_sniper_width", "1", 1, 5, 1),
+          slider("scope_dot_scale", "row.scope_dot_scale", "cl_sniper_scope_dot_scale", "1.00", 0.5, 2, 0.01)
         ])
       ]),
       section("grenade", [
         group("group.game.grenade", [
           select("grenade_crosshair_keep", "row.grenade_crosshair_keep", "cl_grenadecrosshair_keepusercrosshair", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("grenade_flash_enabled", "row.grenade_flash_enabled", "cl_grenadecrosshair_flash", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("grenade_flash_delay", "row.grenade_flash_delay", "cl_grenadecrosshairdelay_flash", "2.00", 0, 5, 0.1),
+          select("grenade_explosive_enabled", "row.grenade_explosive_enabled", "cl_grenadecrosshair_explosive", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("grenade_explosive_delay", "row.grenade_explosive_delay", "cl_grenadecrosshairdelay_explosive", "2.00", 0, 5, 0.1),
+          select("grenade_fire_enabled", "row.grenade_fire_enabled", "cl_grenadecrosshair_fire", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("grenade_fire_delay", "row.grenade_fire_delay", "cl_grenadecrosshairdelay_fire", "2.00", 0, 5, 0.1),
+          select("grenade_smoke_enabled", "row.grenade_smoke_enabled", "cl_grenadecrosshair_smoke", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("grenade_smoke_delay", "row.grenade_smoke_delay", "cl_grenadecrosshairdelay_smoke", "2.00", 0, 5, 0.1),
+          select("grenade_decoy_enabled", "row.grenade_decoy_enabled", "cl_grenadecrosshair_decoy", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           slider("grenade_decoy_delay", "row.grenade_decoy_delay", "cl_grenadecrosshairdelay_decoy", "2.00", 0, 5, 0.1)
         ])
       ]),
       section("damage", [
         group("group.game.damage", [
-          select("predict_body", "row.predict_body", "cl_predict_body_shot_fx", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
-          select("predict_head", "row.predict_head", "cl_predict_head_shot_fx", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("predict_body", "row.predict_body", "cl_predict_body_shot_fx", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
+          select("predict_head", "row.predict_head", "cl_predict_head_shot_fx", "0", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("predict_kill", "row.predict_kill", "cl_predict_kill_ragdolls", "1", [opt("0", "opt.off"), opt("1", "opt.on")])
         ])
       ]),
@@ -1148,7 +1385,13 @@ const defaults = {
           ]),
           slider("frame_telemetry_threshold", "row.frame_telemetry_threshold", "cl_hud_telemetry_frametime_poor", "100.00", 1, 500, 1),
           slider("ping_telemetry_threshold", "row.ping_telemetry_threshold", "cl_hud_telemetry_ping_poor", "100", 1, 300, 1),
-          slider("packet_telemetry_threshold", "row.packet_telemetry_threshold", "cl_hud_telemetry_net_misdelivery_poor", "5", 1, 100, 1)
+          slider("packet_telemetry_threshold", "row.packet_telemetry_threshold", "cl_hud_telemetry_net_misdelivery_poor", "2", 1, 100, 1),
+          select("network_graph", "row.network_graph", "cl_hud_telemetry_net_misdelivery_graph_show", "0", [
+            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
+          ]),
+          select("network_quality", "row.network_quality", "cl_hud_telemetry_net_quality_graph_show", "0", [
+            opt("0", "opt.never"), opt("1", "opt.if_poor"), opt("2", "opt.always")
+          ])
         ])
       ])
     ]
@@ -1268,8 +1511,8 @@ function select(id, labelKey, command, defaultValue, options) {
   return { id, labelKey, type: "select", command, defaultValue, value: defaultValue, options };
 }
 
-function slider(id, labelKey, command, defaultValue, min, max, step) {
-  return { id, labelKey, type: "slider", command, defaultValue, value: defaultValue, min, max, step };
+function slider(id, labelKey, command, defaultValue, min, max, step, format = "number") {
+  return { id, labelKey, type: "slider", command, defaultValue, value: defaultValue, min, max, step, format };
 }
 
 function bind(id, labelKey, command, key, display) {
@@ -1283,8 +1526,9 @@ let currentSectionByCategory = Object.fromEntries(categoryOrder.map(id => [id, s
 let captureTarget = null;
 let audioCtx = null;
 let lastHoverTarget = null;
+let sectionWheelLocked = false;
 let sceneryMenuMode = "root";
-let currentScenery = localStorage.getItem("cs2SceneryMap") || "";
+let currentScenery = localStorage.getItem("cs2SceneryMap") || "dust";
 const storedSoundtrackVolume = localStorage.getItem("cs2SoundtrackVolume");
 let soundtrackVolume = Number(storedSoundtrackVolume && storedSoundtrackVolume !== "30" ? storedSoundtrackVolume : DEFAULT_SOUNDTRACK_VOLUME);
 const soundtrackPlayer = new Audio();
@@ -1306,6 +1550,9 @@ const volumeToggle = document.querySelector("#volumeToggle");
 const volumeInput = document.querySelector("#soundtrackVolume");
 const volumeValue = document.querySelector("#soundtrackVolumeValue");
 const pageReset = document.querySelector("#pageReset");
+const configAlias = document.querySelector("#configAlias");
+const saveConfig = document.querySelector("#saveConfig");
+const recentConfigs = document.querySelector("#recentConfigs");
 
 function init() {
   if (currentScenery) {
@@ -1317,6 +1564,7 @@ function init() {
   window.addEventListener("keydown", onKeyDown, true);
   window.addEventListener("mousedown", onMouseDown, true);
   window.addEventListener("scroll", updateActiveSectionFromScroll, { passive: true });
+  subTabs.addEventListener("wheel", onSubTabsWheel, { passive: false });
   window.addEventListener("contextmenu", (e) => captureTarget && e.preventDefault());
   document.addEventListener("pointerover", onInteractiveHover);
   document.addEventListener("pointerdown", onInteractivePress);
@@ -1326,6 +1574,8 @@ function init() {
   document.querySelector("#resetApp").addEventListener("click", resetUi);
   document.querySelector("#presetTest").addEventListener("click", loadTestPreset);
   document.querySelector("#downloadCfg").addEventListener("click", downloadCfg);
+  saveConfig.addEventListener("click", saveCurrentConfig);
+  configAlias.addEventListener("keydown", onAliasKeyDown);
   pageReset.addEventListener("click", resetUi);
   sceneryToggle.addEventListener("click", toggleSceneryMenu);
   volumeToggle.addEventListener("click", toggleVolumePanel);
@@ -1350,6 +1600,7 @@ function renderAll() {
   renderSubTabs();
   renderSceneryMenu();
   renderPane();
+  renderSavedConfigs();
   updateCommand();
 }
 
@@ -1370,6 +1621,10 @@ function renderStaticText() {
   document.querySelector("#resetApp").textContent = t("panel.resetUi");
   document.querySelector("#presetTest").textContent = t("panel.preset");
   document.querySelector("#downloadCfg").textContent = t("panel.download");
+  configAlias.setAttribute("placeholder", t("panel.aliasPlaceholder"));
+  saveConfig.textContent = t("panel.saveConfig");
+  document.querySelector("[data-i18n='panel.recentConfigs']").textContent = t("panel.recentConfigs");
+  document.querySelector("[data-i18n='hint.accuracy']").innerHTML = `<strong>${t("hint.accuracy").split(":")[0]}:</strong>${t("hint.accuracy").includes(":") ? t("hint.accuracy").slice(t("hint.accuracy").indexOf(":") + 1) : ""}`;
   document.querySelector("[data-i18n='hint.capture']").innerHTML = `<strong>${t("hint.capture").split(":")[0]}:</strong>${t("hint.capture").includes(":") ? t("hint.capture").slice(t("hint.capture").indexOf(":") + 1) : ""}`;
   document.querySelector("[data-i18n='hint.refresh']").innerHTML = `<strong>${t("hint.refresh").split(":")[0]}:</strong>${t("hint.refresh").includes(":") ? t("hint.refresh").slice(t("hint.refresh").indexOf(":") + 1) : ""}`;
   toast.innerHTML = `${t("toast.capture")}<span>${t("toast.cancel")}</span>`;
@@ -1455,6 +1710,7 @@ function onCustomSelectOption(e) {
   closeCustomSelects();
   renderPane();
   updateCommand();
+  flashChangedRows(row);
 }
 
 function toggleVolumePanel(e) {
@@ -1512,6 +1768,8 @@ async function changeScenery(mapId) {
   currentScenery = mapId;
   localStorage.setItem("cs2SceneryMap", mapId);
   applySceneryTheme(mapId);
+  updatePreviewSceneMap(mapId);
+  renderSceneryMenu();
   soundtrackPlayer.src = `assets/soundtrack_${mapId}.mp3`;
   soundtrackPlayer.currentTime = 0;
 
@@ -1546,7 +1804,7 @@ async function resumeSoundtrack() {
 
 function renderMainTabs() {
   mainTabs.innerHTML = categoryOrder.map(id => `
-    <button class="${id === currentCategory ? "active" : ""}" data-category="${id}">${t(`category.${id}`)}</button>
+    <button class="${tabClass(id === currentCategory, categoryHasChanges(id))}" data-category="${id}">${t(`category.${id}`)}</button>
   `).join("");
   mainTabs.querySelectorAll("button").forEach(btn => btn.addEventListener("click", () => {
     currentCategory = btn.dataset.category;
@@ -1558,7 +1816,7 @@ function renderMainTabs() {
 
 function renderSubTabs() {
   subTabs.innerHTML = state[currentCategory].tabs.map(tab => `
-    <button class="${tab.id === currentSectionId() ? "active" : ""}" data-section="${tab.id}">${t(tab.labelKey)}</button>
+    <button class="${tabClass(tab.id === currentSectionId(), sectionHasChanges(currentCategory, tab.id))}" data-section="${tab.id}">${t(tab.labelKey)}</button>
   `).join("");
   subTabs.querySelectorAll("button").forEach(btn => btn.addEventListener("click", () => {
     currentSectionByCategory[currentCategory] = btn.dataset.section;
@@ -1568,9 +1826,37 @@ function renderSubTabs() {
   }));
 }
 
+function onSubTabsWheel(e) {
+  const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+  if (Math.abs(delta) < 8) return;
+  e.preventDefault();
+  if (sectionWheelLocked) return;
+  sectionWheelLocked = true;
+  setTimeout(() => { sectionWheelLocked = false; }, 320);
+  jumpToSiblingSection(delta > 0 ? 1 : -1);
+}
+
+function jumpToSiblingSection(direction) {
+  const tabs = state[currentCategory].tabs;
+  const currentIndex = Math.max(0, tabs.findIndex(tab => tab.id === currentSectionId()));
+  const nextIndex = Math.max(0, Math.min(tabs.length - 1, currentIndex + direction));
+  if (nextIndex === currentIndex) return;
+  const nextSection = tabs[nextIndex].id;
+  currentSectionByCategory[currentCategory] = nextSection;
+  stopCapture();
+  renderSubTabs();
+  scrollToSection(nextSection);
+  playUiSound("select");
+}
+
+function tabClass(isActive, isChanged) {
+  return [isActive ? "active" : "", isChanged ? "changed" : ""].filter(Boolean).join(" ");
+}
+
 function renderPane() {
   pane.innerHTML = state[currentCategory].sections.map(sectionData => `
     <section class="settings-section" data-section-panel="${sectionData.id}">
+      ${sectionData.id === "crosshair" ? crosshairPreviewTemplate() : ""}
       ${sectionData.groups.map(group => `
         <h2 class="group-title">${t(group.titleKey)}</h2>
         ${group.rows.map(rowTemplate).join("")}
@@ -1581,26 +1867,37 @@ function renderPane() {
   pane.querySelectorAll("[data-bind-id]").forEach(cell => cell.addEventListener("click", () => startCapture(cell.dataset.bindId, cell)));
   pane.querySelectorAll("[data-select-toggle]").forEach(btn => btn.addEventListener("click", onCustomSelectToggle));
   pane.querySelectorAll("[data-select-option]").forEach(btn => btn.addEventListener("click", onCustomSelectOption));
+  pane.querySelectorAll("[data-crosshair-action]").forEach(btn => btn.addEventListener("click", onCrosshairPreviewAction));
+  pane.querySelectorAll("[data-crosshair-color]").forEach(btn => btn.addEventListener("click", onCrosshairColorClick));
+  pane.querySelectorAll("[data-crosshair-preset]").forEach(btn => btn.addEventListener("click", onCrosshairPresetClick));
+  pane.querySelector("#crosshairColorPicker")?.addEventListener("input", onCrosshairColorPicker);
   pane.querySelectorAll("input[type=range][data-setting-id]").forEach(range => range.addEventListener("input", e => {
     const row = findRow(e.target.dataset.settingId);
     const value = formatByStep(e.target.value, row.step);
     setSettingValue(row, value);
     const number = pane.querySelector(`input[type=number][data-setting-id="${row.id}"]`);
+    const textNumber = pane.querySelector(`input[type=text][data-setting-id="${row.id}"]`);
     if (number) number.value = value;
+    if (textNumber) textNumber.value = sliderDisplayValue(row);
     updateCommand();
+    updateCrosshairPreview();
+    flashChangedRows(row);
   }));
-  pane.querySelectorAll("input[type=number][data-setting-id]").forEach(number => number.addEventListener("change", e => {
+  pane.querySelectorAll(".num-box[data-setting-id]").forEach(number => number.addEventListener("change", e => {
     const row = findRow(e.target.dataset.settingId);
     const min = Number(row.min), max = Number(row.max);
-    let val = Number(e.target.value || row.defaultValue);
+    let val = sliderValueFromDisplay(row, e.target.value);
     val = Math.min(max, Math.max(min, val));
     const value = formatByStep(val, row.step);
     setSettingValue(row, value);
-    e.target.value = value;
+    e.target.value = sliderDisplayValue(row);
     const range = pane.querySelector(`input[type=range][data-setting-id="${row.id}"]`);
     if (range) range.value = value;
     updateCommand();
+    updateCrosshairPreview();
+    flashChangedRows(row);
   }));
+  updateCrosshairPreview();
 }
 
 function scrollToSection(sectionId) {
@@ -1635,7 +1932,7 @@ function stickyOffset() {
 }
 
 function interactiveTarget(target) {
-  return target.closest("button, .setting-row, .value-cell, .select-wrap, .checkbox-wrap, input[type='range'], input[type='number']");
+  return target.closest("button, .setting-row, .value-cell, .select-wrap, .checkbox-wrap, input[type='range'], input[type='number'], input[type='color']");
 }
 
 function onInteractiveHover(e) {
@@ -1716,13 +2013,335 @@ function makeNoiseBuffer(duration) {
   return buffer;
 }
 
+function crosshairPreviewTemplate() {
+  return `
+    <div class="crosshair-preview" aria-label="${t("row.crosshair_preview")}">
+      <button class="preview-arrow preview-prev" type="button" aria-label="Previous preview" data-crosshair-action="prev"></button>
+      <button class="preview-arrow preview-next" type="button" aria-label="Next preview" data-crosshair-action="next"></button>
+      <div class="preview-scene" style="${escapeAttr(previewSceneStyle(currentScenery))}">
+        <div class="preview-lane"></div>
+        <div class="preview-wall"></div>
+        <div class="preview-window"></div>
+        <div class="crosshair-reticle" id="crosshairPreviewReticle" aria-hidden="true">
+          <span class="xh-arm xh-top"></span>
+          <span class="xh-arm xh-right"></span>
+          <span class="xh-arm xh-bottom"></span>
+          <span class="xh-arm xh-left"></span>
+          <span class="xh-dot"></span>
+          <span class="xh-recoil"></span>
+        </div>
+      </div>
+      <div class="preview-actions">
+        <button type="button" data-crosshair-action="share">${t("crosshair.share")}</button>
+        <button type="button" data-crosshair-action="undo">${t("crosshair.undo")}</button>
+        <button type="button" data-crosshair-action="reset">${t("crosshair.reset")}</button>
+      </div>
+      <div class="crosshair-import" id="crosshairImportPanel" hidden>
+        <textarea id="crosshairImportInput" spellcheck="false" placeholder="${t("crosshair.importPlaceholder")}"></textarea>
+        <div>
+          <button type="button" data-crosshair-action="import">${t("crosshair.importApply")}</button>
+          <button type="button" data-crosshair-action="copy">${t("crosshair.importCopy")}</button>
+        </div>
+      </div>
+      <div class="crosshair-quick-tools">
+        <div class="crosshair-colors" aria-label="Crosshair colors">
+          ${[
+            ["red", 255, 0, 0],
+            ["green", 0, 255, 0],
+            ["yellow", 255, 255, 0],
+            ["blue", 0, 48, 255],
+            ["cyan", 0, 255, 255]
+          ].map(([name, r, g, b]) => `<button type="button" class="color-swatch ${name}" data-crosshair-color="${r},${g},${b}" aria-label="${name}"></button>`).join("")}
+          <label class="custom-color">
+            <input type="color" id="crosshairColorPicker" value="#ff0000">
+            <span>Custom</span>
+          </label>
+        </div>
+        <div class="crosshair-presets" aria-label="Crosshair presets">
+          ${crosshairPresetButtons()}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function previewSceneStyle(mapId) {
+  const map = sceneryMaps.some(item => item.id === mapId) ? mapId : "dust";
+  return [
+    `--preview-map-webp: url("assets/crosshair_preview_${map}.webp")`,
+    `--preview-map-jpg: url("assets/crosshair_preview_${map}.jpg")`,
+    `--preview-map-png: url("assets/crosshair_preview_${map}.png")`
+  ].join("; ");
+}
+
+function updatePreviewSceneMap(mapId) {
+  const scene = pane.querySelector(".preview-scene");
+  if (!scene) return;
+  const map = sceneryMaps.some(item => item.id === mapId) ? mapId : "dust";
+  scene.style.setProperty("--preview-map-webp", `url("assets/crosshair_preview_${map}.webp")`);
+  scene.style.setProperty("--preview-map-jpg", `url("assets/crosshair_preview_${map}.jpg")`);
+  scene.style.setProperty("--preview-map-png", `url("assets/crosshair_preview_${map}.png")`);
+}
+
+const CROSSHAIR_PRESETS = [
+  ["donk", crosshairPresetCommand({ size: "1.5", thickness: "0.5", gap: "-3", red: "255", green: "255", blue: "255" })],
+  ["red-small", crosshairPresetCommand({ size: "1.5", thickness: "0.5", gap: "-5", red: "255", green: "0", blue: "0" })],
+  ["green-plus", crosshairPresetCommand({ size: "2.2", thickness: "0.5", gap: "-2", red: "0", green: "255", blue: "0" })],
+  ["yellow-dot", crosshairPresetCommand({ size: "0", thickness: "1.6", gap: "-10", dot: "1", red: "255", green: "255", blue: "0" })],
+  ["cyan-gap", crosshairPresetCommand({ size: "2.6", thickness: "0.7", gap: "1", red: "0", green: "255", blue: "255" })],
+  ["blue-t", crosshairPresetCommand({ size: "2.0", thickness: "0.8", gap: "-3", tStyle: "1", red: "30", green: "70", blue: "255" })],
+  ["outline-white", crosshairPresetCommand({ size: "1.8", thickness: "0.5", gap: "-4", outline: "1", outlineThickness: "1", red: "255", green: "255", blue: "255" })]
+];
+
+function crosshairPresetCommand({
+  size,
+  thickness,
+  gap,
+  dot = "0",
+  tStyle = "0",
+  outline = "0",
+  outlineThickness = "0",
+  red,
+  green,
+  blue
+}) {
+  return [
+    "cl_crosshairstyle 4",
+    `cl_crosshairsize ${size}`,
+    `cl_crosshairthickness ${thickness}`,
+    `cl_crosshairgap ${gap}`,
+    `cl_crosshairdot ${dot}`,
+    `cl_crosshair_t ${tStyle}`,
+    `cl_crosshair_drawoutline ${outline}`,
+    `cl_crosshair_outlinethickness ${outlineThickness}`,
+    "cl_crosshairusealpha 0",
+    "cl_crosshairalpha 255",
+    "cl_crosshaircolor 5",
+    `cl_crosshaircolor_r ${red}`,
+    `cl_crosshaircolor_g ${green}`,
+    `cl_crosshaircolor_b ${blue}`
+  ].join(";");
+}
+
+function crosshairPresetButtons() {
+  return CROSSHAIR_PRESETS.map(([name, commands]) => {
+    const active = crosshairPresetMatches(commands);
+    return `
+    <button class="${active ? "active" : ""}" type="button" data-crosshair-preset="${escapeAttr(commands)}" aria-label="${name}" aria-pressed="${active}">
+      <span class="preset-preview ${name}"></span>
+    </button>
+  `;
+  }).join("");
+}
+
+function onCrosshairPreviewAction(e) {
+  const action = e.currentTarget.dataset.crosshairAction;
+  if (action === "prev" || action === "next") {
+    changeCrosshairPreviewMap(action === "next" ? 1 : -1);
+    return;
+  }
+  if (action === "share") {
+    toggleCrosshairImport();
+    return;
+  }
+  if (action === "copy") {
+    copyCrosshairCommands(e.currentTarget);
+    return;
+  }
+  if (action === "import") {
+    importCrosshairCommands();
+    return;
+  }
+  if (action === "undo" || action === "reset") {
+    resetCrosshairSection();
+  }
+}
+
+function changeCrosshairPreviewMap(direction) {
+  const currentIndex = Math.max(0, sceneryMaps.findIndex(map => map.id === currentScenery));
+  const nextIndex = (currentIndex + direction + sceneryMaps.length) % sceneryMaps.length;
+  changeScenery(sceneryMaps[nextIndex].id);
+}
+
+function toggleCrosshairImport() {
+  const panel = document.querySelector("#crosshairImportPanel");
+  const input = document.querySelector("#crosshairImportInput");
+  if (!panel || !input) return;
+  panel.hidden = !panel.hidden;
+  if (!panel.hidden) {
+    input.value = currentCrosshairCommands();
+    requestAnimationFrame(() => {
+      input.focus();
+      input.select();
+    });
+  }
+}
+
+function importCrosshairCommands() {
+  const input = document.querySelector("#crosshairImportInput");
+  if (!input) return;
+  applyCrosshairCommandString(input.value);
+}
+
+function applyCrosshairCommandString(commands) {
+  const parsed = parseCommandString(commands);
+  for (const [command, value] of Object.entries(parsed)) {
+    const row = allRows().find(item => item.command === command && (item.type === "select" || item.type === "slider"));
+    if (!row) continue;
+    row.value = normalizeImportedValue(row, value);
+  }
+  renderPane();
+  updateCommand();
+}
+
+function onCrosshairPresetClick(e) {
+  applyCrosshairCommandString(e.currentTarget.dataset.crosshairPreset);
+}
+
+function onCrosshairColorClick(e) {
+  const [red, green, blue] = e.currentTarget.dataset.crosshairColor.split(",");
+  applyCrosshairColor(red, green, blue);
+}
+
+function onCrosshairColorPicker(e) {
+  const hex = e.target.value.replace("#", "");
+  const red = parseInt(hex.slice(0, 2), 16);
+  const green = parseInt(hex.slice(2, 4), 16);
+  const blue = parseInt(hex.slice(4, 6), 16);
+  applyCrosshairColor(red, green, blue);
+}
+
+function applyCrosshairColor(red, green, blue) {
+  setCommandValue("cl_crosshaircolor_r", String(red));
+  setCommandValue("cl_crosshaircolor_g", String(green));
+  setCommandValue("cl_crosshaircolor_b", String(blue));
+  setCommandValue("cl_crosshaircolor", "5");
+  renderPane();
+  updateCommand();
+}
+
+function setCommandValue(command, value) {
+  allRows().forEach(row => {
+    if (row.command === command && (row.type === "select" || row.type === "slider")) row.value = String(value);
+  });
+}
+
+async function copyCrosshairCommands(button) {
+  const commands = currentCrosshairCommands();
+  try {
+    await navigator.clipboard.writeText(commands);
+    const previous = button.textContent;
+    button.textContent = t("panel.copied");
+    setTimeout(() => button.textContent = previous, 850);
+  } catch {
+    output.value = commands;
+    output.select();
+  }
+}
+
+function currentCrosshairCommands() {
+  return uniqueRowsByCommand(crosshairRows())
+    .filter(row => row.type === "select" || row.type === "slider")
+    .map(row => `${row.command} ${valueLiteral(row.value)}`)
+    .join("; ");
+}
+
+function parseCommandString(text) {
+  return text.split(";").reduce((commands, segment) => {
+    const match = segment.trim().match(/^([a-zA-Z0-9_+.:-]+)\s+(.+)$/);
+    if (!match) return commands;
+    commands[match[1]] = match[2].trim().replace(/^"|"$/g, "");
+    return commands;
+  }, {});
+}
+
+function normalizeImportedValue(row, value) {
+  if (row.type === "select" && row.options.some(option => option.value === value)) return value;
+  if (row.type === "slider") {
+    const min = Number(row.min), max = Number(row.max);
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) return formatByStep(Math.min(max, Math.max(min, numeric)), row.step);
+  }
+  return value;
+}
+
+function crosshairPresetMatches(commands) {
+  const parsed = parseCommandString(commands);
+  return Object.entries(parsed).every(([command, value]) => {
+    const row = allRows().find(item => item.command === command && (item.type === "select" || item.type === "slider"));
+    if (!row) return true;
+    if (row.type === "slider") {
+      const current = Number(row.value);
+      const expected = Number(value);
+      return Number.isFinite(current) && Number.isFinite(expected) && Math.abs(current - expected) < 0.0001;
+    }
+    return String(row.value) === String(value);
+  });
+}
+
+function updateCrosshairPresetSelection() {
+  pane.querySelectorAll("[data-crosshair-preset]").forEach(btn => {
+    const active = crosshairPresetMatches(btn.dataset.crosshairPreset);
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+}
+
+function resetCrosshairSection() {
+  crosshairRows().forEach(row => {
+    if (row.type === "select" || row.type === "slider") row.value = row.defaultValue;
+  });
+  renderPane();
+  updateCommand();
+}
+
+function crosshairRows() {
+  const sectionData = state.game.sections.find(section => section.id === "crosshair");
+  return sectionData ? sectionData.groups.flatMap(group => group.rows) : [];
+}
+
+function updateCrosshairPreview() {
+  const reticle = document.querySelector("#crosshairPreviewReticle");
+  if (!reticle) return;
+
+  const red = Number(commandValue("cl_crosshaircolor_r", 255));
+  const green = Number(commandValue("cl_crosshaircolor_g", 0));
+  const blue = Number(commandValue("cl_crosshaircolor_b", 0));
+  const alpha = commandValue("cl_crosshairusealpha", "0") === "1" ? Number(commandValue("cl_crosshairalpha", 255)) / 255 : 1;
+  const size = Number(commandValue("cl_crosshairsize", 1.5));
+  const thickness = Number(commandValue("cl_crosshairthickness", 0.5));
+  const gap = Number(commandValue("cl_crosshairgap", -5));
+  const outline = commandValue("cl_crosshair_drawoutline", "0") === "1";
+  const outlineThickness = Number(commandValue("cl_crosshair_outlinethickness", 0));
+
+  reticle.style.setProperty("--xh-color", `rgba(${red}, ${green}, ${blue}, ${Math.max(0.08, Math.min(1, alpha))})`);
+  reticle.style.setProperty("--xh-size", `${Math.max(5, size * 8)}px`);
+  reticle.style.setProperty("--xh-thick", `${Math.max(1, thickness * 3)}px`);
+  reticle.style.setProperty("--xh-dot", `${Math.max(1.2, thickness * 4)}px`);
+  reticle.style.setProperty("--xh-gap", `${Math.max(2, 13 + gap * 2)}px`);
+  reticle.style.setProperty("--xh-outline", outline ? `${Math.max(1, outlineThickness * 2)}px` : "0px");
+  const hasDot = commandValue("cl_crosshairdot", "0") === "1";
+  reticle.classList.toggle("has-dot", hasDot);
+  reticle.classList.toggle("dot-only", hasDot && size <= 0.6);
+  reticle.classList.toggle("t-style", commandValue("cl_crosshair_t", "0") === "1");
+  reticle.classList.toggle("follow-recoil", commandValue("cl_crosshair_recoil", "0") === "1");
+  updateCrosshairPresetSelection();
+}
+
+function commandValue(command, fallback = "") {
+  const row = allRows().find(item => item.command === command && (item.type === "select" || item.type === "slider"));
+  return row ? row.value : fallback;
+}
+
 function rowTemplate(row) {
+  const changedClass = rowHasChanges(row) ? " changed" : "";
+  const rowAttrs = `class="setting-row${changedClass}" data-row-type="${row.type}" data-row-command="${escapeAttr(row.command)}"`;
   if (row.type === "bind") {
-    return `<div class="setting-row"><div class="row-label">${t(row.labelKey)}</div><div class="value-cell keybind" data-bind-id="${row.id}">${row.display}</div></div>`;
+    return `<div ${rowAttrs}><div class="row-label">${t(row.labelKey)}</div><div class="value-cell keybind${changedClass}" data-bind-id="${row.id}">${row.display}</div></div>`;
   }
   if (row.type === "select") {
     const selected = row.options.find(option => option.value === row.value) || row.options[0];
-    return `<div class="setting-row"><div class="row-label">${t(row.labelKey)}</div><div class="select-wrap" data-setting-id="${row.id}">
+    return `<div ${rowAttrs}><div class="row-label">${t(row.labelKey)}</div><div class="select-wrap${changedClass}" data-setting-id="${row.id}">
       <button class="select-display" type="button" data-select-toggle data-setting-id="${row.id}" aria-expanded="false">
         <span>${t(selected.labelKey)}</span>
       </button>
@@ -1732,14 +2351,32 @@ function rowTemplate(row) {
     </div></div>`;
   }
   if (row.type === "slider") {
-    return `<div class="setting-row"><div class="row-label">${t(row.labelKey)}</div><div class="value-cell slider-cell"><input type="range" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}" data-setting-id="${row.id}"><input class="num-box" type="number" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}" data-setting-id="${row.id}"></div></div>`;
+    const numberAttrs = row.format === "percent"
+      ? `type="text" value="${sliderDisplayValue(row)}" inputmode="numeric"`
+      : `type="number" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}"`;
+    return `<div ${rowAttrs}><div class="row-label">${t(row.labelKey)}</div><div class="value-cell slider-cell${changedClass}"><input type="range" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}" data-setting-id="${row.id}"><input class="num-box" ${numberAttrs} data-setting-id="${row.id}"></div></div>`;
   }
   return "";
+}
+
+function escapeAttr(value) {
+  return String(value).replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
 function formatByStep(value, step) {
   const decimals = String(step).includes(".") ? String(step).split(".")[1].length : 0;
   return Number(value).toFixed(decimals);
+}
+
+function sliderDisplayValue(row) {
+  if (row.format === "percent") return `${Math.round(Number(row.value) * 100)}%`;
+  return row.value;
+}
+
+function sliderValueFromDisplay(row, value) {
+  if (row.format !== "percent") return Number(value || row.defaultValue);
+  const numeric = Number(String(value).replace("%", "").trim());
+  return Number.isFinite(numeric) ? numeric / 100 : Number(row.defaultValue);
 }
 
 function findRow(id) {
@@ -1748,6 +2385,48 @@ function findRow(id) {
 
 function allRows() {
   return Object.values(state).flatMap(category => category.sections.flatMap(section => section.groups.flatMap(group => group.rows)));
+}
+
+function rowHasChanges(row) {
+  if (row.type === "bind") return row.key !== row.defaultKey;
+  if (row.type === "select" || row.type === "slider") return String(row.value) !== String(row.defaultValue);
+  return false;
+}
+
+function sectionHasChanges(categoryId, sectionId) {
+  const sectionData = state[categoryId].sections.find(section => section.id === sectionId);
+  return sectionData ? sectionData.groups.some(group => group.rows.some(rowHasChanges)) : false;
+}
+
+function categoryHasChanges(categoryId) {
+  return state[categoryId].sections.some(section => section.groups.some(group => group.rows.some(rowHasChanges)));
+}
+
+function refreshChangedIndicators() {
+  mainTabs.querySelectorAll("[data-category]").forEach(btn => {
+    btn.classList.toggle("changed", categoryHasChanges(btn.dataset.category));
+  });
+  subTabs.querySelectorAll("[data-section]").forEach(btn => {
+    btn.classList.toggle("changed", sectionHasChanges(currentCategory, btn.dataset.section));
+  });
+  pane.querySelectorAll("[data-row-command]").forEach(rowEl => {
+    const changed = allRows().some(row => row.type === rowEl.dataset.rowType && row.command === rowEl.dataset.rowCommand && rowHasChanges(row));
+    rowEl.classList.toggle("changed", changed);
+    rowEl.querySelector(".value-cell, .select-wrap")?.classList.toggle("changed", changed);
+  });
+}
+
+function flashChangedRows(row) {
+  if (!rowHasChanges(row)) return;
+  requestAnimationFrame(() => {
+    pane.querySelectorAll("[data-row-command]").forEach(rowEl => {
+      if (rowEl.dataset.rowType !== row.type || rowEl.dataset.rowCommand !== row.command) return;
+      rowEl.classList.remove("changed-pulse");
+      void rowEl.offsetWidth;
+      rowEl.classList.add("changed-pulse");
+      setTimeout(() => rowEl.classList.remove("changed-pulse"), 650);
+    });
+  });
 }
 
 function setSettingValue(row, value) {
@@ -1816,6 +2495,7 @@ function applyCapturedInput(key, display) {
   stopCapture();
   renderPane();
   updateCommand();
+  flashChangedRows(target);
 }
 
 function quoteCommand(command) {
@@ -1850,6 +2530,7 @@ function updateCommand() {
   commands.push("host_writeconfig");
 
   output.value = commands.join("; ");
+  refreshChangedIndicators();
 }
 
 async function copyCommand() {
@@ -1862,6 +2543,179 @@ async function copyCommand() {
     output.select();
     document.execCommand("copy");
   }
+}
+
+function onAliasKeyDown(e) {
+  if (e.key !== "Enter") return;
+  e.preventDefault();
+  saveCurrentConfig();
+}
+
+function saveCurrentConfig() {
+  const alias = configAlias.value.trim() || `Preset ${new Date().toLocaleString()}`;
+  const configs = readSavedConfigs().filter(config => config.alias.toLowerCase() !== alias.toLowerCase());
+  configs.unshift({
+    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    alias,
+    savedAt: new Date().toISOString(),
+    snapshot: createConfigSnapshot()
+  });
+  writeSavedConfigs(configs.slice(0, MAX_SAVED_CONFIGS));
+  configAlias.value = "";
+  renderSavedConfigs();
+  saveConfig.textContent = t("panel.savedConfig");
+  setTimeout(() => saveConfig.textContent = t("panel.saveConfig"), 900);
+}
+
+function createConfigSnapshot() {
+  return {
+    resetFirst: resetFirst.checked,
+    currentCategory,
+    currentSectionByCategory: { ...currentSectionByCategory },
+    rows: uniqueRowsByCommand(allRows()).map(row => {
+      if (row.type === "bind") {
+        return { type: row.type, command: row.command, key: row.key, display: row.display };
+      }
+      return { type: row.type, command: row.command, value: row.value };
+    })
+  };
+}
+
+function readSavedConfigs() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(SAVED_CONFIGS_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed.filter(config => config?.id && config?.snapshot) : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeSavedConfigs(configs) {
+  localStorage.setItem(SAVED_CONFIGS_KEY, JSON.stringify(configs));
+}
+
+function renderSavedConfigs() {
+  const configs = readSavedConfigs();
+  if (!configs.length) {
+    recentConfigs.innerHTML = `<p class="recent-empty">${t("panel.emptyConfigs")}</p>`;
+    return;
+  }
+
+  recentConfigs.innerHTML = configs.map(config => `
+    <div class="recent-config" data-config-id="${escapeAttr(config.id)}">
+      <div class="recent-load" role="button" tabindex="0" data-config-action="load" aria-label="${t("panel.loadConfig")} ${escapeAttr(config.alias)}">
+        <input type="text" value="${escapeAttr(config.alias)}" readonly data-config-alias aria-label="${t("panel.aliasPlaceholder")}">
+        <small>${formatSavedDate(config.savedAt)}</small>
+      </div>
+      <div class="recent-tools">
+        <button type="button" data-config-action="edit">${t("panel.editConfig")}</button>
+        <button class="delete-config" type="button" data-config-action="delete" title="${t("panel.deleteConfig")}" aria-label="${t("panel.deleteConfig")}">&times;</button>
+      </div>
+    </div>
+  `).join("");
+  recentConfigs.querySelectorAll("[data-config-action]").forEach(btn => {
+    btn.addEventListener("click", onSavedConfigAction);
+    btn.addEventListener("keydown", onSavedConfigKeyDown);
+  });
+  recentConfigs.querySelectorAll("[data-config-alias]").forEach(input => {
+    input.addEventListener("click", e => e.stopPropagation());
+    input.addEventListener("keydown", onSavedAliasKeyDown);
+    input.addEventListener("blur", onSavedAliasBlur);
+  });
+}
+
+function onSavedConfigKeyDown(e) {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  if (e.target.matches("[data-config-alias]") && !e.target.readOnly) return;
+  e.preventDefault();
+  onSavedConfigAction(e);
+}
+
+function onSavedConfigAction(e) {
+  const action = e.currentTarget.dataset.configAction;
+  const configId = e.currentTarget.closest("[data-config-id]")?.dataset.configId;
+  const configs = readSavedConfigs();
+  const config = configs.find(item => item.id === configId);
+  if (!config) return;
+
+  if (action === "load") {
+    applyConfigSnapshot(config.snapshot);
+    renderAll();
+    return;
+  }
+
+  if (action === "edit") {
+    const input = e.currentTarget.closest("[data-config-id]")?.querySelector("[data-config-alias]");
+    if (!input) return;
+    input.readOnly = false;
+    input.focus();
+    input.select();
+    return;
+  }
+
+  if (action === "delete") {
+    writeSavedConfigs(configs.filter(item => item.id !== configId));
+    renderSavedConfigs();
+  }
+}
+
+function onSavedAliasKeyDown(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    e.currentTarget.blur();
+  }
+  if (e.key === "Escape") {
+    e.preventDefault();
+    renderSavedConfigs();
+  }
+}
+
+function onSavedAliasBlur(e) {
+  if (e.currentTarget.readOnly) return;
+  const configId = e.currentTarget.closest("[data-config-id]")?.dataset.configId;
+  const nextAlias = e.currentTarget.value.trim();
+  const configs = readSavedConfigs();
+  const config = configs.find(item => item.id === configId);
+  if (!config) return;
+  if (nextAlias) {
+    config.alias = nextAlias;
+    config.savedAt = new Date().toISOString();
+    writeSavedConfigs(configs);
+  }
+  renderSavedConfigs();
+}
+
+function applyConfigSnapshot(snapshot) {
+  resetState();
+  resetFirst.checked = snapshot.resetFirst ?? true;
+  for (const savedRow of snapshot.rows || []) {
+    allRows().forEach(row => {
+      if (row.type !== savedRow.type || row.command !== savedRow.command) return;
+      if (row.type === "bind") {
+        row.key = savedRow.key || "";
+        row.display = savedRow.display || "";
+      } else if (row.type === "select" || row.type === "slider") {
+        row.value = String(savedRow.value);
+      }
+    });
+  }
+  if (snapshot.currentCategory && state[snapshot.currentCategory]) currentCategory = snapshot.currentCategory;
+  currentSectionByCategory = Object.fromEntries(categoryOrder.map(id => [
+    id,
+    state[id].tabs.some(tab => tab.id === snapshot.currentSectionByCategory?.[id])
+      ? snapshot.currentSectionByCategory[id]
+      : state[id].tabs[0].id
+  ]));
+}
+
+function formatSavedDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function escapeHtml(value) {
+  return escapeAttr(value).replaceAll("'", "&#39;");
 }
 
 function resetState() {
