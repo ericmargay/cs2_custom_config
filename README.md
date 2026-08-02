@@ -29,6 +29,18 @@ http://localhost:8080
   - Secondary Weapon: Q
   - Walk: CapsLock
   - Duck: Left Shift
+- Includes a **Match Intel** category with assisted batch lookup for up to ten
+  Steam profiles, direct `.rip` links, and an evidence-based feasibility view
+  of the local companion/backend required for true live automation.
+
+## Match Intel feasibility
+
+The browser-only version deliberately does not claim automatic ten-player
+detection. GitHub Pages cannot securely complete Steam authentication or keep
+API keys, and CS2 Game State Integration does not reliably expose every player
+SteamID to a regular player during Premier/Competitive matches. The included
+batch workflow is usable today; full automation would require a signed local
+companion plus a secure backend and data-provider agreements.
 
 ## Notes
 

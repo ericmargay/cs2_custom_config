@@ -176,6 +176,7 @@ const i18n = {
     "category.game": "GAME",
     "category.viewmodel": "VIEW MODEL",
     "category.keyboard": "KEYBOARD / MOUSE",
+    "category.live": "MATCH INTEL",
     "panel.title": "Console Line",
     "panel.help": "Paste this into the CS2 developer console.",
     "panel.copy": "COPY",
@@ -587,6 +588,7 @@ const i18n = {
     "category.game": "JUEGO",
     "category.viewmodel": "VIEW MODEL",
     "category.keyboard": "TECLADO / MOUSE",
+    "category.live": "INTEL DE PARTIDA",
     "panel.title": "Línea de consola",
     "panel.help": "Pégala en la consola de desarrollador de CS2.",
     "panel.copy": "COPIAR",
@@ -935,6 +937,7 @@ const i18n = {
     "category.audio": "АУДИО",
     "category.game": "ИГРА",
     "category.keyboard": "КЛАВИАТУРА / МЫШЬ",
+    "category.live": "МАТЧ-ИНТЕЛ",
     "panel.title": "Строка консоли",
     "panel.help": "Вставьте это в консоль разработчика CS2.",
     "panel.copy": "КОПИРОВАТЬ",
@@ -1142,9 +1145,13 @@ const i18n = {
   }
 };
 
-const categoryOrder = ["video", "audio", "game", "viewmodel", "keyboard"];
+const categoryOrder = ["video", "audio", "game", "viewmodel", "keyboard", "live"];
 
 const defaults = {
+  live: {
+    tabs: [{ id: "dashboard", labelKey: "category.live" }],
+    sections: [section("dashboard", [])]
+  },
   video: {
     tabs: [
       { id: "basic", labelKey: "tab.video.basic" },
@@ -1987,6 +1994,12 @@ function tabClass(isActive, isChanged) {
 }
 
 function renderPane() {
+  document.body.classList.toggle("match-intel-active", currentCategory === "live");
+  if (currentCategory === "live") {
+    pane.innerHTML = matchIntelTemplate();
+    bindMatchIntel();
+    return;
+  }
   pane.innerHTML = state[currentCategory].sections.map(sectionData => `
     <section class="settings-section" data-section-panel="${sectionData.id}">
       ${currentCategory === "video" && sectionData.id === "advanced" ? videoPreviewTemplate() : ""}
@@ -2039,6 +2052,75 @@ function renderPane() {
   updateCrosshairPreview();
   updateVideoPreview();
   updateViewmodelPreview();
+}
+
+function matchIntelTemplate() {
+  const copy = currentLang === "es" ? {
+    eyebrow: "CS2 · INTEL DE PARTIDA", title: "Diez perfiles. Una sola vista.",
+    intro: "Pega los enlaces que aparecen en el marcador y abre su ficha .rip sin editar cada URL. La detección automática se activará cuando exista un companion local compatible.",
+    status: "MODO DISPONIBLE HOY", statusText: "Consulta masiva asistida", paste: "Pega perfiles de Steam (uno por línea)",
+    placeholder: "https://steamcommunity.com/profiles/7656119…\nhttps://steamcommunity.com/id/nombre…", analyze: "PREPARAR PERFILES", demo: "CARGAR DEMO",
+    empty: "Los jugadores aparecerán aquí", emptyHelp: "Acepta URLs /profiles/, /id/ y SteamID64.",
+    verdict: "DICTAMEN TÉCNICO", feasible: "Parcialmente posible", detail: "La interfaz y las consultas públicas sí. Capturar automáticamente los 10 SteamID durante Premier/Competitivo no está expuesto de forma fiable por Valve a un jugador normal.",
+    gsi: "GSI LOCAL", gsiText: "Entrega datos propios en vivo; allplayers se reserva principalmente para observación.", backend: "BACKEND", backendText: "Steam login y claves API requieren un servidor seguro; GitHub Pages es estático.",
+    public: "DATOS PÚBLICOS", publicText: "Steam, FACEIT, Leetify y csstats pueden enriquecer IDs conocidos, sujetos a privacidad y APIs.",
+    roadmap: "ARQUITECTURA REAL", step1: "Companion local recibe GSI", step2: "Backend valida Steam OpenID", step3: "Proveedores enriquecen IDs", step4: "Dashboard actualiza por WebSocket",
+    source: "Fuentes y límites", rip: "ABRIR .RIP", steam: "STEAM"
+  } : {
+    eyebrow: "CS2 · MATCH INTEL", title: "Ten profiles. One view.", intro: "Paste scoreboard profile links and open their .rip cards without editing every URL. Automatic detection can be enabled when a compatible local companion exists.",
+    status: "AVAILABLE TODAY", statusText: "Assisted batch lookup", paste: "Paste Steam profiles (one per line)", placeholder: "https://steamcommunity.com/profiles/7656119…\nhttps://steamcommunity.com/id/name…", analyze: "PREPARE PROFILES", demo: "LOAD DEMO",
+    empty: "Players will appear here", emptyHelp: "Accepts /profiles/, /id/ URLs and SteamID64.", verdict: "TECHNICAL VERDICT", feasible: "Partially feasible", detail: "The UI and public lookups work. Valve does not reliably expose all 10 SteamIDs during Premier/Competitive to a normal player.",
+    gsi: "LOCAL GSI", gsiText: "Provides live self data; allplayers is primarily available while observing.", backend: "BACKEND", backendText: "Steam login and API keys require a secure server; GitHub Pages is static.", public: "PUBLIC DATA", publicText: "Steam, FACEIT, Leetify and csstats can enrich known IDs, subject to privacy and APIs.",
+    roadmap: "PRODUCTION ARCHITECTURE", step1: "Local companion receives GSI", step2: "Backend validates Steam OpenID", step3: "Providers enrich known IDs", step4: "Dashboard updates over WebSocket", source: "Sources and limits", rip: "OPEN .RIP", steam: "STEAM"
+  };
+  return `<section class="intel-shell" data-section-panel="dashboard">
+    <div class="intel-hero"><div><span class="intel-eyebrow">${copy.eyebrow}</span><h1>${copy.title}</h1><p>${copy.intro}</p></div><div class="intel-live"><i></i><span>${copy.status}</span><strong>${copy.statusText}</strong></div></div>
+    <div class="intel-layout"><div class="intel-workspace">
+      <label for="intelProfiles">${copy.paste}</label><textarea id="intelProfiles" placeholder="${copy.placeholder}"></textarea>
+      <div class="intel-actions"><button class="primary-action" id="intelAnalyze">${copy.analyze}</button><button class="secondary-action" id="intelDemo">${copy.demo}</button></div>
+      <div class="intel-roster" id="intelRoster"><div class="intel-empty"><strong>${copy.empty}</strong><span>${copy.emptyHelp}</span></div></div>
+    </div><aside class="intel-verdict"><span>${copy.verdict}</span><h2>${copy.feasible}</h2><p>${copy.detail}</p>
+      <div class="intel-fact"><b>${copy.gsi}</b><small>${copy.gsiText}</small></div><div class="intel-fact"><b>${copy.backend}</b><small>${copy.backendText}</small></div><div class="intel-fact"><b>${copy.public}</b><small>${copy.publicText}</small></div>
+    </aside></div>
+    <div class="intel-roadmap"><h2>${copy.roadmap}</h2><ol><li>${copy.step1}</li><li>${copy.step2}</li><li>${copy.step3}</li><li>${copy.step4}</li></ol></div>
+    <details class="intel-sources"><summary>${copy.source}</summary><p><a href="https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Game_State_Integration" target="_blank" rel="noreferrer">Valve GSI</a> · <a href="https://partner.steamgames.com/doc/webapi_overview" target="_blank" rel="noreferrer">Steam Web API</a> · <a href="https://partner.steamgames.com/doc/webapi_overview/auth" target="_blank" rel="noreferrer">API key security</a> · <a href="https://csst.at/" target="_blank" rel="noreferrer">csst.at / .rip</a></p></details>
+  </section>`;
+}
+
+function bindMatchIntel() {
+  const input = document.querySelector("#intelProfiles");
+  document.querySelector("#intelAnalyze")?.addEventListener("click", () => renderIntelRoster(parseSteamProfiles(input.value)));
+  document.querySelector("#intelDemo")?.addEventListener("click", () => {
+    input.value = "https://steamcommunity.com/id/s1mple\nhttps://steamcommunity.com/id/donk1337\n76561198034202275";
+    renderIntelRoster(parseSteamProfiles(input.value));
+  });
+}
+
+function parseSteamProfiles(value) {
+  const tokens = value.split(/[\s,;]+/).map(item => item.trim()).filter(Boolean);
+  const seen = new Set();
+  return tokens.map(token => {
+    if (/^\d{17}$/.test(token)) return `https://steamcommunity.com/profiles/${token}`;
+    try {
+      const url = new URL(token.startsWith("http") ? token : `https://${token}`);
+      if (!/(^|\.)steamcommunity\.com$/i.test(url.hostname) || !/^\/(id|profiles)\/[\w-]+/i.test(url.pathname)) return null;
+      return `https://steamcommunity.com${url.pathname.replace(/\/$/, "")}`;
+    } catch { return null; }
+  }).filter(url => url && !seen.has(url) && seen.add(url)).slice(0, 10);
+}
+
+function renderIntelRoster(profiles) {
+  const roster = document.querySelector("#intelRoster");
+  if (!roster) return;
+  if (!profiles.length) {
+    roster.innerHTML = `<div class="intel-empty"><strong>No se encontraron perfiles válidos</strong><span>Usa enlaces de Steam Community o SteamID64.</span></div>`;
+    return;
+  }
+  roster.innerHTML = profiles.map((profile, index) => {
+    const rip = profile.replace("steamcommunity.com", "steamcommunity.rip");
+    const name = decodeURIComponent(profile.split("/").filter(Boolean).pop());
+    return `<article class="intel-player"><span class="intel-index">${String(index + 1).padStart(2, "0")}</span><div class="intel-avatar">${name.slice(0, 2).toUpperCase()}</div><div><strong>${escapeAttr(name)}</strong><small>STEAM PROFILE · READY</small></div><a href="${rip}" target="_blank" rel="noreferrer">.RIP ↗</a><a class="muted-link" href="${profile}" target="_blank" rel="noreferrer">STEAM ↗</a></article>`;
+  }).join("");
 }
 
 function scrollToSection(sectionId) {
