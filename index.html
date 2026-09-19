@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260919-mirage3" />
 </head>
 <body>
   <div class="scene-bg" aria-hidden="true"></div>
@@ -28,15 +28,13 @@
       <div class="content-grid">
         <section class="settings-pane" id="settingsPane"></section>
 
-        <aside class="command-panel">
-          <div class="panel-heading">
-            <div>
-              <h1 data-i18n="panel.title">Console Line</h1>
-              <p data-i18n="panel.help">Paste this into the CS2 developer console.</p>
-            </div>
-            <button class="mini" id="copyCommand">COPY</button>
-          </div>
 
+      </div>
+    </section>
+  </main>
+
+  <aside class="command-panel" id="commandPanel" aria-labelledby="consoleTitle">
+    <div class="command-details" id="commandDetails" hidden>
           <div class="toggle-row">
             <label class="checkbox-wrap" data-i18n="panel.resetFirst">
               <input id="resetFirst" type="checkbox" checked />
@@ -46,7 +44,6 @@
             <button class="mini ghost" id="resetApp">RESET UI</button>
           </div>
 
-          <textarea id="commandOutput" spellcheck="false"></textarea>
           <div class="command-actions">
             <button class="primary-action" id="presetTest">LOAD YOUR TEST PRESET</button>
             <button class="secondary-action" id="downloadCfg">DOWNLOAD .CFG</button>
@@ -66,10 +63,19 @@
             <p data-i18n="hint.capture"><strong>Capture mode:</strong> click any key field, then press a keyboard key or mouse button.</p>
             <p data-i18n="hint.refresh"><strong>CS2 refresh:</strong> after pasting commands, switch to another settings sub-section and back.</p>
           </div>
-        </aside>
+    </div>
+    <div class="command-bar">
+      <div class="panel-heading">
+        <h1 id="consoleTitle" data-i18n="panel.title">Console Line</h1>
+        <p data-i18n="panel.help">Paste this into the CS2 developer console.</p>
       </div>
-    </section>
-  </main>
+      <textarea id="commandOutput" aria-labelledby="consoleTitle" spellcheck="false" rows="2"></textarea>
+      <div class="command-bar-actions">
+        <button class="mini" id="copyCommand" type="button">COPY</button>
+        <button class="mini ghost" id="commandOptions" type="button" aria-expanded="false" aria-controls="commandDetails">OPTIONS</button>
+      </div>
+    </div>
+  </aside>
 
   <div class="capture-toast" id="captureToast" role="status" aria-live="polite">
     Press a key or mouse button…
@@ -95,6 +101,6 @@
     RESET
   </button>
 
-  <script src="app.js"></script>
+  <script type="module" src="app.js?v=20260919-mirage3"></script>
 </body>
 </html>

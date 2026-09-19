@@ -1,3 +1,6 @@
+import { PreviewStudio, previewTemplate } from "./preview/studio.mjs?v=20260919-mirage3";
+import { VIEWMODEL, RADAR, VIEWMODEL_PRESETS, isViewmodelCommand, normalizeSettings, viewmodelCommands, radarCommands } from "./preview/settings.mjs?v=20260919-mirage3";
+
 const KEYMAP = {
   Backquote: ["scancode53", "`"], Digit1: ["scancode30", "1"], Digit2: ["scancode31", "2"], Digit3: ["scancode32", "3"], Digit4: ["scancode33", "4"], Digit5: ["scancode34", "5"], Digit6: ["scancode35", "6"], Digit7: ["scancode36", "7"], Digit8: ["scancode37", "8"], Digit9: ["scancode38", "9"], Digit0: ["scancode39", "0"], Minus: ["scancode45", "-"], Equal: ["scancode46", "="],
   KeyA: ["scancode4", "A"], KeyB: ["scancode5", "B"], KeyC: ["scancode6", "C"], KeyD: ["scancode7", "D"], KeyE: ["scancode8", "E"], KeyF: ["scancode9", "F"], KeyG: ["scancode10", "G"], KeyH: ["scancode11", "H"], KeyI: ["scancode12", "I"], KeyJ: ["scancode13", "J"], KeyK: ["scancode14", "K"], KeyL: ["scancode15", "L"], KeyM: ["scancode16", "M"], KeyN: ["scancode17", "N"], KeyO: ["scancode18", "O"], KeyP: ["scancode19", "P"], KeyQ: ["scancode20", "Q"], KeyR: ["scancode21", "R"], KeyS: ["scancode22", "S"], KeyT: ["scancode23", "T"], KeyU: ["scancode24", "U"], KeyV: ["scancode25", "V"], KeyW: ["scancode26", "W"], KeyX: ["scancode27", "X"], KeyY: ["scancode28", "Y"], KeyZ: ["scancode29", "Z"],
@@ -1145,7 +1148,7 @@ const i18n = {
   }
 };
 
-const categoryOrder = ["video", "audio", "game", "viewmodel", "keyboard", "live"];
+const categoryOrder = ["video", "audio", "game", "viewsetup", "keyboard", "live"];
 
 const defaults = {
   live: {
@@ -1387,7 +1390,7 @@ const defaults = {
         group("group.game.item", [
           select("silencer_detach", "row.silencer_detach", "cl_silencer_mode", "0", [opt("0", "opt.disabled"), opt("1", "opt.enabled")]),
           select("viewmodel_position", "row.viewmodel_position", "viewmodel_presetpos", "1", [
-            opt("1", "opt.desktop"), opt("2", "opt.couch"), opt("3", "opt.classic")
+            opt("1", "opt.desktop"), opt("2", "opt.classic"), opt("custom", "opt.custom")
           ]),
           select("preferred_hand", "row.preferred_hand", "cl_prefer_lefthanded", "0", [opt("0", "opt.right"), opt("1", "opt.left")]),
           select("first_person_tracers", "row.first_person_tracers", "r_drawtracers_firstperson", "1", [opt("0", "opt.disabled"), opt("1", "opt.enabled")]),
@@ -1404,14 +1407,14 @@ const defaults = {
           select("radar_center", "row.radar_center", "cl_radar_always_centered", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("radar_rotate", "row.radar_rotate", "cl_radar_rotate", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("radar_map_blend", "row.radar_map_blend", "cl_hud_radar_map_additive", "1", [opt("0", "opt.no"), opt("1", "opt.yes")]),
-          slider("radar_background_opacity", "row.radar_background_opacity", "cl_hud_radar_background_alpha", "0.63", 0, 1, 0.01),
+          slider("radar_background_opacity", "row.radar_background_opacity", "cl_hud_radar_background_alpha", "0.627", 0, 1, 0.001),
           select("radar_square_scoreboard", "row.radar_square_scoreboard", "cl_radar_square_with_scoreboard", "1", [opt("0", "opt.off"), opt("1", "opt.on")]),
           select("radar_force_square", "row.radar_force_square", "cl_radar_square_always", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
           select("radar_dynamic_zoom", "row.radar_dynamic_zoom", "cl_radar_scale_dynamic", "0", [opt("0", "opt.no"), opt("1", "opt.yes")]),
           slider("radar_scale", "row.radar_scale", "cl_radar_scale", "0.70", 0.25, 1, 0.01),
           slider("radar_scale_alternate", "row.radar_scale_alternate", "cl_radar_scale_alternate", "1.00", 0.25, 1, 0.01),
           slider("hud_radar_scale", "row.hud_radar_scale", "cl_hud_radar_scale", "1.00", 0.8, 1.3, 0.01),
-          slider("radar_icon_scale", "row.radar_icon_scale", "cl_radar_icon_scale_min", "0.60", 0.4, 1, 0.01)
+          slider("radar_icon_scale", "row.radar_icon_scale", "cl_radar_icon_scale_min", "0.60", 0.4, 1.25, 0.01)
         ])
       ]),
       section("crosshair", [
@@ -1514,14 +1517,14 @@ const defaults = {
         ]),
         group("group.viewmodel.main", [
           select("viewmodel_presetpos_main", "row.viewmodel_position", "viewmodel_presetpos", "1", [
-            opt("1", "opt.desktop"), opt("2", "opt.couch"), opt("3", "opt.classic")
+            opt("1", "opt.desktop"), opt("2", "opt.classic"), opt("custom", "opt.custom")
           ]),
-          slider("viewmodel_fov", "row.viewmodel_fov", "viewmodel_fov", "68", 54, 68, 1),
-          slider("viewmodel_offset_x", "row.viewmodel_offset_x", "viewmodel_offset_x", "2.50", -2.5, 2.5, 0.1),
+          slider("viewmodel_fov", "row.viewmodel_fov", "viewmodel_fov", "60", 60, 68, 1),
+          slider("viewmodel_offset_x", "row.viewmodel_offset_x", "viewmodel_offset_x", "1.00", -2, 2.5, 0.1),
           slider("viewmodel_offset_y", "row.viewmodel_offset_y", "viewmodel_offset_y", "1.00", -2, 2, 0.1),
-          slider("viewmodel_offset_z", "row.viewmodel_offset_z", "viewmodel_offset_z", "-1.50", -2, 2, 0.1),
-          select("viewmodel_handedness", "row.viewmodel_handedness", "cl_righthand", "1", [
-            opt("1", "opt.right"), opt("0", "opt.left")
+          slider("viewmodel_offset_z", "row.viewmodel_offset_z", "viewmodel_offset_z", "-1.00", -2, 2, 0.1),
+          select("viewmodel_handedness", "row.viewmodel_handedness", "cl_prefer_lefthanded", "0", [
+            opt("0", "opt.right"), opt("1", "opt.left")
           ])
         ])
       ])
@@ -1595,7 +1598,7 @@ const defaults = {
         group("group.kbm.ui", [
           bind("scoreboard", "row.scoreboard", "+showscores", "scancode43", "Tab"),
           bind("show_team_equipment", "row.show_team_equipment", "+cl_show_team_equipment", "", ""),
-          bind("toggle_radar_zoom", "row.toggle_radar_zoom", "incrementvar cl_radar_scale 0.25 1.0 0.25", "", ""),
+          bind("toggle_radar_zoom", "row.toggle_radar_zoom", "toggleradarscale", "", ""),
           bind("call_vote", "row.call_vote", "callvote", "", ""),
           bind("team_menu", "row.team_menu", "teammenu", "scancode16", "M"),
           bind("console", "row.console", "toggleconsole", "scancode53", "`")
@@ -1650,6 +1653,31 @@ function bind(id, labelKey, command, key, display) {
   return { id, labelKey, type: "bind", command, key, defaultKey: key, display, defaultDisplay: display };
 }
 
+// Visual configuration has one home; legacy links/snapshots migrate below.
+defaults.viewsetup = {
+  tabs: [{ id: "radar", labelKey: "category.radar" }, { id: "viewmodel", labelKey: "tab.viewmodel.main" }],
+  sections: [
+    defaults.game.sections.find(section => section.id === "radar"),
+    { ...defaults.viewmodel.sections[0], id: "viewmodel" }
+  ]
+};
+defaults.game.tabs = defaults.game.tabs.filter(tab => tab.id !== "radar");
+defaults.game.sections = defaults.game.sections.filter(section => section.id !== "radar");
+delete defaults.viewmodel;
+for (const language of Object.values(i18n)) language["category.viewsetup"] = "VIEW SETUP";
+Object.assign(i18n.en, { "panel.options": "OPTIONS", "panel.closeOptions": "CLOSE" });
+Object.assign(i18n.es, { "panel.options": "OPCIONES", "panel.closeOptions": "CERRAR" });
+Object.assign(i18n.ru, { "panel.options": "ОПЦИИ", "panel.closeOptions": "ЗАКРЫТЬ" });
+i18n.en["category.radar"] = "MINIMAP";
+i18n.es["category.radar"] = "MINIMAPA";
+i18n.ru["category.radar"] = "МИНИ-КАРТА";
+Object.assign(i18n.es, {
+  "row.radar_map_blend": "Integrar mapa con el fondo",
+  "row.radar_background_opacity": "Opacidad del fondo",
+  "row.radar_force_square": "Radar siempre cuadrado",
+  "row.radar_dynamic_zoom": "Zoom dinámico",
+  "row.radar_scale_alternate": "Zoom alternativo"
+});
 const state = JSON.parse(JSON.stringify(defaults));
 let currentLang = "en";
 let currentCategory = "keyboard";
@@ -1665,14 +1693,8 @@ let soundtrackVolume = Number(storedSoundtrackVolume && storedSoundtrackVolume !
 const soundtrackPlayer = new Audio();
 soundtrackPlayer.loop = true;
 soundtrackPlayer.preload = "auto";
-const VIEWMODEL_THREE_URL = "https://esm.sh/three@0.160.0";
-const VIEWMODEL_GLTF_LOADER_URL = "https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js?deps=three@0.160.0";
-const VIEWMODEL_ASSETS = {
-  m4a1s: "assets/m4a1s_counter_strike_2.glb",
-  awp: "assets/awp_counter_strike_2.glb",
-  agent: "assets/sas__cs2_agent_model_blue.glb"
-};
-let viewmodelThree = null;
+let previewStudio = null;
+const previewPreferences = { aspect: "16:9", position: "mid" };
 
 const mainTabs = document.querySelector("#mainTabs");
 const subTabs = document.querySelector("#subTabs");
@@ -1692,6 +1714,9 @@ const pageReset = document.querySelector("#pageReset");
 const configAlias = document.querySelector("#configAlias");
 const saveConfig = document.querySelector("#saveConfig");
 const recentConfigs = document.querySelector("#recentConfigs");
+const commandPanel = document.querySelector("#commandPanel");
+const commandDetails = document.querySelector("#commandDetails");
+const commandOptions = document.querySelector("#commandOptions");
 
 function init() {
   if (currentScenery) {
@@ -1699,7 +1724,15 @@ function init() {
   }
   applySoundtrackVolume(soundtrackVolume);
   applySceneryTheme(currentScenery);
+  applySettingsRoute(window.location.hash);
   renderAll();
+  requestAnimationFrame(() => scrollToSection(currentSectionId(), "instant"));
+  window.addEventListener("hashchange", () => {
+    if (!applySettingsRoute(window.location.hash)) return;
+    stopCapture();
+    renderAll();
+    requestAnimationFrame(() => scrollToSection(currentSectionId(), "instant"));
+  });
   window.addEventListener("keydown", onKeyDown, true);
   window.addEventListener("mousedown", onMouseDown, true);
   window.addEventListener("scroll", updateActiveSectionFromScroll, { passive: true });
@@ -1720,6 +1753,29 @@ function init() {
   volumeToggle.addEventListener("click", toggleVolumePanel);
   volumeInput.addEventListener("input", onVolumeInput);
   soundtrackPlayer.addEventListener("error", onSoundtrackError);
+  initCommandPanel();
+}
+
+function initCommandPanel() {
+  const measure = () => {
+    document.documentElement.style.setProperty("--console-height", `${Math.ceil(commandPanel.getBoundingClientRect().height)}px`);
+    document.documentElement.style.setProperty("--console-bar-height", `${Math.ceil(commandPanel.querySelector('.command-bar').getBoundingClientRect().height) + 2}px`);
+  };
+  new ResizeObserver(measure).observe(commandPanel);
+  const toggle = open => {
+    commandDetails.hidden = !open;
+    commandOptions.setAttribute("aria-expanded", String(open));
+    commandOptions.textContent = t(open ? "panel.closeOptions" : "panel.options");
+    measure();
+  };
+  commandOptions.addEventListener("click", () => toggle(commandDetails.hidden));
+  commandPanel.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !commandDetails.hidden) {
+      toggle(false);
+      commandOptions.focus();
+    }
+  });
+  measure();
 }
 
 function t(key) {
@@ -1731,6 +1787,7 @@ function currentSectionId() {
 }
 
 function renderAll() {
+  writeSettingsRoute();
   document.documentElement.lang = currentLang;
   document.title = t("app.title");
   renderStaticText();
@@ -1756,6 +1813,7 @@ function renderStaticText() {
   document.querySelector("[data-i18n='panel.title']").textContent = t("panel.title");
   document.querySelector("[data-i18n='panel.help']").textContent = t("panel.help");
   document.querySelector("#copyCommand").textContent = t("panel.copy");
+  commandOptions.textContent = t(commandDetails.hidden ? "panel.options" : "panel.closeOptions");
   document.querySelector("[data-i18n='panel.resetFirst']").lastChild.textContent = ` ${t("panel.resetFirst")}`;
   document.querySelector("#resetApp").textContent = t("panel.resetUi");
   document.querySelector("#presetTest").textContent = t("panel.preset");
@@ -1947,10 +2005,7 @@ function renderMainTabs() {
     <button class="${tabClass(id === currentCategory, categoryHasChanges(id))}" data-category="${id}">${t(`category.${id}`)}</button>
   `).join("");
   mainTabs.querySelectorAll("button").forEach(btn => btn.addEventListener("click", () => {
-    currentCategory = btn.dataset.category;
-    stopCapture();
-    renderAll();
-    requestAnimationFrame(() => scrollToSection(currentSectionId()));
+    navigateToSettings(btn.dataset.category);
   }));
 }
 
@@ -1960,7 +2015,9 @@ function renderSubTabs() {
   `).join("");
   subTabs.querySelectorAll("button").forEach(btn => btn.addEventListener("click", () => {
     currentSectionByCategory[currentCategory] = btn.dataset.section;
+    writeSettingsRoute();
     stopCapture();
+    if (currentCategory === "viewsetup") renderPane();
     renderSubTabs();
     scrollToSection(btn.dataset.section);
   }));
@@ -1984,6 +2041,8 @@ function jumpToSiblingSection(direction) {
   const nextSection = tabs[nextIndex].id;
   currentSectionByCategory[currentCategory] = nextSection;
   stopCapture();
+  writeSettingsRoute();
+  if (currentCategory === "viewsetup") renderPane();
   renderSubTabs();
   scrollToSection(nextSection);
   playUiSound("select");
@@ -1994,23 +2053,35 @@ function tabClass(isActive, isChanged) {
 }
 
 function renderPane() {
+  const previewMode = currentCategory === "viewsetup" ? currentSectionId() : null;
+  if (previewStudio && (!previewMode || previewStudio.lang !== currentLang)) {
+    previewStudio.dispose();
+    previewStudio = null;
+  }
+  const retainedPreview = previewStudio?.element;
+  document.body.classList.toggle("visual-settings-active", !!previewMode);
   document.body.classList.toggle("match-intel-active", currentCategory === "live");
   if (currentCategory === "live") {
     pane.innerHTML = matchIntelTemplate();
     bindMatchIntel();
     return;
   }
-  pane.innerHTML = state[currentCategory].sections.map(sectionData => `
-    <section class="settings-section" data-section-panel="${sectionData.id}">
+  const sections = state[currentCategory].sections.filter(section => !previewMode || section.id === previewMode);
+  pane.innerHTML = sections.map(sectionData => `
+    <section class="settings-section${previewMode ? " visual-settings-section" : ""}" data-section-panel="${sectionData.id}">
       ${currentCategory === "video" && sectionData.id === "advanced" ? videoPreviewTemplate() : ""}
-      ${currentCategory === "viewmodel" && sectionData.id === "main" ? viewmodelPreviewTemplate() : ""}
+      ${previewMode ? previewTemplate() : ""}
       ${sectionData.id === "crosshair" ? crosshairPreviewTemplate() : ""}
+      <div class="section-controls">
       ${sectionData.groups.map(group => `
         <h2 class="group-title">${t(group.titleKey)}</h2>
         ${group.rows.map(rowTemplate).join("")}
       `).join("")}
+      </div>
     </section>
   `).join("");
+
+  if (retainedPreview) pane.querySelector("#previewStudioMount")?.replaceWith(retainedPreview);
 
   pane.querySelectorAll("[data-bind-id]").forEach(cell => cell.addEventListener("click", () => startCapture(cell.dataset.bindId, cell)));
   pane.querySelectorAll("[data-select-toggle]").forEach(btn => btn.addEventListener("click", onCustomSelectToggle));
@@ -2033,14 +2104,18 @@ function renderPane() {
     updateViewmodelPreview();
     flashChangedRows(row);
   }));
-  pane.querySelectorAll(".num-box[data-setting-id]").forEach(number => number.addEventListener("change", e => {
+  const updateNumber = e => {
     const row = findRow(e.target.dataset.settingId);
     const min = Number(row.min), max = Number(row.max);
     let val = sliderValueFromDisplay(row, e.target.value);
+    // Keep incomplete decimals/minus signs editable. Valid values preview
+    // immediately; clamp and format only when the field is committed.
+    if (e.type === "input" && (!e.target.value.trim() || !Number.isFinite(val) || val < min || val > max)) return;
+    if (!Number.isFinite(val)) val = Number(row.value);
     val = Math.min(max, Math.max(min, val));
     const value = formatByStep(val, row.step);
     setSettingValue(row, value);
-    e.target.value = sliderDisplayValue(row);
+    if (e.type === "change") e.target.value = sliderDisplayValue(row);
     const range = pane.querySelector(`input[type=range][data-setting-id="${row.id}"]`);
     if (range) range.value = value;
     updateCommand();
@@ -2048,7 +2123,12 @@ function renderPane() {
     updateVideoPreview();
     updateViewmodelPreview();
     flashChangedRows(row);
-  }));
+  };
+  pane.querySelectorAll(".num-box[data-setting-id]").forEach(number => {
+    number.addEventListener("change", updateNumber);
+    const row = findRow(number.dataset.settingId);
+    if (row.command in RADAR || row.command in VIEWMODEL) number.addEventListener("input", updateNumber);
+  });
   updateCrosshairPreview();
   updateVideoPreview();
   updateViewmodelPreview();
@@ -2123,11 +2203,45 @@ function renderIntelRoster(profiles) {
   }).join("");
 }
 
-function scrollToSection(sectionId) {
+function resolveSettingsRoute(category, section) {
+  if ((category === "radar" && (!section || section === "radar")) || (category === "game" && section === "radar")) {
+    category = "viewsetup"; section = "radar";
+  } else if (category === "viewmodel" && (!section || section === "main")) {
+    category = "viewsetup"; section = "viewmodel";
+  }
+  if (!categoryOrder.includes(category)) return null;
+  if (section && !state[category].tabs.some(tab => tab.id === section)) return null;
+  return { category, section: section || state[category].tabs[0].id };
+}
+
+function applySettingsRoute(hash) {
+  const route = resolveSettingsRoute(...hash.replace(/^#/, "").split("/"));
+  if (!route) return false;
+  currentCategory = route.category;
+  currentSectionByCategory[route.category] = route.section;
+  return true;
+}
+
+function writeSettingsRoute() {
+  const section = currentSectionId();
+  const suffix = section === state[currentCategory].tabs[0].id ? "" : `/${section}`;
+  window.history.replaceState(null, "", `#${currentCategory}${suffix}`);
+}
+
+function navigateToSettings(category, section) {
+  currentCategory = category;
+  if (section) currentSectionByCategory[category] = section;
+  writeSettingsRoute();
+  stopCapture();
+  renderAll();
+  requestAnimationFrame(() => scrollToSection(currentSectionId(), "instant"));
+}
+
+function scrollToSection(sectionId, behavior = "smooth") {
   const target = pane.querySelector(`[data-section-panel="${sectionId}"]`);
   if (!target) return;
   const top = window.scrollY + target.getBoundingClientRect().top - stickyOffset();
-  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  window.scrollTo({ top: Math.max(0, top), behavior });
 }
 
 function updateActiveSectionFromScroll() {
@@ -2236,219 +2350,29 @@ function makeNoiseBuffer(duration) {
   return buffer;
 }
 
-function viewmodelPreviewTemplate() {
-  return `
-    <div class="viewmodel-preview" aria-label="${t("tab.viewmodel.main")} preview">
-      <div class="viewmodel-stage" id="viewmodelPreviewStage">
-        <canvas class="viewmodel-canvas" id="viewmodelCanvas" aria-hidden="true"></canvas>
-        <div class="vm-map">
-          <div class="vm-corridor"></div>
-          <div class="vm-target"></div>
-        </div>
-        <div class="vm-crosshair"></div>
-        <div class="vm-rig">
-          <div class="vm-arm vm-arm-left"><span></span></div>
-          <div class="vm-arm vm-arm-right"><span></span></div>
-          <div class="vm-weapon vm-ak">
-            <i class="vm-stock"></i><i class="vm-body"></i><i class="vm-mag"></i><i class="vm-barrel"></i><i class="vm-sight"></i>
-          </div>
-          <div class="vm-weapon vm-awp">
-            <i class="vm-stock"></i><i class="vm-body"></i><i class="vm-scope"></i><i class="vm-barrel"></i><i class="vm-bipod"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
 function updateViewmodelPreview() {
-  const stage = pane.querySelector("#viewmodelPreviewStage");
-  if (!stage) return;
-
-  const weapon = findRow("viewmodel_weapon")?.value || "m4a1s";
-  const fov = Number(findRow("viewmodel_fov")?.value || 68);
-  const offsetX = Number(findRow("viewmodel_offset_x")?.value || 2.5);
-  const offsetY = Number(findRow("viewmodel_offset_y")?.value || 1);
-  const offsetZ = Number(findRow("viewmodel_offset_z")?.value || -1.5);
-  const preset = findRow("viewmodel_presetpos_main")?.value || "1";
-  const rightHand = (findRow("viewmodel_handedness")?.value || "1") === "1";
-  const presetOffsets = {
-    "1": { x: 0, y: 0, z: 0 },
-    "2": { x: -18, y: 10, z: 12 },
-    "3": { x: -34, y: -4, z: -8 }
-  }[preset] || { x: 0, y: 0, z: 0 };
-
-  const fovScale = 1.18 - ((fov - 54) / 14) * 0.28;
-  const x = offsetX * 42 + presetOffsets.x;
-  const y = offsetY * -28 + presetOffsets.y;
-  const z = offsetZ * -34 + presetOffsets.z;
-
-  stage.dataset.weapon = weapon;
-  stage.dataset.hand = rightHand ? "right" : "left";
-  stage.style.setProperty("--vm-x", `${rightHand ? x : -x}px`);
-  stage.style.setProperty("--vm-y", `${y}px`);
-  stage.style.setProperty("--vm-z", `${z}px`);
-  stage.style.setProperty("--vm-scale", fovScale.toFixed(3));
-  stage.style.setProperty("--vm-depth", `${560 + offsetY * 70}px`);
-  ensureViewmodelThree(stage);
-  syncViewmodelThree();
-}
-
-async function ensureViewmodelThree(stage) {
-  if (viewmodelThree?.stage === stage || stage.dataset.threeLoading === "true") return;
-  if (viewmodelThree?.animationFrame) cancelAnimationFrame(viewmodelThree.animationFrame);
-  stage.dataset.threeLoading = "true";
-
-  try {
-    const [THREE, { GLTFLoader }] = await Promise.all([
-      import(VIEWMODEL_THREE_URL),
-      import(VIEWMODEL_GLTF_LOADER_URL)
-    ]);
-    if (!document.body.contains(stage)) return;
-
-    const canvas = stage.querySelector("#viewmodelCanvas");
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(58, 1, 0.01, 40);
-    camera.position.set(0, 0.35, 2.2);
-    camera.lookAt(0, -0.08, -1.1);
-
-    const hemi = new THREE.HemisphereLight(0xbfe8ff, 0x3b3028, 1.4);
-    const key = new THREE.DirectionalLight(0xffe1b1, 2.4);
-    key.position.set(2.5, 3.2, 3.6);
-    key.castShadow = true;
-    scene.add(hemi, key);
-
-    const loader = new GLTFLoader();
-    const [agentGltf, m4Gltf, awpGltf] = await Promise.all([
-      loader.loadAsync(VIEWMODEL_ASSETS.agent),
-      loader.loadAsync(VIEWMODEL_ASSETS.m4a1s),
-      loader.loadAsync(VIEWMODEL_ASSETS.awp)
-    ]);
-
-    const agent = normalizeGltfModel(THREE, agentGltf.scene, 1.75);
-    const m4a1s = normalizeGltfModel(THREE, m4Gltf.scene, 1.05);
-    const awp = normalizeGltfModel(THREE, awpGltf.scene, 1.42);
-    const rig = new THREE.Group();
-    const weaponGroup = new THREE.Group();
-
-    agent.position.set(0, -1.22, -1.16);
-    agent.rotation.set(-0.08, Math.PI, 0);
-    agent.scale.multiplyScalar(1.08);
-
-    m4a1s.name = "m4a1s";
-    awp.name = "awp";
-    weaponGroup.add(m4a1s, awp);
-    rig.add(agent, weaponGroup);
-    scene.add(rig);
-
-    viewmodelThree = {
-      THREE,
-      stage,
-      renderer,
-      scene,
-      camera,
-      rig,
-      weaponGroup,
-      models: { m4a1s, awp },
-      startedAt: performance.now(),
-      animationFrame: null
-    };
-
-    stage.classList.add("three-ready");
-    stage.dataset.threeLoading = "false";
-    syncViewmodelThree();
-    resizeViewmodelThree();
-    animateViewmodelThree();
-  } catch (error) {
-    console.warn("Three.js viewmodel preview unavailable.", error);
-    stage.dataset.threeLoading = "false";
-    stage.classList.add("three-error");
-  }
-}
-
-function normalizeGltfModel(THREE, object, targetSize) {
-  const box = new THREE.Box3().setFromObject(object);
-  const size = new THREE.Vector3();
-  const center = new THREE.Vector3();
-  box.getSize(size);
-  box.getCenter(center);
-  const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-  const scale = targetSize / maxAxis;
-  object.scale.setScalar(scale);
-  object.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
-  object.traverse(child => {
-    if (!child.isMesh) return;
-    child.castShadow = true;
-    child.receiveShadow = true;
-    const materials = Array.isArray(child.material) ? child.material : [child.material];
-    materials.filter(Boolean).forEach(material => {
-      material.roughness = Math.min(1, (material.roughness ?? 0.65) + 0.08);
-      material.metalness = material.metalness ?? 0.25;
+  const mount = pane.querySelector("#previewStudioMount");
+  if (mount && !previewStudio) {
+    previewStudio = new PreviewStudio(mount, {
+      controlGroup: currentSectionId(),
+      lang: currentLang,
+      preferences: previewPreferences,
+      onWeaponChange(id) {
+        setSettingValue(findRow("viewmodel_weapon"), id);
+        renderPane();
+        updateCommand();
+      },
+      onNavigate(mode) {
+        navigateToSettings("viewsetup", mode);
+      },
+      async onCopy(commands) {
+        try { await navigator.clipboard.writeText(commands); return true; }
+        catch { return false; }
+      }
     });
-  });
-  return object;
-}
-
-function syncViewmodelThree() {
-  if (!viewmodelThree) return;
-  const weapon = findRow("viewmodel_weapon")?.value || "m4a1s";
-  const fov = Number(findRow("viewmodel_fov")?.value || 68);
-  const offsetX = Number(findRow("viewmodel_offset_x")?.value || 2.5);
-  const offsetY = Number(findRow("viewmodel_offset_y")?.value || 1);
-  const offsetZ = Number(findRow("viewmodel_offset_z")?.value || -1.5);
-  const preset = findRow("viewmodel_presetpos_main")?.value || "1";
-  const rightHand = (findRow("viewmodel_handedness")?.value || "1") === "1";
-  const handSign = rightHand ? 1 : -1;
-  const scale = 1.20 - ((fov - 54) / 14) * 0.30;
-  const presetOffsets = {
-    "1": { x: 0, y: 0, z: 0 },
-    "2": { x: -0.10, y: 0.07, z: -0.08 },
-    "3": { x: -0.18, y: -0.02, z: 0.08 }
-  }[preset] || { x: 0, y: 0, z: 0 };
-
-  Object.entries(viewmodelThree.models).forEach(([id, model]) => {
-    model.visible = id === weapon;
-  });
-  viewmodelThree.camera.fov = 63 - ((fov - 54) / 14) * 10;
-  viewmodelThree.camera.updateProjectionMatrix();
-  viewmodelThree.rig.scale.set(handSign * scale, scale, scale);
-  viewmodelThree.rig.position.set(
-    handSign * (0.35 + offsetX * 0.045 + presetOffsets.x),
-    -0.16 + offsetZ * 0.075 + presetOffsets.y,
-    -0.12 - offsetY * 0.13 + presetOffsets.z
-  );
-  viewmodelThree.rig.rotation.set(-0.04, handSign * -0.16, handSign * -0.035);
-  viewmodelThree.weaponGroup.position.set(handSign * 0.32, -0.28, -0.86);
-  viewmodelThree.weaponGroup.rotation.set(-0.11, handSign * -0.36, handSign * -0.08);
-}
-
-function resizeViewmodelThree() {
-  if (!viewmodelThree) return;
-  const { stage, renderer, camera } = viewmodelThree;
-  const rect = stage.getBoundingClientRect();
-  const width = Math.max(1, Math.floor(rect.width));
-  const height = Math.max(1, Math.floor(rect.height));
-  const canvas = renderer.domElement;
-  if (canvas.width !== Math.floor(width * renderer.getPixelRatio()) || canvas.height !== Math.floor(height * renderer.getPixelRatio())) {
-    renderer.setSize(width, height, false);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
   }
-}
-
-function animateViewmodelThree() {
-  if (!viewmodelThree || !document.body.contains(viewmodelThree.stage)) return;
-  const time = (performance.now() - viewmodelThree.startedAt) / 1000;
-  resizeViewmodelThree();
-  viewmodelThree.weaponGroup.rotation.x += Math.sin(time * 1.2) * 0.00035;
-  viewmodelThree.weaponGroup.position.y += Math.sin(time * 1.7) * 0.00045;
-  viewmodelThree.renderer.render(viewmodelThree.scene, viewmodelThree.camera);
-  viewmodelThree.animationFrame = requestAnimationFrame(animateViewmodelThree);
+  previewStudio?.setControlGroup(currentSectionId());
+  previewStudio?.update(Object.fromEntries(allRows().filter(row => row.type !== "bind").map(row => [row.command, row.value])));
 }
 
 function videoPreviewTemplate() {
@@ -2851,7 +2775,7 @@ function rowTemplate(row) {
   if (row.type === "select") {
     const selected = row.options.find(option => option.value === row.value) || row.options[0];
     return `<div ${rowAttrs}><div class="row-label">${t(row.labelKey)}</div><div class="select-wrap${changedClass}" data-setting-id="${row.id}">
-      <button class="select-display" type="button" data-select-toggle data-setting-id="${row.id}" aria-expanded="false">
+      <button class="select-display" type="button" data-select-toggle data-setting-id="${row.id}" aria-label="${escapeAttr(t(row.labelKey))}" aria-expanded="false">
         <span>${t(selected.labelKey)}</span>
       </button>
       <div class="select-menu" role="listbox">
@@ -2863,7 +2787,7 @@ function rowTemplate(row) {
     const numberAttrs = row.format === "percent"
       ? `type="text" value="${sliderDisplayValue(row)}" inputmode="numeric"`
       : `type="number" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}"`;
-    return `<div ${rowAttrs}><div class="row-label">${t(row.labelKey)}</div><div class="value-cell slider-cell${changedClass}"><input type="range" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}" data-setting-id="${row.id}"><input class="num-box" ${numberAttrs} data-setting-id="${row.id}"></div></div>`;
+    return `<div ${rowAttrs}><div class="row-label">${t(row.labelKey)}</div><div class="value-cell slider-cell${changedClass}"><input aria-label="${escapeAttr(t(row.labelKey))}" type="range" min="${row.min}" max="${row.max}" step="${row.step}" value="${row.value}" data-setting-id="${row.id}"><input aria-label="${escapeAttr(t(row.labelKey))} value" class="num-box" ${numberAttrs} data-setting-id="${row.id}"></div></div>`;
   }
   return "";
 }
@@ -2898,7 +2822,8 @@ function allRows() {
 
 function rowHasChanges(row) {
   if (row.type === "bind") return row.key !== row.defaultKey;
-  if (row.type === "select" || row.type === "slider") return String(row.value) !== String(row.defaultValue);
+  if (row.type === "slider") return Number(row.value) !== Number(row.defaultValue);
+  if (row.type === "select") return String(row.value) !== String(row.defaultValue);
   return false;
 }
 
@@ -2939,11 +2864,26 @@ function flashChangedRows(row) {
 }
 
 function setSettingValue(row, value) {
+  if (row.command in VIEWMODEL || row.command in RADAR) {
+    const spec = VIEWMODEL[row.command] || RADAR[row.command];
+    value = String(normalizeSettings({ [row.command]: value }, { [row.command]: spec })[row.command]);
+  }
   allRows().forEach(other => {
     if ((other.type === "select" || other.type === "slider") && other.command === row.command) {
       other.value = value;
     }
   });
+  if (row.command === "viewmodel_presetpos" && VIEWMODEL_PRESETS[value]) {
+    for (const [command, presetValue] of Object.entries(VIEWMODEL_PRESETS[value])) setCommandValue(command, String(presetValue));
+  } else if (row.command === "viewmodel_fov" || row.command.startsWith("viewmodel_offset_")) {
+    setCommandValue("viewmodel_presetpos", "custom");
+    pane.querySelectorAll('[data-row-command="viewmodel_presetpos"] .select-display span').forEach(label => { label.textContent = t("opt.custom"); });
+    pane.querySelectorAll('[data-row-command="viewmodel_presetpos"] [data-select-option]').forEach(option => {
+      const selected = option.dataset.selectOption === "custom";
+      option.classList.toggle("active", selected);
+      option.setAttribute("aria-selected", String(selected));
+    });
+  }
 }
 
 function uniqueRowsByCommand(rows) {
@@ -3021,7 +2961,7 @@ function updateCommand() {
   const commands = [];
   const rows = uniqueRowsByCommand(allRows());
   const changedBinds = rows.filter(row => row.type === "bind" && row.key !== row.defaultKey);
-  const changedSettings = rows.filter(row => (row.type === "select" || row.type === "slider") && row.export !== false && String(row.value) !== String(row.defaultValue));
+  const changedSettings = rows.filter(row => (row.type === "select" || row.type === "slider") && row.export !== false && rowHasChanges(row));
 
   if (resetFirst.checked) commands.push("binddefaults");
 
@@ -3035,7 +2975,10 @@ function updateCommand() {
   }
   unbinds.forEach(key => commands.push(`unbind ${key}`));
   changedBinds.filter(row => row.key).forEach(row => commands.push(`bind ${row.key} ${quoteCommand(row.command)}`));
-  changedSettings.forEach(row => commands.push(`${row.command} ${valueLiteral(row.value)}`));
+  changedSettings.filter(row => !isViewmodelCommand(row.command) && !(row.command in RADAR)).forEach(row => commands.push(`${row.command} ${valueLiteral(row.value)}`));
+  const values = Object.fromEntries(rows.filter(row => row.type !== "bind").map(row => [row.command, row.value]));
+  if (changedSettings.some(row => isViewmodelCommand(row.command))) commands.push(...viewmodelCommands(values));
+  if (changedSettings.some(row => row.command in RADAR)) commands.push(...radarCommands(values));
   commands.push("host_writeconfig");
 
   output.value = commands.join("; ");
@@ -3078,6 +3021,7 @@ function saveCurrentConfig() {
 
 function createConfigSnapshot() {
   return {
+    previewVersion: 1,
     resetFirst: resetFirst.checked,
     currentCategory,
     currentSectionByCategory: { ...currentSectionByCategory },
@@ -3197,24 +3141,35 @@ function onSavedAliasBlur(e) {
 function applyConfigSnapshot(snapshot) {
   resetState();
   resetFirst.checked = snapshot.resetFirst ?? true;
-  for (const savedRow of snapshot.rows || []) {
+  for (const original of snapshot.rows || []) {
+    const savedRow = { ...original };
+    if (savedRow.command === "cl_righthand") {
+      savedRow.command = "cl_prefer_lefthanded";
+      savedRow.value = Number(savedRow.value) ? "0" : "1";
+    }
+    if (savedRow.command === "viewmodel_presetpos" && !snapshot.previewVersion) savedRow.value = "custom";
     allRows().forEach(row => {
       if (row.type !== savedRow.type || row.command !== savedRow.command) return;
       if (row.type === "bind") {
         row.key = savedRow.key || "";
         row.display = savedRow.display || "";
       } else if (row.type === "select" || row.type === "slider") {
-        row.value = String(savedRow.value);
+        const spec = VIEWMODEL[row.command] || RADAR[row.command];
+        row.value = spec ? String(normalizeSettings({ [row.command]: savedRow.value }, { [row.command]: spec })[row.command]) : String(savedRow.value);
       }
     });
   }
-  if (snapshot.currentCategory && state[snapshot.currentCategory]) currentCategory = snapshot.currentCategory;
   currentSectionByCategory = Object.fromEntries(categoryOrder.map(id => [
     id,
     state[id].tabs.some(tab => tab.id === snapshot.currentSectionByCategory?.[id])
       ? snapshot.currentSectionByCategory[id]
       : state[id].tabs[0].id
   ]));
+  const savedRoute = resolveSettingsRoute(snapshot.currentCategory, snapshot.currentSectionByCategory?.[snapshot.currentCategory]);
+  if (savedRoute) {
+    currentCategory = savedRoute.category;
+    currentSectionByCategory[savedRoute.category] = savedRoute.section;
+  }
 }
 
 function formatSavedDate(value) {

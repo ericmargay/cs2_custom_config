@@ -1,0 +1,11 @@
+{
+  "name": "cs2-custom-config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check app.js && node --check preview/settings.mjs && node --check preview/assets.mjs && node --check preview/studio.mjs && node --check preview/weapon.mjs && node --check preview/arms.mjs && node --check preview/agent.mjs && node --check preview/world.mjs && node --check preview/animation.mjs && node --check preview/navigation.mjs && node --check preview/map-geometry.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
